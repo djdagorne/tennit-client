@@ -1,0 +1,26 @@
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0, 0.5);
+}
+
+.popup_inner {
+  overflow-y: scroll;
+  height: 75%;
+  width: 80%;
+  margin: auto;
+  margin-top: 15vh;
+  border-radius: 10px;
+  background-color: #aaa;
+}
+
+
+.sign-up-button{
+    display:inline-block;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size:20px;
+  }

@@ -1,0 +1,28 @@
+nav{
+  background-color: #aaa;
+}
+
+
+header {
+  padding: 45px;
+}
+
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.logo{
+  padding: 10px 10px;
+  float:left;
+  text-align:center;
+}
+
+.nav-button{
+  margin: 13px;
+  float:right;
+}

@@ -1,0 +1,26 @@
+
+.form-section label {
+    font-size:14px;
+    display: block;
+    margin:3vw;
+}
+  
+.sign-up{
+    margin-bottom: 45px;
+}
+
+
+.button{
+    padding: 3vw;
+    margin: auto;
+    display: block;
+}
+
+input[type~=text],
+input[type~=url],
+input[type~=email],
+input[type~=password],
+select,
+textarea{
+    min-width: 30vw;
+}

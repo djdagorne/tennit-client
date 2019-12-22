@@ -1,0 +1,52 @@
+
+  
+.home-div {
+    padding: 30px 15px;
+    background-color: #bbb;
+  }
+  
+  .home-div:nth-child(even) {
+    background-color: #ddd;
+  }
+  
+  .display-pic-sec {
+    min-height:300px;
+  }
+  
+  
+  .pic{
+    display: inline-block;
+    background: #eee;
+    margin: 10px;
+    width: 40vw;
+    height: 40vw;
+  }
+  
+  .search-now{
+    width:33%;
+    height:50px;
+  }
+  
+  h1{
+    display: inline-block;
+  }
+  
+  span{
+    margin:0px;
+  }
+
+  ul{
+      margin: 0 auto;
+      padding: 0;
+  }
+
+  li{
+      list-style: none;
+      text-align: center;
+  }
+
+  img{
+      display: block;
+      margin: 0 auto;
+  }
+

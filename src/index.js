@@ -1,12 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import App from './Components/App/App.js';
+import TennitContextProvider from './ApiContext.js';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+	// static contextType = TennitContextProvider;
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+	// state = {
+	// 	listingChecked: '',
+	// 	showCreateAccount: '',
+	// 	validJWT: true,
+	// }
+
+	// toggleListingSection= listingChecked => {
+    //     this.setState({
+    //         listingChecked: !this.state.listingChecked
+    //     });
+	// }
+    // toggleCreateAccount = showCreateAccount => {
+    //     this.setState({
+    //         showCreateAccount: !this.showCreateAccount
+    //     });
+    // }
+    <BrowserRouter>
+        <TennitContextProvider>
+            <App /> 
+        </TennitContextProvider>
+    </BrowserRouter>, 
+    document.getElementById('root'));

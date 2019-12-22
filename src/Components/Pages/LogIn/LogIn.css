@@ -1,0 +1,26 @@
+
+
+  
+section {
+    position:absolute;
+    width:99%;
+}
+
+label {
+    font-size:14px;
+    display: block;
+    margin:3px;
+}
+
+.log-in {
+    margin: 0;
+}
+
+input{
+    margin-bottom: 20px;
+}
+
+.button{
+    padding: 10px;
+    margin: auto;
+}
