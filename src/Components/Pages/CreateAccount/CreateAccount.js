@@ -208,7 +208,7 @@ class CreateAccount extends Component {
                     }
 
                     <Link className="cancel button" to="/" onClick={this.props.closePopup}><button className="button">Cancel</button></Link>
-                    <Link type="submit" to="/home" onClick={console.log('make this change jwt boolean to true, get logout toggle display working')}><button className="button">Submit</button></Link>
+                    <Link type="submit" to="/home" onClick={this.props.toggleLogIn}><button className="button">Submit</button></Link>
 
                 </form>
                 </div>

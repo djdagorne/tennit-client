@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useContext, Component} from 'react';
 import { Link } from 'react-router-dom'
 import './SplashPage.css';
 import CreateAccount from '../CreateAccount/CreateAccount.js'
@@ -9,27 +9,24 @@ class SplashPage extends Component {
         super(props);
         this.state = {
             loggedIn: this.props.loggedIn,
+            toggleLogIn: this.props.toggleLogIn,
             showCreate: false,
-            showLogInPopup: false,
+            showLogInPopup: this.props.showLogInPopup,
+            toggleLogInPopup: this.props.toggleLogInPopup
         }
     }
-
 
     toggleCreatePopup = () => {
         this.setState({
             showCreatePopup: !this.state.showCreatePopup
         })
     }
-	
+
     toggleLogInPopup = () =>{
-		console.log(this.state.showLogInPopup)
+		console.log('toggleLogInPopup')
         this.setState({
             showLogInPopup: !this.state.showLogInPopup
         })
-    }
-
-    helpfunct = () => {
-        console.log('help2')
     }
 
     render(){
@@ -43,16 +40,20 @@ class SplashPage extends Component {
 
                     {this.state.showCreatePopup ? 
                         <CreateAccount 
-                            loggedIn={this.state.loggedIn} //TODO SUBMIT SHOULD CHANGE THIS STATE
+                            toggleLogIn={this.state.toggleLogIn}
+                            loggedIn={this.state.loggedIn} //TODO submit should change in log in state
                             closePopup={this.toggleCreatePopup.bind(this)}
                         /> :
-                        null}
+                        null
+                    }
 
-                    <button onClick={this.toggleLogInPopup}>log in</button>
+                    <button onClick={this.toggleLogInPopup.bind(this)}>log in</button>
 
-                    {this.state.showLogInPopup ? //TODO
+                    {this.state.showLogInPopup ? //TODO get it changing loggedin state
                         <LogIn 
-                            loggedIn={this.state.loggedIn}
+                            loggedIn={this.props.loggedIn}
+                            toggleLogIn={this.toggleLogIn}
+                            showLogInPopup={this.state.showLogInPopup}
                             closePopup={this.toggleLogInPopup.bind(this)} 
                         /> :
                         null

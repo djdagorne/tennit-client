@@ -17,7 +17,7 @@ class App extends Component {
         super(props);
         this.state = {
 			loggedIn: false,
-			toggleLogIn: this.toggleLogIn.bind(this),
+			showLogInPopup: false,
         }
 	}
 
@@ -31,52 +31,53 @@ class App extends Component {
 	render(){
 		return (
 			<div className="App">
-					<header>
-						<Header
-							loggedIn={this.state.loggedIn}
-							toggleLogIn={this.state.toggleLogIn}
-						/>
-					</header>
+				<header>
+					<Header
+						loggedIn={this.state.loggedIn}
+						toggleLogIn={this.toggleLogIn.bind(this)}
+					/>
+				</header>
 				<main className="App">
-						<Switch>
-							<Route 
-								exact
-								path={'/'}
-								loggedIn={this.state.loggedIn}
-								toggleLogIn={this.state.toggleLogIn.bind(this)}
-								
-								component={SplashPage}
-							/>
-							<Route
-								exact
-								path={'/home'}
-								component={HomePage}
-							/>
-							<Route 
-								exact
-								path={'/profile'}
-								component={ProfilePage}
-							/>
-							<Route 
-								exact
-								path={'/results'}
-								component={ResultsPage}
-							/>
-							<Route 
-								exact
-								path={'/convo'}
-								component={ConvoPage}
-							/>
-							<Route 
-								exact
-								path={'/search'}
-								component={SearchPage}
-							/>
-						</Switch>
-						<footer className="footer">
-							<Footer/>
-						</footer>
+					<Switch>
+						<Route 
+							exact
+							path={'/'}
+							component={SplashPage}
+
+							loggedIn={this.state.loggedIn}
+							toggleLogIn={this.toggleLogIn.bind(this)}
+							showLogInPopup={this.state.showLogInPopup}
+						/>
+						<Route
+							exact
+							path={'/home'}
+							component={HomePage}
+						/>
+						<Route 
+							exact
+							path={'/profile'}
+							component={ProfilePage}
+						/>
+						<Route 
+							exact
+							path={'/results'}
+							component={ResultsPage}
+						/>
+						<Route 
+							exact
+							path={'/convo'}
+							component={ConvoPage}
+						/>
+						<Route 
+							exact
+							path={'/search'}
+							component={SearchPage}
+						/>
+					</Switch>
 				</main>
+				<footer className="footer">
+					<Footer/>
+				</footer>
 			</div>
 		);
 	}
