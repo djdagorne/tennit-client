@@ -16,42 +16,35 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			
 			loggedIn: false,
-			showLogInPopup: false,
-
 			toggleLogIn: this.toggleLogIn.bind(this),
         }
 	}
-    toggleLogInPopup = () =>{
-		console.log(`changing to `+ !this.state.showLogInPopup)
-        this.setState({
-            showLogInPopup: !this.state.showLogInPopup
-        })
-    }
+
 	toggleLogIn = () => {
 		console.log('toggleLogIn')
         this.setState({
             loggedIn: !this.state.loggedIn
-        })
+		})
 	}
 
 	render(){
 		return (
-				<main className="App">
+			<div className="App">
+					<header>
 						<Header
 							loggedIn={this.state.loggedIn}
 							toggleLogIn={this.state.toggleLogIn}
-							toggleLogInPopup={this.state.toggleLogInPopup}
 						/>
+					</header>
+				<main className="App">
 						<Switch>
 							<Route 
 								exact
 								path={'/'}
 								loggedIn={this.state.loggedIn}
 								toggleLogIn={this.state.toggleLogIn.bind(this)}
-
-								showLogInPopup={this.state.showLogInPopup}
+								
 								component={SplashPage}
 							/>
 							<Route
@@ -80,8 +73,11 @@ class App extends Component {
 								component={SearchPage}
 							/>
 						</Switch>
-						<Footer/>
+						<footer className="footer">
+							<Footer/>
+						</footer>
 				</main>
+			</div>
 		);
 	}
 }

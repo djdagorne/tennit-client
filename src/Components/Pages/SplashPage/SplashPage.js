@@ -8,29 +8,30 @@ class SplashPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showCreate: false,
-
             loggedIn: this.props.loggedIn,
+            showCreate: false,
             showLogInPopup: false,
-            toggleLogIn: this.props.toggleLogIn,
-            toggleLogInPopup: this.props.toggleLogInPopup,
         }
     }
 
 
-    toggleCreate = () => {
+    toggleCreatePopup = () => {
         this.setState({
-            showCreate: !this.state.showCreate
+            showCreatePopup: !this.state.showCreatePopup
+        })
+    }
+	
+    toggleLogInPopup = () =>{
+		console.log(this.state.showLogInPopup)
+        this.setState({
+            showLogInPopup: !this.state.showLogInPopup
         })
     }
 
-	
-    // toggleLogInPopup = () =>{
-	// 	console.log(`changing to `+ !this.state.showLogInPopup)
-    //     this.setState({
-    //         showLogInPopup: !this.state.showLogInPopup
-    //     })
-    // }
+    helpfunct = () => {
+        console.log('help2')
+    }
+
     render(){
         return (
             <div className="splash">
@@ -38,19 +39,21 @@ class SplashPage extends Component {
                     <h1 className="slogan">Fall in love - with affordable rent.</h1>
                     <img alt="apartment pic here"/>
                     <br/>
-                    <button onClick={this.toggleCreate.bind(this)}>create account</button>
+                    <button onClick={this.toggleCreatePopup.bind(this)}>create account</button>
 
-                    {this.state.showCreate ? 
+                    {this.state.showCreatePopup ? 
                         <CreateAccount 
-                            loggedIn={this.state.loggedIn}
-                            closePopup={this.toggleCreate.bind(this)}
+                            loggedIn={this.state.loggedIn} //TODO SUBMIT SHOULD CHANGE THIS STATE
+                            closePopup={this.toggleCreatePopup.bind(this)}
                         /> :
                         null}
 
+                    <button onClick={this.toggleLogInPopup}>log in</button>
+
                     {this.state.showLogInPopup ? //TODO
                         <LogIn 
-                            toggleLogIn={this.state.toggleLogIn} 
-                            closePopup={this.toggleLogInPopup}
+                            loggedIn={this.state.loggedIn}
+                            closePopup={this.toggleLogInPopup.bind(this)} 
                         /> :
                         null
                     }

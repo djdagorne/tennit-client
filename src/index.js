@@ -3,30 +3,12 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css';
 import App from './Components/App/App.js';
-import TennitContextProvider from './ApiContext.js';
+import TennitContext from './Contexts/Context';
 
 ReactDOM.render(
-	// static contextType = TennitContextProvider;
-
-	// state = {
-	// 	listingChecked: '',
-	// 	showCreateAccount: '',
-	// 	validJWT: true,
-	// }
-
-	// toggleListingSection= listingChecked => {
-    //     this.setState({
-    //         listingChecked: !this.state.listingChecked
-    //     });
-	// }
-    // toggleCreateAccount = showCreateAccount => {
-    //     this.setState({
-    //         showCreateAccount: !this.showCreateAccount
-    //     });
-    // }
     <BrowserRouter>
-        <TennitContextProvider>
+        <TennitContext>
             <App /> 
-        </TennitContextProvider>
+        </TennitContext>
     </BrowserRouter>, 
     document.getElementById('root'));
