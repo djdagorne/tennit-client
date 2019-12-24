@@ -9,10 +9,10 @@ class SearchPage extends Component {
                 
                 <h1>Search</h1>
 
-                <form class="search">
+                <form className="search">
                     <span>Find listings in...</span>
 
-                    <div class="search-segnment dropdown">
+                    <div className="search-segnment dropdown">
                         <label for="country">country:</label>
                         <select name="country" required>
                         <option value="none">please pick one</option>
@@ -21,22 +21,22 @@ class SearchPage extends Component {
                         </select>
                     </div>
 
-                    <div class="search-segment">
+                    <div className="search-segment">
                         <label for="provence">provence/state:</label>
                         <input type="text" name="provence" placeholder="eg Ontario" /* required *//>
                     </div>
 
-                    <div class="search-segment">
+                    <div className="search-segment">
                         <label for="city">city:</label>
                         <input type="text" name="city" placeholder="eg Toronto" /* required *//>
                     </div>
 
-                    <div class="search-segment">
+                    <div className="search-segment">
                         <label for="price">With monthly rent as high as:</label>
                         <input type="number" name="price" placeholder="eg 750"/>
                     </div>
                     
-                    <Link to="/results" type="submit">Search Now</Link> {/* TODO make search button a component to regulate styling */}
+                    <button to="/results" type="submit">Search Now</button> {/* TODO make search button a component to regulate styling */}
                 </form>
             </>
         )

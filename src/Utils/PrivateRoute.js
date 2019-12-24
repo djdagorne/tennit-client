@@ -7,11 +7,11 @@ export default function PrivateRoute({ component, ...props }) {
         <Route
             {...props}
             render={componentProps => (
-                true
+                true //hasToken
                 ? <Component {...componentProps} />
                 : <Redirect
                     to={{
-                    pathname: '/splash',
+                    pathname: '/',
                     state: { from: componentProps.location }
                     }}
                 />

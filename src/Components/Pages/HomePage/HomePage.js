@@ -25,7 +25,7 @@ class HomePage extends Component {
                     <div className="pic"><Link to="/profile">user display pic, link to profile</Link></div>        
                 </div>
                 <div>
-                    <Link to="/results"><button className="search-now">Search Now!</button></Link>
+                    <Link to="/search"><button className="search-now">Search Now!</button></Link>
                 </div>
                 <div className="home-div pending-invites">
                     <h2>invites</h2>

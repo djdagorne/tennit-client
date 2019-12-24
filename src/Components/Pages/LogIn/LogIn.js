@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './LogIn.css'
 import STORE from '../../../STORE'
-import HomePage from '../HomePage'
+import HomePage from '../HomePage/HomePage'
 
 class LogIn extends Component {
 	

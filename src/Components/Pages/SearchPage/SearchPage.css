@@ -2,6 +2,7 @@
     padding: 30px 15px;
     background-color: #bbb;
     margin: auto;
+    width: 50vw;
 }
   
 .search-segment:nth-child(even){

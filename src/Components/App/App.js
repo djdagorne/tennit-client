@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import Header from  '../Header/Header.js';
@@ -10,8 +10,8 @@ import ProfilePage from '../Pages/ProfilePage/ProfilePage.js';
 import ConvoPage from '../Pages/ConvoPage/ConvoPage.js';
 import SearchPage from '../Pages/SearchPage/SearchPage.js';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage.js';
-import CreateAccount from '../Pages/CreateAccount/CreateAccount';
 import PrivateRoute from '../../Utils/PrivateRoute.js';
+import PublicOnlyRoute from '../../Utils/PublicOnlyRoute.js';
 
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedIn: false,
+			loggedIn: true,
 			showLogInPopup: false,
             showCreatePopup: false,
         }
@@ -64,10 +64,12 @@ class App extends Component {
 				</header>
 				<main className="App">
 					<Switch>
-					<Route 
+					<Route   //TODO get this working as a PublicOnlyRoute
                             exact
                             path={'/'}
-                            render={() =>
+							loggedIn={this.state.loggedIn}
+							render={() =>
+								this.state.loggedIn ?
                                 <SplashPage
 									loggedIn={this.state.loggedIn}
 									toggleLogIn={this.toggleLogIn.bind(this)}
@@ -75,41 +77,47 @@ class App extends Component {
 									showCreatePopup={this.state.showCreatePopup}
 									toggleLogInPopup={this.toggleLogInPopup.bind(this)}
 									toggleEditPopup={this.toggleCreatePopup.bind(this)}
-								/>}
+								/> :
+								<Redirect to="/home" />
+							
+							}
                         />
 						<PrivateRoute
 							exact
 							path={'/home'}
+							loggedIn={this.state.loggedIn}
 							component={HomePage}
-							// render={()=>
-							// <HomePage loggedIn={this.state}/>
-							// }
 						/>
-						<Route
+						<PrivateRoute
 							exact
 							path={'/edit-account'}
+							loggedIn={this.state.loggedIn}
 							render={()=>
 							<div>edit account screen later</div>
 							}
 						/>
-						<Route 
+						<PrivateRoute 
 							exact
 							path={'/profile'}
+							loggedIn={this.state.loggedIn}
 							component={ProfilePage}
 						/>
-						<Route 
+						<PrivateRoute 
 							exact
 							path={'/results'}
+							loggedIn={this.state.loggedIn}
 							component={ResultsPage}
 						/>
-						<Route 
+						<PrivateRoute 
 							exact
 							path={'/convo'}
+							loggedIn={this.state.loggedIn}
 							component={ConvoPage}
 						/>
-						<Route 
+						<PrivateRoute 
 							exact
 							path={'/search'}
+							loggedIn={this.state.loggedIn}
 							component={SearchPage}
 						/>
 					</Switch>
