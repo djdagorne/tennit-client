@@ -10,22 +10,16 @@ class SplashPage extends Component {
         this.state = {
             loggedIn: this.props.loggedIn,
             toggleLogIn: this.props.toggleLogIn,
-            showCreate: false,
             showLogInPopup: this.props.showLogInPopup,
-            toggleLogInPopup: this.props.toggleLogInPopup
+            toggleLogInPopup: this.props.toggleLogInPopup,
+            showCreatePopup: this.props.showCreate,
+            toggleCreatePopup: this.props.toggleCreatePopup
         }
     }
 
     toggleCreatePopup = () => {
         this.setState({
             showCreatePopup: !this.state.showCreatePopup
-        })
-    }
-
-    toggleLogInPopup = () =>{
-		console.log('toggleLogInPopup')
-        this.setState({
-            showLogInPopup: !this.state.showLogInPopup
         })
     }
 
@@ -47,17 +41,15 @@ class SplashPage extends Component {
                         null
                     }
 
-                    <button onClick={this.toggleLogInPopup.bind(this)}>log in</button>
-
-                    {this.state.showLogInPopup ? //TODO get it changing loggedin state
+                    {this.props.showLogInPopup ? //TODO get it changing loggedin state
                         <LogIn 
-                            loggedIn={this.props.loggedIn}
-                            toggleLogIn={this.toggleLogIn}
+                            loggedIn={this.state.loggedIn}
+                            toggleLogIn={this.state.toggleLogIn}
                             showLogInPopup={this.state.showLogInPopup}
-                            closePopup={this.toggleLogInPopup.bind(this)} 
+                            closePopup={this.props.toggleLogInPopup} 
                         /> :
                         null
-                    }
+                    } 
                 </div>
             </div>
         );

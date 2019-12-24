@@ -18,15 +18,35 @@ class App extends Component {
         this.state = {
 			loggedIn: false,
 			showLogInPopup: false,
+            showCreatePopup: false,
         }
 	}
 
 	toggleLogIn = () => {
-		console.log('toggleLogIn')
-        this.setState({
-            loggedIn: !this.state.loggedIn
-		})
+		if(this.state.loggedIn){
+			this.setState({
+				showLogInPopup: false,
+				loggedIn: false
+			})
+		}else{
+			this.setState({
+				showLogInPopup: false,
+				loggedIn: true
+			})
+		}
 	}
+
+    toggleLogInPopup = () =>{
+        this.setState({
+            showLogInPopup: !this.state.showLogInPopup
+        })
+    }
+
+    toggleCreatePopup = () => {
+        this.setState({
+            showCreatePopup: !this.state.showCreatePopup
+        })
+    }
 
 	render(){
 		return (
@@ -35,19 +55,27 @@ class App extends Component {
 					<Header
 						loggedIn={this.state.loggedIn}
 						toggleLogIn={this.toggleLogIn.bind(this)}
+						showLogInPopup={this.state.showLogInPopup}
+						toggleLogInPopup={this.toggleLogInPopup.bind(this)}
+						showCreatePopup={this.state.showCreatePopup}
+						toggleEditPopup={this.toggleCreatePopup.bind(this)}
 					/>
 				</header>
 				<main className="App">
 					<Switch>
-						<Route 
-							exact
-							path={'/'}
-							component={SplashPage}
-
-							loggedIn={this.state.loggedIn}
-							toggleLogIn={this.toggleLogIn.bind(this)}
-							showLogInPopup={this.state.showLogInPopup}
-						/>
+					<Route 
+                            exact
+                            path={'/'}
+                            render={() =>
+                                <SplashPage
+								loggedIn={this.state.loggedIn}
+								toggleLogIn={this.toggleLogIn.bind(this)}
+								showLogInPopup={this.state.showLogInPopup}
+								toggleLogInPopup={this.toggleLogInPopup.bind(this)}
+								showCreatePopup={this.state.showCreatePopup}
+								toggleEditPopup={this.toggleCreatePopup.bind(this)}
+								/>}
+                        />
 						<Route
 							exact
 							path={'/home'}

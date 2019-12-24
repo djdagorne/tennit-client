@@ -9,7 +9,15 @@ class LogIn extends Component {
         this.state = {
 			loggedIn: this.props.loggedIn,
         }
-	}
+    }
+    
+    
+
+    toggleLogIn= () => {
+        this.setState({
+            toggleLogIn: !this.state.loggedIn
+        })
+    }
     render(){
         return(
             <div className="popup sign-up">
@@ -25,7 +33,7 @@ class LogIn extends Component {
                             <input type="password" name="password" placeholder="smithy@smithmail.com" /* required *//>
                         </div>
                         <Link className="button" to="/" onClick={this.props.closePopup}>Cancel</Link>
-                        <Link className="button" to="" onClick={this.props.toggleLogIn}>Log in</Link>
+                        <Link className="button" to="/home" onClick={this.props.toggleLogIn}>Log in</Link>
                     </form>
                 </div>
             </div>

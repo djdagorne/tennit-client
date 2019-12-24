@@ -6,6 +6,7 @@ class CreateAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
+            loggedIn: this.props.loggedIn,
             listingChecked: false,
         };
     };

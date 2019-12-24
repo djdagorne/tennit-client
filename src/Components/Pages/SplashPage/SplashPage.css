@@ -5,6 +5,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0, 0.5);
+  z-index: 10;
 }
 
 .popup_inner {
@@ -15,6 +16,7 @@
   margin-top: 15vh;
   border-radius: 10px;
   background-color: #aaa;
+  z-index: 11;
 }
 
 
@@ -24,3 +26,7 @@
     border-radius: 5px;
     font-size:20px;
   }
+
+.splash{
+  margin-top: 30vh;
+}
