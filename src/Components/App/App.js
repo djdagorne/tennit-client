@@ -10,6 +10,9 @@ import ProfilePage from '../Pages/ProfilePage/ProfilePage.js';
 import ConvoPage from '../Pages/ConvoPage/ConvoPage.js';
 import SearchPage from '../Pages/SearchPage/SearchPage.js';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage.js';
+import CreateAccount from '../Pages/CreateAccount/CreateAccount';
+import PrivateRoute from '../../Utils/PrivateRoute.js';
+
 
 class App extends Component {
 	
@@ -55,9 +58,7 @@ class App extends Component {
 					<Header
 						loggedIn={this.state.loggedIn}
 						toggleLogIn={this.toggleLogIn.bind(this)}
-						showLogInPopup={this.state.showLogInPopup}
 						toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-						showCreatePopup={this.state.showCreatePopup}
 						toggleEditPopup={this.toggleCreatePopup.bind(this)}
 					/>
 				</header>
@@ -68,18 +69,28 @@ class App extends Component {
                             path={'/'}
                             render={() =>
                                 <SplashPage
-								loggedIn={this.state.loggedIn}
-								toggleLogIn={this.toggleLogIn.bind(this)}
-								showLogInPopup={this.state.showLogInPopup}
-								toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-								showCreatePopup={this.state.showCreatePopup}
-								toggleEditPopup={this.toggleCreatePopup.bind(this)}
+									loggedIn={this.state.loggedIn}
+									toggleLogIn={this.toggleLogIn.bind(this)}
+									showLogInPopup={this.state.showLogInPopup}
+									showCreatePopup={this.state.showCreatePopup}
+									toggleLogInPopup={this.toggleLogInPopup.bind(this)}
+									toggleEditPopup={this.toggleCreatePopup.bind(this)}
 								/>}
                         />
-						<Route
+						<PrivateRoute
 							exact
 							path={'/home'}
 							component={HomePage}
+							// render={()=>
+							// <HomePage loggedIn={this.state}/>
+							// }
+						/>
+						<Route
+							exact
+							path={'/edit-account'}
+							render={()=>
+							<div>edit account screen later</div>
+							}
 						/>
 						<Route 
 							exact

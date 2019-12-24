@@ -49,7 +49,7 @@ class SplashPage extends Component {
                             closePopup={this.props.toggleLogInPopup} 
                         /> :
                         null
-                    } 
+                    }
                 </div>
             </div>
         );

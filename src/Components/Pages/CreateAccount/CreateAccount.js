@@ -208,7 +208,7 @@ class CreateAccount extends Component {
                         : null
                     }
 
-                    <Link className="cancel button" to="/" onClick={this.props.closePopup}><button className="button">Cancel</button></Link>
+                    <button onClick={this.props.closePopup} className="button">Cancel</button>
                     <Link type="submit" to="/home" onClick={this.props.toggleLogIn}><button className="button">Submit</button></Link>
 
                 </form>

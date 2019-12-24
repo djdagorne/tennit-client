@@ -24,7 +24,7 @@ class Header extends Component {
             <nav className="nav-logged-in">
                 <Link to="/home" className="logo">Tenn.it</Link>
                 <Link to="/" ><button onClick={this.props.toggleLogIn} className="nav-button">log out</button></Link>
-                <button to="/create-account" className="nav-button">edit profile</button>
+                <Link to="/edit-account"><button to="/edit-account" className="nav-button">edit profile</button></Link>
             </nav>
         )
     }
