@@ -13,7 +13,7 @@ class SearchPage extends Component {
                     <span>Find listings in...</span>
 
                     <div className="search-segnment dropdown">
-                        <label for="country">country:</label>
+                        <label htmlFor="country">country:</label>
                         <select name="country" required>
                         <option value="none">please pick one</option>
                         <option>Canada</option>
@@ -22,17 +22,17 @@ class SearchPage extends Component {
                     </div>
 
                     <div className="search-segment">
-                        <label for="provence">provence/state:</label>
+                        <label htmlFor="provence">provence/state:</label>
                         <input type="text" name="provence" placeholder="eg Ontario" /* required *//>
                     </div>
 
                     <div className="search-segment">
-                        <label for="city">city:</label>
+                        <label htmlFor="city">city:</label>
                         <input type="text" name="city" placeholder="eg Toronto" /* required *//>
                     </div>
 
                     <div className="search-segment">
-                        <label for="price">With monthly rent as high as:</label>
+                        <label htmlFor="price">With monthly rent as high as:</label>
                         <input type="number" name="price" placeholder="eg 750"/>
                     </div>
                     

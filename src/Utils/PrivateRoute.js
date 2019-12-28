@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
 export default function PrivateRoute({ component, ...props }) {
@@ -7,7 +7,7 @@ export default function PrivateRoute({ component, ...props }) {
         <Route
             {...props}
             render={componentProps => (
-                true //hasToken
+                false //hasToken
                 ? <Component {...componentProps} />
                 : <Redirect
                     to={{

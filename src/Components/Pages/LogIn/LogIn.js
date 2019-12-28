@@ -9,9 +9,12 @@ class LogIn extends Component {
     constructor(props){
         super(props);
         this.state = {
+            loggedUserId: this.props.loggedUserId,
             loggedIn: this.props.loggedIn,
+            loggedUser_id: '',
             email: '',
-            password: ''
+            password: '',
+            error: null
         }
     }
 
@@ -37,24 +40,30 @@ class LogIn extends Component {
         //TODO add actual verification steps
         e.preventDefault();
         if(this.state.email.length === 0){
-            alert("email required.")
+            this.setState({error: 'email required'})
+            return 
         }
         if(this.state.password.length === 0){
-            alert("password required.")
+            this.setState({error: 'password required'})
+            return 
         }
         const userInfo = {
             email: this.state.email,
             password: this.state.password
         }
         const verify = STORE.makeUserArray()
-        console.log(userInfo)
-        console.log(verify[0])
+
 
         if(userInfo.email === verify[0].email && userInfo.password === verify[0].password){
             console.log('samey')
+            this.setState({ loggedUserId: verify[0].id})
+            this.setState({
+                loggedUser_id: verify[0].id
+            })
             this.props.toggleLogIn()
         }else{
-            alert('username and password do not match, email admin to verify')
+            this.setState({error: 'username and password do not match, email admin to verify'})
+            return 
         }
     }
 
@@ -64,6 +73,9 @@ class LogIn extends Component {
                 <div className="popup_inner log-in">
                     <h2>Log In</h2>
                     <form id="sign-up">
+                        <div role='alert'>
+                        {this.state.error && <p className='red'>{this.state.error}</p>}
+                        </div>
                         <div className="form-section">
                             <label htmlFor="email">Your email</label>
                             <input 
@@ -82,12 +94,10 @@ class LogIn extends Component {
                                 required
                                 />
                         </div>
-                        <Link className="button" to="/" onClick={this.props.closePopup}>
-                            <button >
+                            <button onClick={this.props.closePopup}>
                                 Cancel
                             </button>
-                        </Link>
-                        <Link className="button" to="/home" >
+                        <Link to="/home" >
                             <button onClick={e=>this.handleSubmit(e)}>
                                 Log in
                             </button>

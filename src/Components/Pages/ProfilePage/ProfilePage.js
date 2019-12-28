@@ -1,32 +1,40 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import './ProfilePage.css';
+import STORE from '../../../STORE'
 
 class ProfilePage extends Component {
     render(){
+        const {testUsers, testImages} = STORE.makeThingsFixtures()
+
+        const {user_id} = this.props.match.params;
+
+        const user_object = testUsers.find(user => user.id.toString() === user_id)
         return(
             <>
+                    {/* <button onClick={e => console.log(user_object)}>wouhasd</button> */}
                 <div>
-                    <h1>[user neighborhood], [user city]</h1>
+                    <h1>{user_object.neighborhood}, {user_object.location.city}</h1>
                 </div>
                 <div className="display-pic-sec">
-                    <div className="pic">user display pic, if multiple pics create a carousel</div>        
+                    <img className="pic" src={testImages[0].image} alt="test" />        
                 </div>
-                <h2>[RENT] per month</h2>
+                {user_object.listing ?
+                    <h2>{user_object.rent} per month</h2> :
+                    null
+                }
                 <div className="buttons-area">
                     <button to="/home" type="button">Pass</button><button to="/home" type="button">Tenn!</button>
                 </div>
                 <div className="address-blurb">
-                    <span>I'm [first name] [last name], [age] years old, living around [neighborhood], [city]</span>
-                    <span>(if listing is false)</span>
-                    <span>...and I'm looking to find somewhere new</span>
+                    <span>I'm {user_object.firstName}, {user_object.lastName}, {user_object.age} years old</span>
+                    {user_object.listing ?
+                        <span> and I'm looking for someone to share my place with.</span> :
+                        <span> and I'm looking for somewhere new. </span>
+                    }
                 </div>
-                <div className="listing-details">
-                    <span>if listing is checked as true...</span>
-                    <span><i>Rent:</i> Asking [rent] per month</span> 
-                </div>      
                 <div className="seeking-blurb">
-                    <span> user created detail blurb goes here </span>
+                    <span> {user_object.blurb} </span>
                 </div>
             </>
         )

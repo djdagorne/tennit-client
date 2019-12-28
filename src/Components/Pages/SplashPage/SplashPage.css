@@ -8,12 +8,18 @@
   z-index: 10;
 }
 
+h2{
+  margin: 0;
+  padding: 0;
+}
+
 .popup_inner {
   overflow-y: scroll;
-  height: 75%;
+  max-height: 75%;
   width: 80%;
   margin: auto;
   margin-top: 15vh;
+  padding: 10vh;
   border-radius: 10px;
   background-color: #aaa;
   z-index: 11;

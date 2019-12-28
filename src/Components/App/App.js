@@ -10,6 +10,7 @@ import ProfilePage from '../Pages/ProfilePage/ProfilePage.js';
 import ConvoPage from '../Pages/ConvoPage/ConvoPage.js';
 import SearchPage from '../Pages/SearchPage/SearchPage.js';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage.js';
+import CreateAccount from '../Pages/CreateAccount/CreateAccount'
 import PrivateRoute from '../../Utils/PrivateRoute.js';
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute.js';
 
@@ -19,7 +20,8 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedIn: true,
+			loggedUserId: '',
+			loggedIn: true,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
         }
@@ -31,11 +33,13 @@ class App extends Component {
 				showLogInPopup: false,
 				loggedIn: false
 			})
+			this.forceUpdate()
 		}else{
 			this.setState({
 				showLogInPopup: false,
 				loggedIn: true
 			})
+			this.forceUpdate()
 		}
 	}
 
@@ -69,8 +73,9 @@ class App extends Component {
                             path={'/'}
 							loggedIn={this.state.loggedIn}
 							render={() =>
-								this.state.loggedIn ?
+								!this.state.loggedIn ?
                                 <SplashPage
+									loggedUserId={this.state.loggedUserId}
 									loggedIn={this.state.loggedIn}
 									toggleLogIn={this.toggleLogIn.bind(this)}
 									showLogInPopup={this.state.showLogInPopup}
@@ -82,39 +87,38 @@ class App extends Component {
 							
 							}
                         />
-						<PrivateRoute
+						<Route
 							exact
 							path={'/home'}
+							loggedUserId={this.state.loggedUserId}
 							loggedIn={this.state.loggedIn}
 							component={HomePage}
 						/>
-						<PrivateRoute
+						<Route
 							exact
 							path={'/edit-account'}
 							loggedIn={this.state.loggedIn}
-							render={()=>
-							<div>edit account screen later</div>
-							}
+							component={CreateAccount}
 						/>
-						<PrivateRoute 
+						<Route 
 							exact
-							path={'/profile'}
+							path={'/profile/:user_id'}
 							loggedIn={this.state.loggedIn}
 							component={ProfilePage}
 						/>
-						<PrivateRoute 
+						<Route 
 							exact
 							path={'/results'}
 							loggedIn={this.state.loggedIn}
 							component={ResultsPage}
 						/>
-						<PrivateRoute 
+						<Route 
 							exact
-							path={'/convo'}
+							path={'/convo/:convo_id'}
 							loggedIn={this.state.loggedIn}
 							component={ConvoPage}
 						/>
-						<PrivateRoute 
+						<Route 
 							exact
 							path={'/search'}
 							loggedIn={this.state.loggedIn}
