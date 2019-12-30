@@ -129,6 +129,9 @@ function makeImageArray(user){
 //when any user is on their homepage it will perform a Match Table search and display any profiles that are falsely matched AND contain the signed in users user_id
 //if either user 'dislikes' the other user, it will filter the match row from their lists
 
+
+//NOTES ANTHONY; dont do two way 'like system', make it more like a marketplace app
+
 function makeMatchArray(users){
     return [
         {

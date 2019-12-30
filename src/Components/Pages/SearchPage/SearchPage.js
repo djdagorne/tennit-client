@@ -36,7 +36,7 @@ class SearchPage extends Component {
                         <input type="number" name="price" placeholder="eg 750"/>
                     </div>
                     
-                    <button to="/results" type="submit">Search Now</button> {/* TODO make search button a component to regulate styling */}
+                    <Link to="/results" type="submit"><button>Search Now</button></Link> {/* TODO make search button a component to regulate styling */}
                 </form>
             </>
         )
