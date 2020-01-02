@@ -20,7 +20,7 @@ class HomePage extends Component {
         const userMatches = userMatchesTotal.filter(match => match.user1_bool === true || match.user2_bool === true) 
         return(
             <>
-                <span>Welcome back, <h1>{testUsers[this.state.loggedUser_id-1].firstName}!</h1></span>
+                <span>Welcome back, <Link to="/profile/1"><h1>{testUsers[this.state.loggedUser_id-1].firstName}!</h1></Link></span>
 
 
 
@@ -39,16 +39,16 @@ class HomePage extends Component {
 
 
 
-                <div>
+                <div className="home-div active convos">
                     <Link to="/search"><button className="search-now">Search Now!</button></Link>
                 </div>
-                      <Link to="/profile/1">profile preview</Link>  
+                      
                 <div className="home-div active convos">
                     <h2>Convos</h2>
                     <p>conversation table in db is searched, rows marked with 'validity' and user comments from logged in user_id are listed here as ordered list of links.</p>
                     <ul>
                         {userMatches.map((match, index)=>
-                            <li key={index} ><Link to={`/convo/${match.user2_id}`}>{testUsers[match.id].firstName +' '+ testUsers[match.id].lastName  }</Link></li>
+                            <li key={index} ><Link to={`/convo/${match.id}`}>{testUsers[match.id].firstName +' '+ testUsers[match.id].lastName  }</Link></li>
                         )}
                     </ul>
                 </div>

@@ -5,12 +5,12 @@ import STORE from '../../../STORE'
 
         const {testUsers, testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 
-        const relevantConvo = testComments.filter(comments => testMatches[0].id === comments.convo_id)
+        //const relevantConvo = testComments.filter(comments => testMatches[0].id === comments.convo_id)
 class ConvoPage extends React.Component { 
     constructor(props){
         super(props);
         this.state = {
-            currentConvo: relevantConvo,
+            currentConvo: testComments.filter(comments => testMatches[this.props.match.params.convo_id -1].id === comments.convo_id), //-1 cause convo_id doesnt start at 0
 
         }
     }
@@ -23,9 +23,9 @@ class ConvoPage extends React.Component {
             poster_id: 1,
             comment: textInput,
         }
-        relevantConvo.push(newComment)
+        //relevantConvo.push(newComment)
         this.setState({
-            currentConvo: relevantConvo
+            currentConvo: this.state.currentConvo.push(newComment)
         })
     }
     render(){
