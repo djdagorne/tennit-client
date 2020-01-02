@@ -3,9 +3,9 @@ import React from 'react';
 import './ConvoPage.css';
 import STORE from '../../../STORE'
 
-        const {testUsers, testImages, testConvos, testComments} = STORE.makeThingsFixtures()
+        const {testUsers, testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 
-        const relevantConvo = testComments.filter(comments => testConvos[0].id === comments.convo_id)
+        const relevantConvo = testComments.filter(comments => testMatches[0].id === comments.convo_id)
 class ConvoPage extends React.Component { 
     constructor(props){
         super(props);

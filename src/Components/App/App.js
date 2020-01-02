@@ -2,17 +2,19 @@ import React, {Component} from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
-import Header from  '../Header/Header.js';
-import Footer from '../Footer/Footer.js';
-import SplashPage from '../Pages/SplashPage/SplashPage.js';
-import HomePage from '../Pages/HomePage/HomePage.js';
-import ProfilePage from '../Pages/ProfilePage/ProfilePage.js';
-import ConvoPage from '../Pages/ConvoPage/ConvoPage.js';
-import SearchPage from '../Pages/SearchPage/SearchPage.js';
-import ResultsPage from '../Pages/ResultsPage/ResultsPage.js';
+import Header from  '../Header/Header';
+import Footer from '../Footer/Footer';
+import SplashPage from '../Pages/SplashPage/SplashPage';
+import HomePage from '../Pages/HomePage/HomePage';
+import ProfilePage from '../Pages/ProfilePage/ProfilePage';
+import ConvoPage from '../Pages/ConvoPage/ConvoPage';
+import SearchPage from '../Pages/SearchPage/SearchPage';
+import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
-import PrivateRoute from '../../Utils/PrivateRoute.js';
-import PublicOnlyRoute from '../../Utils/PublicOnlyRoute.js';
+import PrivateRoute from '../../Utils/PrivateRoute';
+import PublicOnlyRoute from '../../Utils/PublicOnlyRoute';
+import STORE from '../../STORE'
+import TennitContext from '../../TennitContext';
 
 
 class App extends Component {
@@ -26,7 +28,6 @@ class App extends Component {
             showCreatePopup: false,
         }
 	}
-
 	toggleLogIn = () => {
 		if(this.state.loggedIn){
 			this.setState({
@@ -56,7 +57,23 @@ class App extends Component {
     }
 
 	render(){
+		const { testUsers, testImages, testMatches, testConvos, testComments} = STORE.makeThingsFixtures()
+		const contextValue = {
+			loggedUserId: this.state.loggedUserId,
+			loggedIn: this.state.loggedIn,
+			showLogInPopup: this.state.showLogInPopup,
+			showCreatePopup: this.state.showCreatePopup,
+			testUsers,
+			testImages,
+			testMatches,
+			testConvos,
+			testComments,
+			toggleLogIn: this.toggleLogIn,
+			toggleLogInPopup: this.toggleLogInPopup,
+			toggleCreatePopup: this.toggleCreatePopup
+		}
 		return (
+			<TennitContext.Provider value={contextValue}>
 			<div className="App">
 				<header>
 					<Header
@@ -130,6 +147,7 @@ class App extends Component {
 					<Footer/>
 				</footer>
 			</div>
+			</TennitContext.Provider>
 		);
 	}
 }

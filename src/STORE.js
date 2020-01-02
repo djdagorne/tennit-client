@@ -172,53 +172,53 @@ function makeMatchArray(users){
 //once both users 'like' each other, both booleans being true, it will create a new row in the convo table
 //when users are on their profile, the page will display links to convos via the convo.id to a new page that displays comments associated with it
 
-function makeConvoArray(matches){
-    return[
-        {
-            id: 1,
-            user1_id: matches[0].user1_id, //FK
-            user2_id: matches[0].user2_id, //FK
-            date_created: new Date(),
-        },
-        {
-            id: 2,
-            user1_id: matches[3].user1_id, //FK
-            user2_id: matches[3].user2_id, //FK
-            date_created: new Date(),
-        },
-    ]
-}
+// function makeConvoArray(matches){
+//     return[
+//         {
+//             id: 1,
+//             user1_id: matches[0].user1_id, //FK
+//             user2_id: matches[0].user2_id, //FK
+//             date_created: new Date(),
+//         },
+//         {
+//             id: 2,
+//             user1_id: matches[3].user1_id, //FK
+//             user2_id: matches[3].user2_id, //FK
+//             date_created: new Date(),
+//         },
+//     ]
+// }
 
-function makeCommentArray(convos){
+function makeCommentArray(matches){
     return[
         {
             id: 1,
-            convo_id: convos[0].id,
-            poster_id: convos[0].user1_id,
+            convo_id: matches[0].id,
+            poster_id: matches[0].user1_id,
             comment: 'blah blah blah'
         },
         {
             id: 2,
-            convo_id: convos[0].id,
-            poster_id: convos[0].user2_id,
+            convo_id: matches[0].id,
+            poster_id: matches[0].user2_id,
             comment: 'blah blah blah'
         },
         {
             id: 3,
-            convo_id: convos[0].id,
-            poster_id: convos[0].user1_id,
+            convo_id: matches[0].id,
+            poster_id: matches[0].user1_id,
             comment: 'blah blah blah'
         },
         {
             id: 4,
-            convo_id: convos[1].id,
-            poster_id: convos[1].user1_id,
+            convo_id: matches[1].id,
+            poster_id: matches[1].user1_id,
             comment: 'blah blah blah123123'
         },
         {
             id: 5,
-            convo_id: convos[0].id,
-            poster_id: convos[0].user2_id,
+            convo_id: matches[0].id,
+            poster_id: matches[0].user2_id,
             comment: 'blah blah blah'
         },
     ]
@@ -234,10 +234,9 @@ function makeThingsFixtures(){
     const testUsers = makeUserArray()
     const testImages = makeImageArray(testUsers)
     const testMatches = makeMatchArray(testUsers)
-    const testConvos = makeConvoArray(testMatches)
-    const testComments = makeCommentArray(testConvos)
+    const testComments = makeCommentArray(testMatches)
 
-    return { testUsers, testImages, testMatches, testConvos, testComments}
+    return { testUsers, testImages, testMatches, testComments}
 }
 
 
@@ -245,7 +244,6 @@ module.exports = {
     makeUserArray,
     makeImageArray,
     makeMatchArray,
-    makeConvoArray,
     makeCommentArray,
 
     makeThingsFixtures,

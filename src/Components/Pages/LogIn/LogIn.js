@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import './LogIn.css'
 import STORE from '../../../STORE'
 import HomePage from '../HomePage/HomePage'
+import {Button, Input} from '../../../Utils/Utils'
 
 class LogIn extends Component {
 	
@@ -37,7 +38,11 @@ class LogIn extends Component {
     }
 
     handleSubmit = (e) => {
-        //TODO add actual verification steps
+        //TODO get it matching login info with entire datastore
+        //
+        //const matchedUser = verify.filter(useritems => userInfo.email ===  useritems.email)
+        //(this returns the object from verify's array that matches)
+        //setState as loggedUser_id: matchedUser.id etc
         e.preventDefault();
         if(this.state.email.length === 0){
             this.setState({error: 'email required'})
@@ -52,7 +57,6 @@ class LogIn extends Component {
             password: this.state.password
         }
         const verify = STORE.makeUserArray()
-
 
         if(userInfo.email === verify[0].email && userInfo.password === verify[0].password){
             console.log('samey')
@@ -72,9 +76,11 @@ class LogIn extends Component {
             <div className="popup sign-up">
                 <div className="popup_inner log-in">
                     <h2>Log In</h2>
-                    <form id="sign-up">
-                        <div role='alert'>
-                        {this.state.error && <p className='red'>{this.state.error}</p>}
+                    <form
+                        onSubmit={e=>this.handleSubmit(e)} 
+                        id="sign-up">
+                        <div>
+                        {this.state.error && <p>{this.state.error}</p>}
                         </div>
                         <div className="form-section">
                             <label htmlFor="email">Your email</label>
@@ -98,7 +104,7 @@ class LogIn extends Component {
                                 Cancel
                             </button>
                         <Link to="/home" >
-                            <button onClick={e=>this.handleSubmit(e)}>
+                            <button type="submit">
                                 Log in
                             </button>
                         </Link>

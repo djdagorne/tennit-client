@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
 import './Header.css';
 import LogIn from '../Pages/LogIn/LogIn.js'
+import TennitContext from '../../TennitContext'
 
 class Header extends Component {
+    static context = TennitContext
     constructor(props){
         super(props);
         this.state = {
@@ -39,7 +41,7 @@ class Header extends Component {
     render(){
         return (
             <>
-                {this.props.loggedIn ? 
+                {this.state.loggedIn ? 
                     this.renderLogOutLink() :
                     this.renderLogInLink()
                 }
