@@ -1,6 +1,7 @@
 import React from 'react'
+import STORE from './STORE'
 
-export default React.createContext({
+const TennitContext = React.createContext({
         testUsers: [],
         testImages: [],
         testMatches: [],
@@ -15,3 +16,55 @@ export default React.createContext({
         toggleCreatePopup: ()=>{},
     }
 )
+
+export default TennitContext
+
+export class TennitProvider extends React.Component {
+
+  setError = error => {
+    console.error(error)
+    this.setState({ error })
+  }
+
+  clearError = () => {
+    this.setState({ error: null })
+  }
+
+  setConvo = article => {
+    this.setState({ article })
+  }
+
+  setComments = comments => {
+    this.setState({ comments })
+  }
+
+  addComment = comment => {
+    this.setComments([
+      ...this.state.comments,
+      comment
+    ])
+  }
+
+  render() {
+    const { testUsers, testImages, testMatches, testConvos, testComments} = STORE.makeThingsFixtures()
+    const contextValue = {
+        loggedUserId: '',
+        loggedIn: false,
+        showLogInPopup: '',
+        showCreatePopup: '',
+        testUsers,
+        testImages,
+        testMatches,
+        testConvos,
+        testComments,
+        toggleLogIn: '',
+        toggleLogInPopup: '',
+        toggleCreatePopup: ''
+    }
+    return (
+      <TennitContext.Provider value={contextValue}>
+        {this.props.children}
+      </TennitContext.Provider>
+    )
+  }
+}

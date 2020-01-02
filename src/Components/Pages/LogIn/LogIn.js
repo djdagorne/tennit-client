@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './LogIn.css'
 import STORE from '../../../STORE'
-import HomePage from '../HomePage/HomePage'
 import {Button, Input} from '../../../Utils/Utils'
-
+import TokenService from '../../../Services/TokenService'
 class LogIn extends Component {
 	
     constructor(props){
@@ -59,14 +57,15 @@ class LogIn extends Component {
         const matchedUser = verify.filter(useritems => userInfo.email === useritems.email)
 
         if(userInfo.password === matchedUser[0].password){
-            console.log('samey')
             this.setState({ loggedUserId: matchedUser.id})
             this.setState({
                 loggedUser_id: matchedUser.id
             })
+            TokenService.saveAuthToken(
+                TokenService.makeBasicAuthToken(userInfo.email, userInfo.password)
+            )
             this.props.toggleLogIn()
         }else{
-            console.log('not samey')
             this.setState({error: 'username and password do not match, email admin to verify'})
         }
     }

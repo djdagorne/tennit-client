@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import './SplashPage.css';
 import CreateAccount from '../CreateAccount/CreateAccount.js'
 import LogIn from '../LogIn/LogIn'
+import {Button} from '../../../Utils/Utils'
 
 class SplashPage extends Component {
     constructor(props){
@@ -30,7 +31,7 @@ class SplashPage extends Component {
                     <h1 className="slogan">Fall in love - with affordable rent.</h1>
                     <img alt="apartment pic here"/>
                     <br/>
-                    <button onClick={this.toggleCreatePopup.bind(this)}>create account</button>
+                    <Button onClick={this.toggleCreatePopup.bind(this)}>create account</Button>
 
                     {this.state.showCreatePopup ? 
                         <CreateAccount 

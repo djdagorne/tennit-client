@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link } from 'react-router-dom';
 import './HomePage.css'
 import STORE from '../../../STORE'
+import {Button} from '../../../Utils/Utils.js'
 /* import Carousel from '../../../Utils/Carousel' */
 
 class HomePage extends Component {
@@ -35,9 +36,7 @@ class HomePage extends Component {
                  <button onClick={e => console.log(matchedUser[0])}>testy</button>
                 <div className="home-div display-pic-sec">
                     <img className='pic' src={testImages[0].image} alt="test" />     
-                 
                 </div>
-                {/* <Carousel loggedUser_id={this.state.loggedUserId}/> */}
 
 
 
@@ -45,7 +44,7 @@ class HomePage extends Component {
 
 
                 <div className="home-div active convos">
-                    <Link to="/search"><button className="search-now">Search Now!</button></Link>
+                    <Link to="/search"><Button className="search-now">Search Now!</Button></Link>
                 </div>
                       
                 <div className="home-div active convos">

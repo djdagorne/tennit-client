@@ -11,10 +11,8 @@ import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
-import PrivateRoute from '../../Utils/PrivateRoute';
-import PublicOnlyRoute from '../../Utils/PublicOnlyRoute';
-import STORE from '../../STORE'
-import TennitContext from '../../TennitContext';
+// import STORE from '../../STORE'
+// import TennitContext from '../../TennitContext';
 
 
 class App extends Component {
@@ -23,7 +21,7 @@ class App extends Component {
         super(props);
         this.state = {
 			loggedUserId: '',
-			loggedIn: false,  //testing purposes
+			loggedIn: true,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
         }
@@ -57,30 +55,14 @@ class App extends Component {
     }
 
 	render(){
-		const { testUsers, testImages, testMatches, testConvos, testComments} = STORE.makeThingsFixtures()
-		const contextValue = {
-			loggedUserId: this.state.loggedUserId,
-			loggedIn: this.state.loggedIn,
-			showLogInPopup: this.state.showLogInPopup,
-			showCreatePopup: this.state.showCreatePopup,
-			testUsers,
-			testImages,
-			testMatches,
-			testConvos,
-			testComments,
-			toggleLogIn: this.toggleLogIn,
-			toggleLogInPopup: this.toggleLogInPopup,
-			toggleCreatePopup: this.toggleCreatePopup
-		}
 		return (
-			<TennitContext.Provider value={contextValue}>
 			<div className="App">
 				<header>
 					<Header
 						loggedIn={this.state.loggedIn}
 						toggleLogIn={this.toggleLogIn.bind(this)}
 						toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-						toggleEditPopup={this.toggleCreatePopup.bind(this)}
+						toggleCreatePopup={this.toggleCreatePopup.bind(this)}
 					/>
 				</header>
 				<main className="App">
@@ -101,7 +83,6 @@ class App extends Component {
 									toggleEditPopup={this.toggleCreatePopup.bind(this)}
 								/> :
 								<Redirect to="/home" />
-							
 							}
                         />
 						<Route
@@ -151,7 +132,6 @@ class App extends Component {
 					<Footer/>
 				</footer>
 			</div>
-			</TennitContext.Provider>
 		);
 	}
 }
