@@ -46,11 +46,9 @@ class LogIn extends Component {
         e.preventDefault();
         if(this.state.email.length === 0){
             this.setState({error: 'email required'})
-            return 
         }
         if(this.state.password.length === 0){
             this.setState({error: 'password required'})
-            return 
         }
         const userInfo = {
             email: this.state.email,
@@ -58,16 +56,18 @@ class LogIn extends Component {
         }
         const verify = STORE.makeUserArray()
 
-        if(userInfo.email === verify[0].email && userInfo.password === verify[0].password){
+        const matchedUser = verify.filter(useritems => userInfo.email === useritems.email)
+
+        if(userInfo.password === matchedUser[0].password){
             console.log('samey')
-            this.setState({ loggedUserId: verify[0].id})
+            this.setState({ loggedUserId: matchedUser.id})
             this.setState({
-                loggedUser_id: verify[0].id
+                loggedUser_id: matchedUser.id
             })
             this.props.toggleLogIn()
         }else{
+            console.log('not samey')
             this.setState({error: 'username and password do not match, email admin to verify'})
-            return 
         }
     }
 
@@ -77,14 +77,14 @@ class LogIn extends Component {
                 <div className="popup_inner log-in">
                     <h2>Log In</h2>
                     <form
-                        onSubmit={e=>this.handleSubmit(e)} 
+                        onSubmit={this.handleSubmit} 
                         id="sign-up">
                         <div>
                         {this.state.error && <p>{this.state.error}</p>}
                         </div>
                         <div className="form-section">
                             <label htmlFor="email">Your email</label>
-                            <input 
+                            <Input 
                                 id="email"
                                 type="email" 
                                 onChange={e => this.updateEmail(e.target.value)}
@@ -93,21 +93,19 @@ class LogIn extends Component {
                         </div>
                         <div className="form-section">
                             <label htmlFor="password">Your password</label>
-                            <input 
+                            <Input 
                                 id="password"
                                 type="password"  
                                 onChange={e => this.updatePassword(e.target.value)}
                                 required
                                 />
                         </div>
-                            <button onClick={this.props.closePopup}>
+                            <Button onClick={this.props.closePopup}>
                                 Cancel
-                            </button>
-                        <Link to="/home" >
-                            <button type="submit">
+                            </Button>
+                            <Button type="submit">
                                 Log in
-                            </button>
-                        </Link>
+                            </Button>
                     </form>
                 </div>
             </div>

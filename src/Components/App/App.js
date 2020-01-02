@@ -23,7 +23,7 @@ class App extends Component {
         super(props);
         this.state = {
 			loggedUserId: '',
-			loggedIn: true,  //testing purposes
+			loggedIn: false,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
         }
@@ -109,7 +109,11 @@ class App extends Component {
 							path={'/home'}
 							loggedUserId={this.state.loggedUserId}
 							loggedIn={this.state.loggedIn}
-							component={HomePage}
+							render={()=>
+								this.state.loggedIn ? 
+								<HomePage/> :
+								<Redirect to="/" />
+							}
 						/>
 						<Route
 							exact
