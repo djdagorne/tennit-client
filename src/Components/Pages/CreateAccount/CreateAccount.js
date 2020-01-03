@@ -8,6 +8,8 @@ class CreateAccount extends Component {
         this.state = {
             loggedIn: this.props.loggedIn,
             listingChecked: false,
+            toggleCreatePopup: this.props.toggleCreatePopup,
+            toggleLogIn: this.props.toggleLogIn
         };
     };
 
@@ -17,13 +19,19 @@ class CreateAccount extends Component {
         });
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('submitting')
+        this.props.toggleCreatePopup()
+        this.props.toggleLogIn()
+    }
 
     render(){
         return(
             <div className="popup sign-up">
                 <div className="popup_inner">
                     <h3>Sign Up</h3>
-                    <form id="sign-up">
+                    <form id="sign-up" >
 
                     <div className="form-section">
                         <label htmlFor="email">Your email</label>
@@ -208,8 +216,8 @@ class CreateAccount extends Component {
                         : null
                     }
 
-                    <button onClick={this.props.closePopup} className="button">Cancel</button>
-                    <Link type="submit" to="/home" onClick={this.props.toggleLogIn}><button className="button">Submit</button></Link>
+                    <button onClick={this.props.closePopup}>Cancel</button>
+                    <Link  to="/home" ><button type="submit" onClick={this.handleSubmit}>Submit</button></Link>
 
                 </form>
                 </div>

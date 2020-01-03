@@ -17,26 +17,22 @@ class SplashPage extends Component {
         }
     }
 
-    toggleCreatePopup = () => {
-        this.setState({
-            showCreatePopup: !this.state.showCreatePopup
-        })
-    }
 
     render(){
         return (
             <div className="splash">
                 <div>
                     <h1 className="slogan">Fall in love - with affordable rent.</h1>
-                    <img alt="apartment pic here"/>
                     <br/>
-                    <Button onClick={this.toggleCreatePopup.bind(this)}>create account</Button>
+                    <Button onClick={this.props.toggleLogInPopup}>Log In</Button>
+                    {' '}
+                    <Button onClick={this.props.toggleCreatePopup}>create account</Button>
 
-                    {this.state.showCreatePopup ? 
+                    {this.props.showCreatePopup ? 
                         <CreateAccount 
-                            toggleLogIn={this.state.toggleLogIn}
-                            loggedIn={this.state.loggedIn} //TODO submit should change in log in state
-                            closePopup={this.toggleCreatePopup.bind(this)}
+                            toggleLogIn={this.props.toggleLogIn}
+                            loggedIn={this.props.loggedIn} //TODO submit should change in log in state
+                            toggleCreatePopup={this.props.toggleCreatePopup}
                         /> :
                         null
                     }

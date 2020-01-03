@@ -2,11 +2,8 @@
   
 .home-div {
     padding: 30px 15px;
-    background-color: #bbb;
-  }
-  
-  .home-div:nth-child(even) {
-    background-color: #ddd;
+    margin-left: 20%;
+    margin-right: 20%;
   }
   
   .display-pic-sec {

@@ -21,7 +21,7 @@ class App extends Component {
         super(props);
         this.state = {
 			loggedUserId: '',
-			loggedIn: true,  //testing purposes
+			loggedIn: false,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
         }
@@ -61,8 +61,6 @@ class App extends Component {
 					<Header
 						loggedIn={this.state.loggedIn}
 						toggleLogIn={this.toggleLogIn.bind(this)}
-						toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-						toggleCreatePopup={this.toggleCreatePopup.bind(this)}
 					/>
 				</header>
 				<main className="App">
@@ -80,7 +78,7 @@ class App extends Component {
 									showLogInPopup={this.state.showLogInPopup}
 									showCreatePopup={this.state.showCreatePopup}
 									toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-									toggleEditPopup={this.toggleCreatePopup.bind(this)}
+									toggleCreatePopup={this.toggleCreatePopup.bind(this)}
 								/> :
 								<Redirect to="/home" />
 							}

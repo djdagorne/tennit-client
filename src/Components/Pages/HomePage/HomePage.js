@@ -26,14 +26,14 @@ class HomePage extends Component {
         const matchedUser = verify.filter(useritems => 'john@email.com' === useritems.email)
         return(
             <>
-                <p>Welcome back, <Link to="/profile/1"><h1>{testUsers[this.state.loggedUser_id-1].firstName}!</h1></Link></p>
+                <span>Welcome back, <Link to="/profile/1"><b>{testUsers[this.state.loggedUser_id-1].firstName}!</b></Link></span>
 
 
 
 
 
 
-                 <button onClick={e => console.log(matchedUser[0])}>testy</button>
+                <button onClick={e => console.log(matchedUser[0])}>testy</button>
                 <div className="home-div display-pic-sec">
                     <img className='pic' src={testImages[0].image} alt="test" />     
                 </div>
