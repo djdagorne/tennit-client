@@ -13,6 +13,17 @@ body {
 }
 
 
+.button{
+  padding: 3vw;
+  margin: auto;
+  display: block;
+}
+  
+.search-now{
+    margin-bottom: 45px;
+    width:33%;
+    height:50px;
+}
 
 ::-webkit-scrollbar {
   width: 10px;

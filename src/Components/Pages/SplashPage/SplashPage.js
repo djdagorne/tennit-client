@@ -1,5 +1,4 @@
 import React, { Component} from 'react';
-import { Link } from 'react-router-dom'
 import './SplashPage.css';
 import CreateAccount from '../CreateAccount/CreateAccount.js'
 import LogIn from '../LogIn/LogIn'

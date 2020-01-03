@@ -26,7 +26,7 @@ class HomePage extends Component {
         const matchedUser = verify.filter(useritems => 'john@email.com' === useritems.email)
         return(
             <>
-                <span>Welcome back, <Link to="/profile/1"><h1>{testUsers[this.state.loggedUser_id-1].firstName}!</h1></Link></span>
+                <p>Welcome back, <Link to="/profile/1"><h1>{testUsers[this.state.loggedUser_id-1].firstName}!</h1></Link></p>
 
 
 

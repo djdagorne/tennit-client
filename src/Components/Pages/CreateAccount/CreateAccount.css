@@ -10,11 +10,6 @@
 }
 
 
-.button{
-    padding: 3vw;
-    margin: auto;
-    display: block;
-}
 
 input[type~=text],
 input[type~=url],
