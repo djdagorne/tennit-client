@@ -9,7 +9,6 @@ class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedUserId: this.props.loggedUserId,
             loggedUser_id: this.props.loggedUser_id || 1,
         }
 	}
@@ -20,7 +19,6 @@ class HomePage extends Component {
         
         const userMatches = userMatchesTotal.filter(match => match.user1_bool === true || match.user2_bool === true) 
 
-        
         const verify = STORE.makeUserArray()
 
         const matchedUser = verify.filter(useritems => 'john@email.com' === useritems.email)
@@ -28,23 +26,14 @@ class HomePage extends Component {
             <>
                 <span>Welcome back, <Link to="/profile/1"><b>{testUsers[this.state.loggedUser_id-1].firstName}!</b></Link></span>
 
-
-
-
-
-
                 <button onClick={e => console.log(matchedUser[0])}>testy</button>
+
                 <div className="home-div display-pic-sec">
                     <img className='pic' src={testImages[0].image} alt="test" />     
                 </div>
 
-
-
-
-
-
                 <div className="home-div active convos">
-                    <Link to="/search"><Button className="search-now">Search Now!</Button></Link>
+                    <Link to="/search"><button>Search Now!</button></Link>
                 </div>
                       
                 <div className="home-div active convos">

@@ -13,7 +13,14 @@ class SplashPage extends Component {
             showLogInPopup: this.props.showLogInPopup,
             toggleLogInPopup: this.props.toggleLogInPopup,
             showCreatePopup: this.props.showCreate,
-            toggleCreatePopup: this.props.toggleCreatePopup
+            toggleCreatePopup: this.props.toggleCreatePopup,
+            loggedUser_id: this.props.loggedUser_id,
+            handleSubmit: this.props.handleSubmit,
+
+            email: this.props.email,
+            password: this.props.password,
+            updateEmail: this.props.updateEmail,
+            updatePassword:this.props.updatePassword
         }
     }
 
@@ -24,25 +31,34 @@ class SplashPage extends Component {
                 <div>
                     <h1 className="slogan">Fall in love - with affordable rent.</h1>
                     <br/>
-                    <Button onClick={this.props.toggleLogInPopup}>Log In</Button>
+                    <button onClick={this.props.toggleLogInPopup}>Log In</button>
                     {' '}
-                    <Button onClick={this.props.toggleCreatePopup}>create account</Button>
+                    <button onClick={this.props.toggleCreatePopup}>create account</button>
 
                     {this.props.showCreatePopup ? 
                         <CreateAccount 
-                            toggleLogIn={this.props.toggleLogIn}
-                            loggedIn={this.props.loggedIn} //TODO submit should change in log in state
-                            toggleCreatePopup={this.props.toggleCreatePopup}
+                            toggleLogIn={this.state.toggleLogIn}
+                            loggedIn={this.state.loggedIn}
+                            toggleCreatePopup={this.state.toggleCreatePopup}
                         /> :
                         null
                     }
 
-                    {this.props.showLogInPopup ? //TODO get it changing loggedin state
+                    {this.props.showLogInPopup ?
                         <LogIn 
                             loggedIn={this.state.loggedIn}
                             toggleLogIn={this.state.toggleLogIn}
                             showLogInPopup={this.state.showLogInPopup}
-                            closePopup={this.props.toggleLogInPopup} 
+                            closePopup={this.state.toggleLogInPopup} 
+                            loggedUser_id={this.state.loggedUser_id}
+                            handleSubmit={this.state.handleSubmit}
+                            
+                            email={this.state.email}
+                            password={this.state.password}
+
+                            
+                            updateEmail={this.updateEmail}
+                            updatePassword={this.updatePassword}
                         /> :
                         null
                     }

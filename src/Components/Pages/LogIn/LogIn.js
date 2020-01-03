@@ -8,11 +8,12 @@ class LogIn extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedUserId: this.props.loggedUserId,
+            loggedUser_id: this.props.loggedUser_id,
             loggedIn: this.props.loggedIn,
-            loggedUser_id: '',
-            email: '',
-            password: '',
+            email: this.props.email,
+            password: this.props.password,
+            updateEmail: this.props.updateEmail,
+            updatePassword: this.props.updatePassword,
             error: null
         }
     }
@@ -23,7 +24,7 @@ class LogIn extends Component {
         })
     }
 
-    updateEmail = (email) => {
+ /*    updateEmail = (email) => {
         this.setState({
             email: email
         })
@@ -33,42 +34,36 @@ class LogIn extends Component {
         this.setState({
             password: password
         })
-    }
+    } */
 
-    handleSubmit = (e) => {
-        //TODO get it matching login info with entire datastore
-        //
-        //const matchedUser = verify.filter(useritems => userInfo.email ===  useritems.email)
-        //(this returns the object from verify's array that matches)
-        //setState as loggedUser_id: matchedUser.id etc
-        e.preventDefault();
-        if(this.state.email.length === 0){
-            this.setState({error: 'email required'})
-        }
-        if(this.state.password.length === 0){
-            this.setState({error: 'password required'})
-        }
-        const userInfo = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        const verify = STORE.makeUserArray()
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if(this.state.email.length === 0){
+    //         this.setState({error: 'email required'})
+    //     }
+    //     if(this.state.password.length === 0){
+    //         this.setState({error: 'password required'})
+    //     }
+    //     const userInfo = {
+    //         email: this.state.email,
+    //         password: this.state.password
+    //     }
+    //     const verify = STORE.makeUserArray()
 
-        const matchedUser = verify.filter(useritems => userInfo.email === useritems.email)
-
-        if(userInfo.password === matchedUser[0].password){
-            this.setState({ loggedUserId: matchedUser.id})
-            this.setState({
-                loggedUser_id: matchedUser.id
-            })
-            TokenService.saveAuthToken(
-                TokenService.makeBasicAuthToken(userInfo.email, userInfo.password)
-            )
-            this.props.toggleLogIn()
-        }else{
-            this.setState({error: 'username and password do not match, email admin to verify'})
-        }
-    }
+    //     const matchedUser = verify.filter(userItems => userInfo.email === userItems.email)
+    //     console.log('user match found, ' + matchedUser[0].firstName)
+    //     if(userInfo.password === matchedUser[0].password){
+    //         this.setState({
+    //             loggedUser_id: matchedUser.id
+    //         })
+    //         TokenService.saveAuthToken(
+    //             TokenService.makeBasicAuthToken(userInfo.email, userInfo.password)
+    //         )
+    //         this.props.toggleLogIn()
+    //     }else{
+    //         this.setState({error: 'username and password do not match, email admin to verify'})
+    //     }
+    // }
 
     render(){
         return(
@@ -76,7 +71,6 @@ class LogIn extends Component {
                 <div className="popup_inner log-in">
                     <h2>Log In</h2>
                     <form
-                        onSubmit={this.handleSubmit} 
                         id="sign-up">
                         <div>
                         {this.state.error && <p>{this.state.error}</p>}
@@ -84,27 +78,29 @@ class LogIn extends Component {
                         <div className="form-section">
                             <label htmlFor="email">Your email</label>
                             <Input 
-                                id="email"
-                                type="email" 
-                                onChange={e => this.updateEmail(e.target.value)}
+                                name="email"
+                                type="email"
+                                onChange={this.props.updateEmail}
                                 required
                                 />
                         </div>
                         <div className="form-section">
                             <label htmlFor="password">Your password</label>
                             <Input 
-                                id="password"
+                                name="password"
                                 type="password"  
-                                onChange={e => this.updatePassword(e.target.value)}
+                                onChange={this.props.updatePassword}
                                 required
                                 />
                         </div>
-                            <Button onClick={this.props.closePopup}>
+                            <button onClick={this.state.closePopup}>
                                 Cancel
-                            </Button>
-                            <Button type="submit">
+                            </button>
+                            <button
+                                onClick={this.props.handleSubmit}
+                                type="submit">
                                 Log in
-                            </Button>
+                            </button>
                     </form>
                 </div>
             </div>

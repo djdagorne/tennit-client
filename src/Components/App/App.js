@@ -11,7 +11,8 @@ import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
-// import STORE from '../../STORE'
+import TokenService from '../../Services/TokenService'
+import STORE from '../../STORE'
 // import TennitContext from '../../TennitContext';
 
 
@@ -20,10 +21,12 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedUserId: '',
+			loggedUser_id: '',
 			loggedIn: false,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
+            email: '',
+            password: '',
         }
 	}
 	toggleLogIn = () => {
@@ -52,6 +55,46 @@ class App extends Component {
         this.setState({
             showCreatePopup: !this.state.showCreatePopup
         })
+	}
+
+    updateEmail = (email) => {
+        this.setState({
+            email: email.target.value
+        })
+    }
+
+    updatePassword = (password) => {
+        this.setState({
+            password: password.target.value
+        })
+    }
+	handleSubmit = (e) => {
+        //TODO get the state to bubble up properly
+        //
+
+        e.preventDefault();
+        if(this.state.email.length === 0){
+            this.setState({error: 'email required'})
+        }
+        if(this.state.password.length === 0){
+            this.setState({error: 'password required'})
+        }
+        const { email, password } = e.target.value
+        const verify = STORE.makeUserArray()
+
+        const matchedUser = verify.filter(userItems => email === userItems.email)
+        console.log(matchedUser)
+        if(password === matchedUser.password){
+            this.setState({
+                loggedUser_id: matchedUser.id
+            })
+            TokenService.saveAuthToken(
+                TokenService.makeBasicAuthToken(email, password)
+            )
+            this.toggleLogIn()
+        }else{
+            this.setState({error: 'username and password do not match, email admin to verify'})
+        }
     }
 
 	render(){
@@ -72,13 +115,20 @@ class App extends Component {
 							render={() =>
 								!this.state.loggedIn ?
                                 <SplashPage
-									loggedUserId={this.state.loggedUserId}
 									loggedIn={this.state.loggedIn}
 									toggleLogIn={this.toggleLogIn.bind(this)}
 									showLogInPopup={this.state.showLogInPopup}
 									showCreatePopup={this.state.showCreatePopup}
 									toggleLogInPopup={this.toggleLogInPopup.bind(this)}
 									toggleCreatePopup={this.toggleCreatePopup.bind(this)}
+									handleSubmit={this.handleSubmit.bind(this)}
+									loggedUser_id={this.state.loggedUser_id}
+
+									email={this.state.email}
+									password={this.state.password}
+
+									updateEmail={this.updateEmail.bind(this)}
+									updatePassword={this.updatePassword.bind(this)}
 								/> :
 								<Redirect to="/home" />
 							}
@@ -86,7 +136,7 @@ class App extends Component {
 						<Route
 							exact
 							path={'/home'}
-							loggedUserId={this.state.loggedUserId}
+							loggedUser_id={this.state.loggedUser_id}
 							loggedIn={this.state.loggedIn}
 							render={()=>
 								this.state.loggedIn ? 

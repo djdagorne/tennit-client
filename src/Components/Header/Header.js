@@ -12,10 +12,6 @@ class Header extends Component {
         this.state = {
             loggedIn: this.props.loggedIn,
             toggleLogIn: this.props.toggleLogIn,
-            showLogInPopup: this.props.showLogInPopup,
-            toggleLogInPopup: this.props.toggleLogInPopup,
-            showCreatePopup: this.props.showCreate,
-            toggleCreatePopup: this.props.toggleCreatePopup
         }
     };
 
@@ -33,7 +29,7 @@ class Header extends Component {
                 <Link to="/home" className="logo">Tenn.it</Link>
                 <Link to="/"><button  onClick={this.props.toggleLogIn} className="nav-button">log out</button></Link>
 
-                <button onClick={this.props.toggleCreatePopup} className="nav-button">edit profile</button>
+                <Link to="/edit-account"><button className="nav-button">edit profile</button></Link>
             </nav>
         )
     }
@@ -51,8 +47,6 @@ class Header extends Component {
                         <LogIn 
                             loggedIn={this.props.loggedIn}
                             toggleLogIn={this.props.toggleLogIn}
-                            showLogInPopup={this.props.showLogInPopup}
-                            closePopup={this.props.toggleLogInPopup} 
                         /> :
                         null
                     }
