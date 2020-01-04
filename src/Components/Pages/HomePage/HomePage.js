@@ -18,7 +18,6 @@ class HomePage extends Component {
         
         const userMatches = testMatches.filter(match => match.user1_id === this.props.loggedUser_id || match.user2_id === this.props.loggedUser_id)
 
-        const verify = STORE.makeUserArray()
         return(
             <>
                 <span>Welcome back, <Link to={`/profile/${this.props.loggedUser_id}`}><b>{testUsers[this.props.loggedUser_id-1].firstName}!</b></Link></span>
