@@ -88,9 +88,9 @@ class App extends Component {
             this.setState({
                 loggedUser_id: matchedUser.id
             })
-            TokenService.saveAuthToken(
-                TokenService.makeBasicAuthToken(email, password)
-            )
+            // TokenService.saveAuthToken(
+            //     TokenService.makeBasicAuthToken(email, password)
+            // )
             this.toggleLogIn()
         }else{
             this.setState({error: 'username and password do not match, email admin to verify'})
