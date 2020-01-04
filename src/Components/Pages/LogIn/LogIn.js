@@ -1,19 +1,17 @@
 import React, {Component} from 'react';
 import './LogIn.css'
-import STORE from '../../../STORE'
-import {Button, Input} from '../../../Utils/Utils'
-import TokenService from '../../../Services/TokenService'
+//import {Button, Input} from '../../../Utils/Utils'
 class LogIn extends Component {
 	
     constructor(props){
         super(props);
         this.state = {
+            handleSubmit:this.props.handleSubmit,
             loggedUser_id: this.props.loggedUser_id,
             loggedIn: this.props.loggedIn,
             email: this.props.email,
             password: this.props.password,
-            updateEmail: this.props.updateEmail,
-            updatePassword: this.props.updatePassword,
+            handleInputChange: this.props.handleInputChange,
             error: null
         }
     }
@@ -23,81 +21,39 @@ class LogIn extends Component {
             toggleLogIn: !this.state.loggedIn
         })
     }
-
- /*    updateEmail = (email) => {
-        this.setState({
-            email: email
-        })
-    }
-
-    updatePassword = (password) => {
-        this.setState({
-            password: password
-        })
-    } */
-
-    // handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     if(this.state.email.length === 0){
-    //         this.setState({error: 'email required'})
-    //     }
-    //     if(this.state.password.length === 0){
-    //         this.setState({error: 'password required'})
-    //     }
-    //     const userInfo = {
-    //         email: this.state.email,
-    //         password: this.state.password
-    //     }
-    //     const verify = STORE.makeUserArray()
-
-    //     const matchedUser = verify.filter(userItems => userInfo.email === userItems.email)
-    //     console.log('user match found, ' + matchedUser[0].firstName)
-    //     if(userInfo.password === matchedUser[0].password){
-    //         this.setState({
-    //             loggedUser_id: matchedUser.id
-    //         })
-    //         TokenService.saveAuthToken(
-    //             TokenService.makeBasicAuthToken(userInfo.email, userInfo.password)
-    //         )
-    //         this.props.toggleLogIn()
-    //     }else{
-    //         this.setState({error: 'username and password do not match, email admin to verify'})
-    //     }
-    // }
-
     render(){
         return(
             <div className="popup sign-up">
                 <div className="popup_inner log-in">
                     <h2>Log In</h2>
                     <form
+                        onSubmit={this.props.handleSubmit}
                         id="sign-up">
                         <div>
                         {this.state.error && <p>{this.state.error}</p>}
                         </div>
                         <div className="form-section">
                             <label htmlFor="email">Your email</label>
-                            <Input 
+                            <input 
                                 name="email"
                                 type="email"
-                                onChange={this.props.updateEmail}
+                                onChange={this.props.handleInputChange}
                                 required
                                 />
                         </div>
                         <div className="form-section">
                             <label htmlFor="password">Your password</label>
-                            <Input 
+                            <input 
                                 name="password"
                                 type="password"  
-                                onChange={this.props.updatePassword}
+                                onChange={this.props.handleInputChange}
                                 required
                                 />
                         </div>
                             <button onClick={this.state.closePopup}>
                                 Cancel
                             </button>
-                            <button
-                                onClick={this.props.handleSubmit}
+                            <button 
                                 type="submit">
                                 Log in
                             </button>

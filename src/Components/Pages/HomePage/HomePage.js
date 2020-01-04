@@ -2,29 +2,29 @@ import React, {Component} from 'react'
 import {Link } from 'react-router-dom';
 import './HomePage.css'
 import STORE from '../../../STORE'
-import {Button} from '../../../Utils/Utils.js'
+//import {Button} from '../../../Utils/Utils.js'
 /* import Carousel from '../../../Utils/Carousel' */
 
 class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedUser_id: this.props.loggedUser_id || 1,
+            loggedUser_id: this.props.loggedUser_id,
         }
 	}
     render(){
         const {testUsers, testImages, testMatches} = STORE.makeThingsFixtures()
-
-        const userMatchesTotal = testMatches.filter(match => match.user1_id === testUsers[this.state.loggedUser_id-1].id)
         
-        const userMatches = userMatchesTotal.filter(match => match.user1_bool === true || match.user2_bool === true) 
+        const userMatches = testMatches.filter(match => match.user1_id === this.props.loggedUser_id || match.user2_id === this.props.loggedUser_id)
+
+        console.log(userMatches)
 
         const verify = STORE.makeUserArray()
 
         const matchedUser = verify.filter(useritems => 'john@email.com' === useritems.email)
         return(
             <>
-                <span>Welcome back, <Link to="/profile/1"><b>{testUsers[this.state.loggedUser_id-1].firstName}!</b></Link></span>
+                <span>Welcome back, <Link to={`/profile/${this.props.loggedUser_id}`}><b>{testUsers[this.props.loggedUser_id-1].firstName}!</b></Link></span>
 
                 <button onClick={e => console.log(matchedUser[0])}>testy</button>
 
@@ -41,7 +41,7 @@ class HomePage extends Component {
                     <p>conversation table in db is searched, rows marked with 'validity' and user comments from logged in user_id are listed here as ordered list of links.</p>
                     <ul>
                         {userMatches.map((match, index)=>
-                            <li key={index} ><Link to={`/convo/${match.id}`}>{testUsers[match.id].firstName +' '+ testUsers[match.id].lastName  }</Link></li>
+                            <li key={index} ><Link to={`/convo/${match.id}`}>{testUsers[match.id-1].firstName +' '+ testUsers[match.id-1].lastName  }</Link></li>
                         )}
                     </ul>
                 </div>

@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import './SplashPage.css';
 import CreateAccount from '../CreateAccount/CreateAccount.js'
 import LogIn from '../LogIn/LogIn'
-import {Button} from '../../../Utils/Utils'
+//import {Button} from '../../../Utils/Utils'
 
 class SplashPage extends Component {
     constructor(props){
@@ -19,8 +19,7 @@ class SplashPage extends Component {
 
             email: this.props.email,
             password: this.props.password,
-            updateEmail: this.props.updateEmail,
-            updatePassword:this.props.updatePassword
+            handleInputChange: this.props.handleInputChange,
         }
     }
 
@@ -51,14 +50,13 @@ class SplashPage extends Component {
                             showLogInPopup={this.state.showLogInPopup}
                             closePopup={this.state.toggleLogInPopup} 
                             loggedUser_id={this.state.loggedUser_id}
-                            handleSubmit={this.state.handleSubmit}
+                            handleSubmit={this.props.handleSubmit}
                             
                             email={this.state.email}
                             password={this.state.password}
 
                             
-                            updateEmail={this.updateEmail}
-                            updatePassword={this.updatePassword}
+                            handleInputChange={this.props.handleInputChange}
                         /> :
                         null
                     }

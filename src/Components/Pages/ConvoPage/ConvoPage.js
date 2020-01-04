@@ -11,30 +11,33 @@ class ConvoPage extends React.Component {
         super(props);
         this.state = {
             currentConvo: testComments.filter(comments => testMatches[this.props.match.params.convo_id -1].id === comments.convo_id), //-1 cause convo_id doesnt start at 0
-
+            user1: testMatches[this.props.match.params.convo_id-1].user1_id,
+            user2: testMatches[this.props.match.params.convo_id-1].user2_id,
         }
     }
     handleSubmit = (e) => {
         e.preventDefault();
         const {textInput} = e.target
+        const existingComments = this.state.currentConvo
         const newComment = {
             id: this.state.currentConvo.length + 1,
             convo_id: this.state.currentConvo.convo_id,
             poster_id: 1,
             comment: textInput,
         }
+        const newConvo = existingComments.push(newComment)
         //relevantConvo.push(newComment)
         this.setState({
-            currentConvo: this.state.currentConvo.push(newComment)
+            currentConvo: newConvo
         })
     }
     render(){
-        
+        console.log(this.state)
         return(
             <>
-            <button onClick={e=> console.log(this.state.currentConvo)}>asdasdasd</button>
+            <button onClick={e=> console.log('match id ' + this.state.matchId)}>asdasdasd</button>
                 <div className="convo-page-div">
-                    <h1>Chat between you and {testUsers[testComments[0].poster_id].firstName}</h1>
+                    <h1>Chat between {testUsers[this.state.user1 -1].firstName} and {testUsers[this.state.user2 -1].firstName}</h1>
                 </div>
                 <div className="convo-page-div display-pic-sec">
                     <img className='pic' src={testImages[0].image} alt="test" />               
@@ -51,9 +54,9 @@ class ConvoPage extends React.Component {
                             </li>
                         )}
                     </ul>
-                    <form onSubmit={e=>this.handleSubmit(e)}>
+                    <form onSubmit={this.handleSubmit}>
                         <textarea className="comment-textarea" id="textInput" placeholder=""></textarea>
-                        <button type="submit"  className="comment">send message</button>
+                        <button type="submit">send message</button>
                     </form>
                 </div>
             </>

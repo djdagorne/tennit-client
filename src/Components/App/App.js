@@ -11,7 +11,7 @@ import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
-import TokenService from '../../Services/TokenService'
+//import TokenService from '../../Services/TokenService'
 import STORE from '../../STORE'
 // import TennitContext from '../../TennitContext';
 
@@ -56,38 +56,37 @@ class App extends Component {
             showCreatePopup: !this.state.showCreatePopup
         })
 	}
-
-    updateEmail = (email) => {
-        this.setState({
-            email: email.target.value
-        })
-    }
-
-    updatePassword = (password) => {
-        this.setState({
-            password: password.target.value
-        })
-    }
+	
+	handleInputChange(event) {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+	
+		this.setState({
+			  [name]: value
+		});
+	}
 	handleSubmit = (e) => {
         //TODO get the state to bubble up properly
         //
 
         e.preventDefault();
-        if(this.state.email.length === 0){
+        const { email, password } = this.state
+        if(email.length === 0){
             this.setState({error: 'email required'})
         }
-        if(this.state.password.length === 0){
+        if(password.length === 0){
             this.setState({error: 'password required'})
         }
-        const { email, password } = e.target.value
-        const verify = STORE.makeUserArray()
+		const verify = STORE.makeUserArray()
 
-        const matchedUser = verify.filter(userItems => email === userItems.email)
-        console.log(matchedUser)
-        if(password === matchedUser.password){
+		const matchedUser = verify.filter(userItems => email === userItems.email)
+        if(password === matchedUser[0].password){
             this.setState({
-                loggedUser_id: matchedUser.id
-            })
+                loggedUser_id: matchedUser[0].id
+			})
+			console.log('matchedUser[0].id = ' + matchedUser[0].id)
+			console.log('states loggedUser_id = ' + this.state.loggedUser_id) //why isnt this line logging correctly? hmm
             // TokenService.saveAuthToken(
             //     TokenService.makeBasicAuthToken(email, password)
             // )
@@ -111,6 +110,7 @@ class App extends Component {
 					<Route   //TODO get this working as a PublicOnlyRoute
                             exact
                             path={'/'}
+							loggedUser_id={this.state.loggedUser_id}
 							loggedIn={this.state.loggedIn}
 							render={() =>
 								!this.state.loggedIn ?
@@ -127,8 +127,7 @@ class App extends Component {
 									email={this.state.email}
 									password={this.state.password}
 
-									updateEmail={this.updateEmail.bind(this)}
-									updatePassword={this.updatePassword.bind(this)}
+									handleInputChange={this.handleInputChange.bind(this)}
 								/> :
 								<Redirect to="/home" />
 							}
@@ -140,7 +139,9 @@ class App extends Component {
 							loggedIn={this.state.loggedIn}
 							render={()=>
 								this.state.loggedIn ? 
-								<HomePage/> :
+								<HomePage
+								loggedUser_id={this.state.loggedUser_id}
+								/> :
 								<Redirect to="/" />
 							}
 						/>

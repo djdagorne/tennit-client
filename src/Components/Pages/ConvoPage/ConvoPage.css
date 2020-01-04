@@ -1,13 +1,7 @@
 
 .convo-page-div {
     padding: 30px 15px;
-    background-color: #bbb;
 }
-  
-.convo-page-div:nth-child(even) {
-    background-color: #ddd;
-}
-  
 .convo-page-div:last-child{
     margin-bottom:40px;
 }

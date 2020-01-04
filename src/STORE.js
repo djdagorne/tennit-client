@@ -136,34 +136,34 @@ function makeMatchArray(users){
     return [
         {
             id: 1,
-            user1_id: users[0].id, //FK
-            user2_id: users[1].id, //FK
+            user1_id: users[0].id, //FK john
+            user2_id: users[1].id, //FK susan
             user1_bool: true, 
             user2_bool: true, //susan and john liked eachother
             filter: false,
         },
         {
             id: 2,
-            user1_id: users[0].id, //FK
-            user2_id: users[2].id, //FK
+            user1_id: users[0].id, //FK john
+            user2_id: users[2].id, //FK susan2
             user1_bool: false, 
             user2_bool: true, //susan2  liked john
             filter: false
         },
         {
             id: 3,
-            user1_id: users[0].id, //FK
-            user2_id: users[3].id, //FK
+            user1_id: users[0].id, //FK john
+            user2_id: users[3].id, //FK susan3
             user1_bool: false, 
             user2_bool: true, //susan3 liked john
             filter: false,
         },
         {
             id: 4,
-            user1_id: users[1].id, //FK
-            user2_id: users[3].id, //FK
+            user1_id: users[1].id, //FK susan 1
+            user2_id: users[3].id, //FK susan 3
             user1_bool: true, 
-            user2_bool: true, //susan3 liked john
+            user2_bool: true, 
             filter: false,
         },
     ]
