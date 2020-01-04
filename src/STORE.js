@@ -42,10 +42,10 @@ function makeUserArray() {
         },
         {
             id: 3,
-            email: 'susan2@email.com',
+            email: 'Gertrude@email.com',
             password: 'AAaa11!!',
-            firstName: 'Susan2',
-            lastName: 'Susanson2',
+            firstName: 'Gertrude',
+            lastName: 'Gertrudeson',
             gender: 'female',
             prefGender: 'male',
             age: 20,
@@ -62,10 +62,10 @@ function makeUserArray() {
         },
         {
             id: 4,
-            email: 'susan3@email.com',
+            email: 'Margret@email.com',
             password: 'AAaa11!!',
-            firstName: 'Susan3',
-            lastName: 'Susanson3',
+            firstName: 'Margret',
+            lastName: 'Margretson',
             gender: 'female',
             prefGender: 'male',
             age: 20,
@@ -145,7 +145,7 @@ function makeMatchArray(users){
         {
             id: 2,
             user1_id: users[0].id, //FK john
-            user2_id: users[2].id, //FK susan2
+            user2_id: users[2].id, //FK gert
             user1_bool: false, 
             user2_bool: true, //susan2  liked john
             filter: false
@@ -153,7 +153,7 @@ function makeMatchArray(users){
         {
             id: 3,
             user1_id: users[0].id, //FK john
-            user2_id: users[3].id, //FK susan3
+            user2_id: users[3].id, //FK marg
             user1_bool: false, 
             user2_bool: true, //susan3 liked john
             filter: false,
@@ -161,7 +161,7 @@ function makeMatchArray(users){
         {
             id: 4,
             user1_id: users[1].id, //FK susan 1
-            user2_id: users[3].id, //FK susan 3
+            user2_id: users[3].id, //FK marg
             user1_bool: true, 
             user2_bool: true, 
             filter: false,
@@ -219,6 +219,12 @@ function makeCommentArray(matches){
             id: 5,
             convo_id: matches[0].id,
             poster_id: matches[0].user2_id,
+            comment: 'blah blah blah'
+        },
+        {
+            id: 6,
+            convo_id: matches[2].id,
+            poster_id: matches[2].user1_id,
             comment: 'blah blah blah'
         },
     ]

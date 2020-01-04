@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './LogIn.css'
 //import {Button, Input} from '../../../Utils/Utils'
+
 class LogIn extends Component {
 	
     constructor(props){
@@ -12,7 +13,7 @@ class LogIn extends Component {
             email: this.props.email,
             password: this.props.password,
             handleInputChange: this.props.handleInputChange,
-            error: null
+            error: this.props.error
         }
     }
 
@@ -30,7 +31,7 @@ class LogIn extends Component {
                         onSubmit={this.props.handleSubmit}
                         id="sign-up">
                         <div>
-                        {this.state.error && <p>{this.state.error}</p>}
+                        {this.props.error && <p>{this.props.error}</p>}
                         </div>
                         <div className="form-section">
                             <label htmlFor="email">Your email</label>
@@ -38,7 +39,6 @@ class LogIn extends Component {
                                 name="email"
                                 type="email"
                                 onChange={this.props.handleInputChange}
-                                required
                                 />
                         </div>
                         <div className="form-section">
@@ -47,10 +47,9 @@ class LogIn extends Component {
                                 name="password"
                                 type="password"  
                                 onChange={this.props.handleInputChange}
-                                required
                                 />
                         </div>
-                            <button onClick={this.state.closePopup}>
+                            <button onClick={this.props.closePopup}>
                                 Cancel
                             </button>
                             <button 

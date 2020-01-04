@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link } from 'react-router-dom';
 import './HomePage.css'
 import STORE from '../../../STORE'
+// import TokenService from '../../../Services/TokenService';
 //import {Button} from '../../../Utils/Utils.js'
 /* import Carousel from '../../../Utils/Carousel' */
 
@@ -17,16 +18,10 @@ class HomePage extends Component {
         
         const userMatches = testMatches.filter(match => match.user1_id === this.props.loggedUser_id || match.user2_id === this.props.loggedUser_id)
 
-        console.log(userMatches)
-
         const verify = STORE.makeUserArray()
-
-        const matchedUser = verify.filter(useritems => 'john@email.com' === useritems.email)
         return(
             <>
                 <span>Welcome back, <Link to={`/profile/${this.props.loggedUser_id}`}><b>{testUsers[this.props.loggedUser_id-1].firstName}!</b></Link></span>
-
-                <button onClick={e => console.log(matchedUser[0])}>testy</button>
 
                 <div className="home-div display-pic-sec">
                     <img className='pic' src={testImages[0].image} alt="test" />     
@@ -41,7 +36,7 @@ class HomePage extends Component {
                     <p>conversation table in db is searched, rows marked with 'validity' and user comments from logged in user_id are listed here as ordered list of links.</p>
                     <ul>
                         {userMatches.map((match, index)=>
-                            <li key={index} ><Link to={`/convo/${match.id}`}>{testUsers[match.id-1].firstName +' '+ testUsers[match.id-1].lastName  }</Link></li>
+                            <li key={index} ><Link to={`/convo/${match.id}`}>{testUsers[match.id].firstName +' '+ testUsers[match.id].lastName  }</Link></li>
                         )}
                     </ul>
                 </div>

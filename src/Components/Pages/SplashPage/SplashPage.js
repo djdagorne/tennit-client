@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import './SplashPage.css';
 import CreateAccount from '../CreateAccount/CreateAccount.js'
 import LogIn from '../LogIn/LogIn'
+// import TokenService from '../../../Services/TokenService';
 //import {Button} from '../../../Utils/Utils'
 
 class SplashPage extends Component {
@@ -33,6 +34,7 @@ class SplashPage extends Component {
                     <button onClick={this.props.toggleLogInPopup}>Log In</button>
                     {' '}
                     <button onClick={this.props.toggleCreatePopup}>create account</button>
+                    {' '}
 
                     {this.props.showCreatePopup ? 
                         <CreateAccount 
@@ -51,6 +53,7 @@ class SplashPage extends Component {
                             closePopup={this.state.toggleLogInPopup} 
                             loggedUser_id={this.state.loggedUser_id}
                             handleSubmit={this.props.handleSubmit}
+                            error={this.props.error}
                             
                             email={this.state.email}
                             password={this.state.password}

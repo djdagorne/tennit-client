@@ -27,6 +27,7 @@ class App extends Component {
             showCreatePopup: false,
             email: '',
             password: '',
+            error: null
         }
 	}
 	toggleLogIn = () => {
@@ -73,10 +74,16 @@ class App extends Component {
         e.preventDefault();
         const { email, password } = this.state
         if(email.length === 0){
-            this.setState({error: 'email required'})
+            this.setState({error: 'email required'}, ()=>{
+				console.log(this.state.error)
+			})
+			return
         }
         if(password.length === 0){
-            this.setState({error: 'password required'})
+            this.setState({error: 'password required'}, ()=>{
+				console.log(this.state.error)
+			})
+			return
         }
 		const verify = STORE.makeUserArray()
 
@@ -85,14 +92,11 @@ class App extends Component {
             this.setState({
                 loggedUser_id: matchedUser[0].id
 			})
-			console.log('matchedUser[0].id = ' + matchedUser[0].id)
-			console.log('states loggedUser_id = ' + this.state.loggedUser_id) //why isnt this line logging correctly? hmm
-            // TokenService.saveAuthToken(
-            //     TokenService.makeBasicAuthToken(email, password)
-            // )
             this.toggleLogIn()
         }else{
-            this.setState({error: 'username and password do not match, email admin to verify'})
+            this.setState({error: 'username and password do not match, email admin to verify'}, ()=>{
+				console.log(this.state.error)
+			})
         }
     }
 
@@ -107,7 +111,7 @@ class App extends Component {
 				</header>
 				<main className="App">
 					<Switch>
-					<Route   //TODO get this working as a PublicOnlyRoute
+					<Route
                             exact
                             path={'/'}
 							loggedUser_id={this.state.loggedUser_id}
@@ -123,6 +127,7 @@ class App extends Component {
 									toggleCreatePopup={this.toggleCreatePopup.bind(this)}
 									handleSubmit={this.handleSubmit.bind(this)}
 									loggedUser_id={this.state.loggedUser_id}
+									error={this.state.error}
 
 									email={this.state.email}
 									password={this.state.password}
@@ -149,19 +154,39 @@ class App extends Component {
 							exact
 							path={'/edit-account'}
 							loggedIn={this.state.loggedIn}
-							component={CreateAccount}
+							// component={CreateAccount}
+							render={()=>
+								!this.state.loggedIn ? 
+								<CreateAccount
+								/> :
+								<Redirect to="/home" />
+							}
 						/>
 						<Route 
 							exact
 							path={'/profile/:user_id'}
 							loggedIn={this.state.loggedIn}
-							component={ProfilePage}
+							// component={ProfilePage}
+							render={()=>
+								this.state.loggedIn ? 
+								<ProfilePage
+									loggedIn={this.state.loggedIn}
+								/> :
+								<Redirect to="/" />
+							}
 						/>
 						<Route 
 							exact
 							path={'/results'}
 							loggedIn={this.state.loggedIn}
-							component={ResultsPage}
+							// component={ResultsPage}
+							render={()=>
+								this.state.loggedIn ? 
+								<ResultsPage
+									loggedIn={this.state.loggedIn}
+								/> :
+								<Redirect to="/" />
+							}
 						/>
 						<Route 
 							exact
