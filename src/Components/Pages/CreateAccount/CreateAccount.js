@@ -19,12 +19,6 @@ class CreateAccount extends Component {
         });
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('submitting')
-        this.props.toggleCreatePopup()
-        this.props.toggleLogIn()
-    }
 
     render(){
         return(
@@ -216,8 +210,8 @@ class CreateAccount extends Component {
                         : null
                     }
 
-                    <Link to="/home" > <button onClick={this.props.closePopup}>Cancel</button></Link>
-                    <Link  to="/home" ><button type="submit" onClick={this.handleSubmit}>Submit</button></Link>
+                    <Link to="/home" > <button onClick={this.props.toggleCreatePopup}>Cancel</button></Link>
+                    <Link  to="/home" ><button type="submit" onClick={this.props.toggleCreatePopup}>Submit</button></Link>
 
                 </form>
                 </div>

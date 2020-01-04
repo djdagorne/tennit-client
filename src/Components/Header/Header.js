@@ -43,7 +43,7 @@ class Header extends Component {
                     this.renderLogInLink()
                 }
 
-                {this.props.showLogInPopup ? //TODO get it changing loggedin state
+                {this.props.showLogInPopup ?
                         <LogIn 
                             loggedIn={this.props.loggedIn}
                             toggleLogIn={this.props.toggleLogIn}
@@ -54,8 +54,8 @@ class Header extends Component {
                 {this.props.showCreatePopup ? 
                         <CreateAccount 
                             toggleLogIn={this.state.toggleLogIn}
-                            loggedIn={this.state.loggedIn} //TODO submit should change in log in state
-                            closePopup={this.props.toggleCreatePopup}
+                            loggedIn={this.state.loggedIn}
+                            toggleCreatePopup={this.props.toggleCreatePopup}
                         /> :
                         null
                     }
