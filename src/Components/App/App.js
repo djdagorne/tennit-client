@@ -119,18 +119,20 @@ class App extends Component {
 							render={() =>
 								!this.state.loggedIn ?
                                 <SplashPage
+									error={this.state.error}
+
 									loggedIn={this.state.loggedIn}
 									toggleLogIn={this.toggleLogIn.bind(this)}
 									showLogInPopup={this.state.showLogInPopup}
-									showCreatePopup={this.state.showCreatePopup}
 									toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-									toggleCreatePopup={this.toggleCreatePopup.bind(this)}
 									handleSubmit={this.handleSubmit.bind(this)}
 									loggedUser_id={this.state.loggedUser_id}
-									error={this.state.error}
-
 									email={this.state.email}
 									password={this.state.password}
+
+									showCreatePopup={this.state.showCreatePopup}
+									toggleCreatePopup={this.toggleCreatePopup.bind(this)}
+
 
 									handleInputChange={this.handleInputChange.bind(this)}
 								/> :

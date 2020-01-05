@@ -42,7 +42,6 @@ ul {
 /*   // Content of slides */
   .carousel-slide__content {
     margin-bottom: 19px;
-    font-family: 'Open Sans', 'Trebuchet MS', sans-serif;
     font-size: 16px;
   
     @media (max-width: $breakpoint-desktop - 1px) {
@@ -52,7 +51,6 @@ ul {
   
   .carousel-slide__author,
   .carousel-slide__source {
-    font-family: 'Roboto', arial, sans-serif;
     font-size: 14px;
   
     @media (min-width: $breakpoint-desktop) {

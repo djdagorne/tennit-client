@@ -1,15 +1,11 @@
-nav{
-  background-color: #aaa;
-}
-
-
 header {
-  padding: 45px;
+  margin: 45px;
 }
 
 
 nav {
   position: fixed;
+  height: 45px;
   top: 0;
   left: 0;
   right: 0;
@@ -20,6 +16,8 @@ nav {
   padding: 10px 10px;
   float:left;
   text-align:center;
+  color: #E4F2F1;
+  text-decoration: none;
 }
 
 .nav-button{

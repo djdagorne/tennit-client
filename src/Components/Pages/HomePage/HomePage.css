@@ -1,5 +1,13 @@
 
   
+/* body{
+  background-image: url("../../../imgs/mosaic-parquet-oak.jpg");
+  background-color: #FFCEA3;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: auto 20%;
+} */
 .home-div {
     padding: 30px 15px;
     margin-left: 20%;

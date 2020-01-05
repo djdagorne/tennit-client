@@ -27,15 +27,16 @@ class SplashPage extends Component {
 
     render(){
         return (
-            <div className="splash">
-                <div>
-                    <h1 className="slogan">Fall in love - with affordable rent.</h1>
-                    <br/>
-                    <button onClick={this.props.toggleLogInPopup}>Log In</button>
-                    {' '}
-                    <button onClick={this.props.toggleCreatePopup}>create account</button>
-                    {' '}
-
+            <>
+            <div className="splash"></div>
+            <div className="slogan">
+                <h1 className="slogan-text">Fall in love.</h1> 
+                <h2 className="slogan-text">with affordable rent.</h2>
+                <br/>
+                <button onClick={this.props.toggleLogInPopup}>Log In</button>
+                {' '}
+                <button onClick={this.props.toggleCreatePopup}>create account</button>
+            </div>
                     {this.props.showCreatePopup ? 
                         <CreateAccount 
                             toggleLogIn={this.state.toggleLogIn}
@@ -63,8 +64,7 @@ class SplashPage extends Component {
                         /> :
                         null
                     }
-                </div>
-            </div>
+            </>
         );
     }
 }

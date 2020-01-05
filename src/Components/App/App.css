@@ -3,11 +3,10 @@
 }
 
 body {
-  background-color: #eee;
+  background-color: #FFCEA3;
   margin:0;
-  font-family: "Open Sans", sans-serif;
   font-size: 20px;
-  color: #444;
+  color: #66482D;
   text-align: center;
   line-height: 1.5;
 }
@@ -37,4 +36,10 @@ body {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: rgba(0,0,0,.5);
+}
+  
+label {
+    font-size:14px;
+    display: block;
+    margin:3px;
 }
