@@ -12,24 +12,37 @@ class Header extends Component {
         this.state = {
             loggedIn: this.props.loggedIn,
             toggleLogIn: this.props.toggleLogIn,
+            showLogInPopup: this.props.showLogInPopup,
+            toggleLogInPopup: this.props.toggleLogInPopup,
+            showCreatePopup: this.props.showCreate,
+            toggleCreatePopup: this.props.toggleCreatePopup,
+            loggedUser_id: this.props.loggedUser_id,
+            handleSubmit: this.props.handleSubmit,
+
+            email: this.props.email,
+            password: this.props.password,
+            handleInputChange: this.props.handleInputChange,
         }
     };
 
     renderLogInLink = () =>{
         return(
             <nav className="nav-not-logged-in">
-                <Link to="/" className="logo">Tenn.it</Link>
-            </nav>
+                <Link to="/" className="logo">tenn.it</Link>
+                <button className="log-button" onClick={this.props.toggleLogInPopup}>log in</button>
+                <button className="account-button" onClick={this.props.toggleCreatePopup}>sign up</button>
+
+           </nav>
         )
     }
 
     renderLogOutLink = () =>{
         return(
             <nav className="nav-logged-in">
-                <Link to="/home" className="logo">Tenn.it</Link>
-                <Link to="/"><button  onClick={this.props.toggleLogIn} className="nav-button">log out</button></Link>
+                <Link to="/home" className="logo">tenn.it</Link>
+                <button  onClick={this.props.toggleLogIn} className="log-button">log out</button>
 
-                <Link to="/edit-account"><button className="nav-button">edit profile</button></Link>
+                <button onClick={this.props.toggleCreatePopup} className="account-button">edit profile</button>
             </nav>
         )
     }
@@ -45,17 +58,28 @@ class Header extends Component {
 
                 {this.props.showLogInPopup ?
                         <LogIn 
+                            loggedUser_id={this.state.loggedUser_id}
                             loggedIn={this.props.loggedIn}
                             toggleLogIn={this.props.toggleLogIn}
+                            showLogInPopup={this.state.showLogInPopup}
+                            closePopup={this.state.toggleLogInPopup} 
+                            handleInputChange={this.props.handleInputChange}
+                            handleSubmit={this.props.handleSubmit}
+                            error={this.props.error}
+                            email={this.state.email}
+                            password={this.state.password}
                         /> :
                         null
                     }
 
                 {this.props.showCreatePopup ? 
                         <CreateAccount 
+                            loggedUser_id={this.state.loggedUser_id}
                             toggleLogIn={this.state.toggleLogIn}
                             loggedIn={this.state.loggedIn}
                             toggleCreatePopup={this.props.toggleCreatePopup}
+                            handleInputChange={this.props.handleInputChange}
+                            handleSubmit={this.props.handleSubmit}
                         /> :
                         null
                     }

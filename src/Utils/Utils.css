@@ -21,10 +21,10 @@
 }
 
 .Button {
-  order: 1px solid #aaa;
-  background-color: #eee;
-  font-size: 1.1em;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-weight: bold;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border-style: none;
+  padding: 0px 6px;
+  border-radius: 2px;
+  font-weight: 600;
 }

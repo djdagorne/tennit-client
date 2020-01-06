@@ -35,7 +35,7 @@ class ConvoPage extends React.Component {
         console.log(this.state)
         return(
             <>
-            <button onClick={e=> console.log('match id ' + this.state.matchId)}>asdasdasd</button>
+            <button onClick={e=>console.log('match id ' + this.props.match.params.convo_id)}>asdasdasd</button>
                 <div className="convo-page-div">
                     <h1>Chat between {testUsers[this.state.user1 -1].firstName} and {testUsers[this.state.user2 -1].firstName}</h1>
                 </div>

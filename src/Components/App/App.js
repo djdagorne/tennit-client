@@ -21,8 +21,8 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedUser_id: '',
-			loggedIn: false,  //testing purposes
+			loggedUser_id: '' ||1,
+			loggedIn: true,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
             email: '',
@@ -68,8 +68,11 @@ class App extends Component {
 		});
 	}
 	handleSubmit = (e) => {
-        //TODO get the state to bubble up properly
-        //
+		//TODO get footer showing
+		//TODO more CSS always
+		//TODO get edit account page working with fake data
+		//TODO get search working with fake listings
+
 
         e.preventDefault();
         const { email, password } = this.state
@@ -102,14 +105,27 @@ class App extends Component {
 
 	render(){
 		return (
-			<div className="App">
+			<div className="app-container">
 				<header>
 					<Header
 						loggedIn={this.state.loggedIn}
 						toggleLogIn={this.toggleLogIn.bind(this)}
+
+						showLogInPopup={this.state.showLogInPopup}
+						toggleLogInPopup={this.toggleLogInPopup.bind(this)}
+						handleSubmit={this.handleSubmit.bind(this)}
+						loggedUser_id={this.state.loggedUser_id}
+						email={this.state.email}
+						password={this.state.password}
+
+						
+						showCreatePopup={this.state.showCreatePopup}
+						toggleCreatePopup={this.toggleCreatePopup.bind(this)}
+
+						handleInputChange={this.handleInputChange.bind(this)}
 					/>
 				</header>
-				<main className="App">
+				<main className="main">
 					<Switch>
 					<Route
                             exact

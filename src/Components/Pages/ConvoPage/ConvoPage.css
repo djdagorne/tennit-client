@@ -65,7 +65,7 @@ q{
   
 .textbubble{
     padding: 5px;
-    background-color: #aaa;
+    border: 1px slategray solid;
   }
   
 textarea{

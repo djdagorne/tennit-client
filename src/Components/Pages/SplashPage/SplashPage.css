@@ -10,38 +10,47 @@
 
 .popup_inner {
   overflow-y: scroll;
-  max-height: 75%;
-  width: 80%;
+  height: 300px;
+  width: 260px;
   margin: auto;
-  margin-top: 15vh;
-  padding: 10vh;
+  padding-left:10px; /* offset the scrollbar width, to keep form centered */
+  margin-top: 25vh;
   border-radius: 10px;
-  background-color: #aaa;
+  background-color: #F2C49B;
   z-index: 11;
 }
 
+.popup_inner h2{
+  margin: 0;
+  margin-top: 20px;
+}
 
 .slogan{
   filter:blur(0px);
   display: block;
   margin-top: 33vh;
+  margin-bottom:50vh; /* messing with this moves the footer :S idk */
   padding: 0;
-  color: #E4F2F1;
+  color: #F0F0F2;
+  text-shadow: 0px 3px 10px rgba(119, 119, 119, 0.493);
 }
 
 h1.slogan-text{
-  font-family: 'Scope One', sans-serif;
+  font-family: 'Raleway', sans-serif;
   margin: 0;
   padding: 0;
-  font-size: 10vw;
+  font-size: 6em;
   font-weight: 700;
 }
+
 h2.slogan-text{
+  font-family: 'Raleway', sans-serif;
   margin: 0;
   padding: 0;
-  font-size: 5vw;
+  font-size: 2.2em;
   font-weight: 100;
-  line-height: .5;
+  line-height: 0;
+  letter-spacing: 4px; 
 }
 
 .sign-up-button{
@@ -57,15 +66,14 @@ h2.slogan-text{
   left: 0;
   right: 0;
   bottom: 0;
-  filter:blur(3px);
+  filter:blur(2px);
   background-image: 
     linear-gradient(
-      rgba(136, 136, 136, 0.3), /* tint the color to match theme */
-      rgba(134, 134, 134, 0.2)
+      rgba(136, 136, 136, 0.3), /* tint the color to match theme  */
+      rgba(134, 134, 134, 0.158)
     ),
     url("../../../imgs/IMG_1745.jpg");
-  background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-
+  z-index: -1;
 }

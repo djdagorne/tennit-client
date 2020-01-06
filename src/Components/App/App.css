@@ -3,14 +3,10 @@
 }
 
 body {
-  background-color: #FFCEA3;
+  background-color: #BF946F;
   margin:0;
-  font-size: 20px;
-  color: #66482D;
   text-align: center;
-  line-height: 1.5;
 }
-
 
 .button{
   padding: 3vw;
@@ -20,8 +16,6 @@ body {
   
 .search-now{
     margin-bottom: 45px;
-    width:33%;
-    height:50px;
 }
 
 ::-webkit-scrollbar {

@@ -1,52 +1,31 @@
 
-  
-/* body{
-  background-image: url("../../../imgs/mosaic-parquet-oak.jpg");
-  background-color: #FFCEA3;
-  background-repeat: repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: auto 20%;
-} */
 .home-div {
-    padding: 30px 15px;
-    margin-left: 20%;
-    margin-right: 20%;
-  }
+  margin: 95px 45px 45px 45px;
+}
   
-  .display-pic-sec {
-    min-height:300px;
-  }
-  
-  
-  .pic{
-    display: inline-block;
-    background: #eee;
-    margin: 10px;
-    width: 40vw;
-    height: 40vw;
-  }
-  
-  h1{
-    display: inline-block;
-  }
-  
-  span{
-    margin:0px;
-  }
+.display-pic-sec {
+  min-height:300px;
+}
 
-  ul{
-      margin: 0 auto;
-      padding: 0;
-  }
 
-  li{
-      list-style: none;
-      text-align: center;
-  }
+.pic{
+  display: inline-block;
+  background: #eee;
+  margin: 10px;
+  width: 40vw;
+}
 
-  img{
-      display: block;
-      margin: 0 auto;
-  }
+ul{
+    margin: auto;
+    padding: 0;
+}
 
+li{
+    list-style: none;
+    text-align: center;
+}
+
+img{
+    display: block;
+    margin: auto;
+}

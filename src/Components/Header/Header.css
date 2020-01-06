@@ -13,14 +13,51 @@ nav {
 }
 
 .logo{
-  padding: 10px 10px;
   float:left;
+  font-family: 'Lato', sans-serif;
   text-align:center;
-  color: #E4F2F1;
+  margin-top: 6px;
+  margin-left: 20px;
+
+  font-size: 2.3em;
+  font-weight: 900;
+  color: #F0F0F2;
   text-decoration: none;
+  letter-spacing: -2px;
+  text-shadow: 0px 3px 10px rgba(119, 119, 119, 0.493);
+  line-height: 1.5em;
+}
+.logo:hover{
+  text-shadow: 0px 3px 10px rgba(201, 201, 201, 0.3);
 }
 
-.nav-button{
-  margin: 13px;
+.log-button, .account-button{
+  font-family: 'Raleway', sans-serif;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border-style: none;
+  position: absolute;
+  text-shadow: 0px 3px 10px rgba(119, 119, 119, 0.493);
+  letter-spacing: -1px;
+  line-height: 1.5em;
+  top: 20px;
+  
+  padding: 0px 6px;
+  border-radius: 2px;
   float:right;
+  color: #F0F0F2;
+  font-size: 1.3em;
+  text-decoration: none;
 }
+.log-button{
+  right: 20px;
+}
+.log-button:hover{
+  cursor: pointer;
+}
+.account-button{
+  right: 85px;
+}
+.account-button:hover{
+  cursor: pointer;
+} 

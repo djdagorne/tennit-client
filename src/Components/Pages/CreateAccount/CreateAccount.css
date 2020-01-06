@@ -4,10 +4,6 @@
     display: block;
     margin:3vw;
 }
-  
-.sign-up{
-    margin-bottom: 45px;
-}
 
 
 
@@ -17,5 +13,4 @@ input[type~=email],
 input[type~=password],
 select,
 textarea{
-    min-width: 30vw;
 }

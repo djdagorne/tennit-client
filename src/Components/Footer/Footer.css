@@ -1,12 +1,14 @@
 footer {
-    background-color: #A64F03;
-    position:fixed;
+    position: unset;
     bottom:0;
     left:0;
-    right:0;
     width:100%;
+    text-align: center;;
+    color: #F0F0F2;
 }
   
 footer a{
     margin:1vw;
+    color: #F0F0F2;
+    text-decoration: none;
 }

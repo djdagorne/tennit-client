@@ -42,7 +42,7 @@ function makeUserArray() {
         },
         {
             id: 3,
-            email: 'Gertrude@email.com',
+            email: 'gertrude@email.com',
             password: 'AAaa11!!',
             firstName: 'Gertrude',
             lastName: 'Gertrudeson',
@@ -62,7 +62,7 @@ function makeUserArray() {
         },
         {
             id: 4,
-            email: 'Margret@email.com',
+            email: 'margret@email.com',
             password: 'AAaa11!!',
             firstName: 'Margret',
             lastName: 'Margretson',

@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import './SplashPage.css';
-import CreateAccount from '../CreateAccount/CreateAccount.js'
-import LogIn from '../LogIn/LogIn'
+// import CreateAccount from '../CreateAccount/CreateAccount.js'
+// import LogIn from '../LogIn/LogIn'
 // import TokenService from '../../../Services/TokenService';
 //import {Button} from '../../../Utils/Utils'
 
@@ -32,12 +32,13 @@ class SplashPage extends Component {
             <div className="slogan">
                 <h1 className="slogan-text">Fall in love.</h1> 
                 <h2 className="slogan-text">with affordable rent.</h2>
-                <br/>
-                <button onClick={this.props.toggleLogInPopup}>Log In</button>
-                {' '}
-                <button onClick={this.props.toggleCreatePopup}>create account</button>
             </div>
-                    {this.props.showCreatePopup ? 
+                    {/* 
+                    <button onClick={this.props.toggleLogInPopup}>Log In</button>
+                    {' '}
+                    <button onClick={this.props.toggleCreatePopup}>create account</button>
+                    
+                    {this.props.showCreatePopup ?  //mb just in the header?
                         <CreateAccount 
                             toggleLogIn={this.state.toggleLogIn}
                             loggedIn={this.state.loggedIn}
@@ -63,7 +64,7 @@ class SplashPage extends Component {
                             handleInputChange={this.props.handleInputChange}
                         /> :
                         null
-                    }
+                    } */}
             </>
         );
     }
