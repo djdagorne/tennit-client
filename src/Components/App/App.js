@@ -106,6 +106,7 @@ class App extends Component {
 	render(){
 		return (
 			<div className="app-container">
+				<div className="tile-background"/>
 				<header>
 					<Header
 						loggedIn={this.state.loggedIn}
@@ -125,7 +126,7 @@ class App extends Component {
 						handleInputChange={this.handleInputChange.bind(this)}
 					/>
 				</header>
-				<main className="main">
+				<main>
 					<Switch>
 					<Route
                             exact

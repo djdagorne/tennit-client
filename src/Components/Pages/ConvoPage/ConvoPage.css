@@ -4,28 +4,20 @@
 }
 .convo-page-div:last-child{
     margin-bottom:40px;
-}
-
-
-.display-pic-sec {
-    min-height:300px;
-}
-  
+}  
   
 .convo-pic{
     display: inline-block;
     background: #eee;
     margin: 10px;
-    width: 200px;
-    height: 200px;
-    max-height: 500px;
+    width: 150px;
     max-width: 500px;
 }
 
 span{
       margin: 0 auto;
 }
-
+/* 
 li {
     list-style: none;
     width:  100%;
@@ -39,9 +31,8 @@ ul{
     display: block;
     margin: 0;
     padding: 0;
-    
     width:  100%;
-}
+} */
   
   
 q{

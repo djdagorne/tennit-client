@@ -28,9 +28,9 @@ class Header extends Component {
     renderLogInLink = () =>{
         return(
             <nav className="nav-not-logged-in">
-                <Link to="/" className="logo">tenn.it</Link>
-                <button className="log-button" onClick={this.props.toggleLogInPopup}>log in</button>
-                <button className="account-button" onClick={this.props.toggleCreatePopup}>sign up</button>
+                <Link to="/" className="logo text-shadow">tenn.it</Link>
+                <button className="log-button text-shadow" onClick={this.props.toggleLogInPopup}>log in</button>
+                <button className="account-button text-shadow" onClick={this.props.toggleCreatePopup}>sign up</button>
 
            </nav>
         )
@@ -39,10 +39,10 @@ class Header extends Component {
     renderLogOutLink = () =>{
         return(
             <nav className="nav-logged-in">
-                <Link to="/home" className="logo">tenn.it</Link>
-                <button  onClick={this.props.toggleLogIn} className="log-button">log out</button>
+                <Link to="/home" className="logo text-shadow">tenn.it</Link>
+                <button  onClick={this.props.toggleLogIn} className="log-button text-shadow">log out</button>
 
-                <button onClick={this.props.toggleCreatePopup} className="account-button">edit profile</button>
+                <button onClick={this.props.toggleCreatePopup} className="account-button text-shadow">edit profile</button>
             </nav>
         )
     }

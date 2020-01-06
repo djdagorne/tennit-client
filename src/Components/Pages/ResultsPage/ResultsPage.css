@@ -1,17 +1,17 @@
-
+/* 
 li{
-    list-style: none;
-    width:  100%;
-    display: block;
-    margin: 0;
-    padding: 20px;
-  }
+  list-style: none;
+  width:  100%;
+  display: block;
+  margin: 0;
+  padding: 20px;
+}
+
+ul{
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 0;
   
-  ul{
-    list-style: none;
-    display: block;
-    margin: 0;
-    padding: 0;
-    
-    width:  100%;
-  }
+  width:  100%;
+} */

@@ -53,9 +53,6 @@ class LogIn extends Component {
                                 onChange={this.props.handleInputChange}
                                 />
                         </div>
-                            <button onClick={this.props.closePopup}>
-                                Cancel
-                            </button>
                             <button 
                                 type="submit">
                                 Log in

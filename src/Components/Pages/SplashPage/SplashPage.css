@@ -49,7 +49,6 @@ h2.slogan-text{
   padding: 0;
   font-size: 2.2em;
   font-weight: 100;
-  line-height: 0;
   letter-spacing: 4px; 
 }
 
@@ -68,7 +67,7 @@ h2.slogan-text{
   filter:blur(2px);
   background-image: 
     linear-gradient(
-      rgba(136, 136, 136, 0.3), /* tint the color to match theme  */
+      rgba(136, 136, 136, 0.3), /* tinted so text stands out */
       rgba(134, 134, 134, 0.158)
     ),
     url("../../../imgs/IMG_1745.jpg");

@@ -14,15 +14,13 @@ class ProfilePage extends Component {
 
         const user_object = testUsers.find(user => user.id.toString() === user_id)
         return(
-            <>
-                <div>
-                    <h1>{user_object.neighborhood}, {user_object.location.city}</h1>
-                </div>
-                <div className="display-pic-sec">
+            <div className="content-container">
+                <h1 className="banner-text">{user_object.neighborhood}, {user_object.location.city}</h1>
+                <div className="pic-wrap">
                     <img className="pic" src={testImages[0].image} alt="test" />        
                 </div>
                 {user_object.listing ?
-                    <h2>{user_object.rent} per month</h2> :
+                    <h2 className="banner-text">${user_object.rent} per month</h2> :
                     null
                 }
                 <div className="buttons-area">
@@ -38,7 +36,7 @@ class ProfilePage extends Component {
                 <div className="seeking-blurb">
                     <span> {user_object.blurb} </span>
                 </div>
-            </>
+            </div>
         )
     }
 }

@@ -1,31 +1,33 @@
-
-.home-div {
-  margin: 95px 45px 45px 45px;
-}
-  
-.display-pic-sec {
-  min-height:300px;
-}
-
-
 .pic{
   display: inline-block;
   background: #eee;
+  width: 100%;
+}
+.banner-text{
+  color: #323238;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.banner-text-description{
+  color: #323238;
+  font-size: 1em;
+  margin: 0;
+}
+
+.pic-wrap{
+  margin: 25px;
+}
+
+.convo-ul{
+  position: relative;
+  width: 60%;
+  margin: 0;
+  left: 20vw;
+}
+
+.convo-li{
+  text-align: left;
+  text-justify: left;
   margin: 10px;
-  width: 300px;
-}
-
-ul{
-    margin: auto;
-    padding: 0;
-}
-
-li{
-    list-style: none;
-    text-align: center;
-}
-
-img{
-    display: block;
-    margin: auto;
 }
