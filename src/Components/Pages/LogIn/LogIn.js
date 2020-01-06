@@ -27,25 +27,29 @@ class LogIn extends Component {
             <div className="popup sign-up">
                 <div className="popup_inner log-in">
                     <h2>Log In</h2>
+                    <button onClick={this.props.closePopup}> {/* make this button an X in the top right corner */}
+                        Cancel
+                    </button>
                     <form
                         onSubmit={this.props.handleSubmit}
                         id="sign-up">
                         <div>
+                            
                         {this.props.error && <p>{this.props.error}</p>}
                         </div>
                         <div className="form-section">
-                            <label htmlFor="email">Your email</label>
                             <input 
                                 name="email"
                                 type="email"
+                                placeholder="Email"
                                 onChange={this.props.handleInputChange}
                                 />
                         </div>
                         <div className="form-section">
-                            <label htmlFor="password">Your password</label>
                             <input 
                                 name="password"
                                 type="password"  
+                                placeholder="Password"
                                 onChange={this.props.handleInputChange}
                                 />
                         </div>
