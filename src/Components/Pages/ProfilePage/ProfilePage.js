@@ -2,16 +2,19 @@ import React, {Component} from 'react';
 import './ProfilePage.css';
 import STORE from '../../../STORE'
 
+const {testUsers, testImages} = STORE.makeThingsFixtures()
 class ProfilePage extends Component {
+    constructor(props){
+    super(props);
+    this.state = {
+    }
+}
     render(){
-        const {testUsers, testImages} = STORE.makeThingsFixtures()
-
         const {user_id} = this.props.match.params;
 
         const user_object = testUsers.find(user => user.id.toString() === user_id)
         return(
             <>
-                    {/* <button onClick={e => console.log(user_object)}>wouhasd</button> */}
                 <div>
                     <h1>{user_object.neighborhood}, {user_object.location.city}</h1>
                 </div>

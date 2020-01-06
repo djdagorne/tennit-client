@@ -28,43 +28,11 @@ class SplashPage extends Component {
     render(){
         return (
             <>
-            <div className="splash"></div>
+            <div className="splash-background"></div>
             <div className="slogan">
                 <h1 className="slogan-text">Fall in love.</h1> 
                 <h2 className="slogan-text">with affordable rent.</h2>
             </div>
-                    {/* 
-                    <button onClick={this.props.toggleLogInPopup}>Log In</button>
-                    {' '}
-                    <button onClick={this.props.toggleCreatePopup}>create account</button>
-                    
-                    {this.props.showCreatePopup ?  //mb just in the header?
-                        <CreateAccount 
-                            toggleLogIn={this.state.toggleLogIn}
-                            loggedIn={this.state.loggedIn}
-                            toggleCreatePopup={this.state.toggleCreatePopup}
-                        /> :
-                        null
-                    }
-
-                    {this.props.showLogInPopup ?
-                        <LogIn 
-                            loggedIn={this.state.loggedIn}
-                            toggleLogIn={this.state.toggleLogIn}
-                            showLogInPopup={this.state.showLogInPopup}
-                            closePopup={this.state.toggleLogInPopup} 
-                            loggedUser_id={this.state.loggedUser_id}
-                            handleSubmit={this.props.handleSubmit}
-                            error={this.props.error}
-                            
-                            email={this.state.email}
-                            password={this.state.password}
-
-                            
-                            handleInputChange={this.props.handleInputChange}
-                        /> :
-                        null
-                    } */}
             </>
         );
     }

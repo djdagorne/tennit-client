@@ -11,8 +11,8 @@ import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
-//import TokenService from '../../Services/TokenService'
 import STORE from '../../STORE'
+//import TokenService from '../../Services/TokenService'
 // import TennitContext from '../../TennitContext';
 
 
@@ -68,7 +68,7 @@ class App extends Component {
 		});
 	}
 	handleSubmit = (e) => {
-		//TODO get footer showing
+		//TODO get footer at bottom
 		//TODO more CSS always
 		//TODO get edit account page working with fake data
 		//TODO get search working with fake listings
@@ -184,14 +184,22 @@ class App extends Component {
 							exact
 							path={'/profile/:user_id'}
 							loggedIn={this.state.loggedIn}
-							// component={ProfilePage}
+							component={ProfilePage}
 							render={()=>
 								this.state.loggedIn ? 
 								<ProfilePage
+									exact
+									path={'/profile/:user_id'}
 									loggedIn={this.state.loggedIn}
 								/> :
 								<Redirect to="/" />
 							}
+						/>
+						<Route 
+							exact
+							path={'/convo/:convo_id'}
+							loggedIn={this.state.loggedIn}
+							component={ConvoPage}
 						/>
 						<Route 
 							exact
@@ -205,12 +213,6 @@ class App extends Component {
 								/> :
 								<Redirect to="/" />
 							}
-						/>
-						<Route 
-							exact
-							path={'/convo/:convo_id'}
-							loggedIn={this.state.loggedIn}
-							component={ConvoPage}
 						/>
 						<Route 
 							exact

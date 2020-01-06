@@ -12,12 +12,12 @@
 }
   
   
-.pic{
+.convo-pic{
     display: inline-block;
     background: #eee;
     margin: 10px;
-    width: 40vw;
-    height: 40vw;
+    width: 200px;
+    height: 200px;
     max-height: 500px;
     max-width: 500px;
 }
@@ -54,13 +54,13 @@ q{
 .user1{
     position: relative;
     float: right;
-    right: 20vw;
+    right: 300px;
 }
   
 .user2{
     position: relative;
     float: left;
-    left: 25vw;
+    left: 300px;
 }
   
 .textbubble{

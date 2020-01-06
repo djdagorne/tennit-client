@@ -3,9 +3,7 @@ import React from 'react';
 import './ConvoPage.css';
 import STORE from '../../../STORE'
 
-        const {testUsers, testImages, testMatches, testComments} = STORE.makeThingsFixtures()
-
-        //const relevantConvo = testComments.filter(comments => testMatches[0].id === comments.convo_id)
+const {testUsers, testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 class ConvoPage extends React.Component { 
     constructor(props){
         super(props);
@@ -40,8 +38,8 @@ class ConvoPage extends React.Component {
                     <h1>Chat between {testUsers[this.state.user1 -1].firstName} and {testUsers[this.state.user2 -1].firstName}</h1>
                 </div>
                 <div className="convo-page-div display-pic-sec">
-                    <img className='pic' src={testImages[0].image} alt="test" />               
-                    <img className='pic' src={testImages[4].image} alt="test" />              
+                    <img className='convo-pic' src={testImages[0].image} alt="test" />               
+                    <img className='convo-pic' src={testImages[4].image} alt="test" />              
                 </div>
                 <div className="convo-page-div active-convos">
                     <ul>

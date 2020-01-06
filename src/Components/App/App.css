@@ -3,9 +3,15 @@
 }
 
 body {
-  background-color: #BF946F;
+  background-color: rgb(165, 113, 67);
   margin:0;
+  padding:0;
   text-align: center;
+}
+
+.app-container{
+  min-height:80%; /* get footer working on splash page */
+  margin: 0 auto -20px;
 }
 
 .button{

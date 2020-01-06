@@ -1,14 +1,13 @@
-footer {
-    position: unset;
+footer { /* weird shit */
     bottom:0;
-    left:0;
     width:100%;
-    text-align: center;;
+    height:19px;
+    text-align: center;
     color: #F0F0F2;
 }
   
 footer a{
-    margin:1vw;
+    margin:0 1vw 0 1vw;
     color: #F0F0F2;
     text-decoration: none;
 }
