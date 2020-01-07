@@ -30,31 +30,28 @@ class ConvoPage extends React.Component {
         })
     }
     render(){
-        console.log(this.state)
         return(
             <div className="content-container">
             <button onClick={e=>console.log('match id ' + this.props.match.params.convo_id)}>asdasdasd</button>
                 <div className="convo-page-div">
                     <h1>Chat between {testUsers[this.state.user1 -1].firstName} and {testUsers[this.state.user2 -1].firstName}</h1>
                 </div>
-                <div className="convo-page-div display-pic-sec">
-                    <img className='convo-pic' src={testImages[0].image} alt="test" />               
-                    <img className='convo-pic' src={testImages[4].image} alt="test" />              
+                <div className="convo-page-div display-pic-sec">            
+                    <img className='convo-pic' src={testImages[4].image} alt="display other users pic" />              
                 </div>
-                <div className="convo-page-div active-convos">
-                    <ul>
+                <div className="comment-container">
+                    <ul className="comment-ul">
                         {this.state.currentConvo.map((comment, index)=>
-                            <li key={index}>
+                            <li className="comment-li" key={index}>
                                 <div className="textbubble">
-                                    <q>{comment.comment}</q>
+                                    <p className="comment-text"><b>{testUsers[comment.poster_id-1].firstName}</b>: {comment.comment}</p>
                                 </div>
-                                <span className={'user'+comment.poster_id}>from {testUsers[comment.poster_id-1].firstName}</span>
                             </li>
                         )}
                     </ul>
                     <form onSubmit={this.handleSubmit}>
                         <textarea className="comment-textarea" id="textInput" placeholder=""></textarea>
-                        <button type="submit">send message</button>
+                        <button className="send-message-button" type="submit">send message</button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 
 .convo-page-div {
-    padding: 30px 15px;
 }
 .convo-page-div:last-child{
     margin-bottom:40px;
@@ -13,19 +12,14 @@
     width: 150px;
     max-width: 500px;
 }
-
-span{
-      margin: 0 auto;
-}
-/* 
-li {
+.comment-li {
     list-style: none;
     width:  100%;
     display: block;
     margin: 0;
-    padding: 20px;
   }
   
+/* 
 ul{
     list-style: none;
     display: block;
@@ -41,35 +35,24 @@ q{
     padding: 12px;
     width:80%;
 }
-  
-.user1{
+
+.user{
     position: relative;
-    float: right;
-    right: 300px;
-}
-  
-.user2{
-    position: relative;
+    margin: 0;
     float: left;
-    left: 300px;
+    left: 53%;
 }
   
-.textbubble{
-    padding: 5px;
-    border: 1px slategray solid;
-  }
-  
-textarea{
-    width:  85%;
+.comment-textarea{
+    max-width:  85%;
     display: block;
     margin: 0 auto;
     margin-top: 30px;
     height: 50px;
 }
   
-.comment {
-      position: relative;
-      float: right;
-      right: 15%;
-      margin-top: 5px;
+.comment-text {
+}
+
+.send-message-button{
 }

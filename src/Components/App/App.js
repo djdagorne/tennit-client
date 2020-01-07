@@ -21,7 +21,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedUser_id: '' ||1,
+			loggedUser_id: 1,
 			loggedIn: true,  //testing purposes
 			showLogInPopup: false,
             showCreatePopup: false,
@@ -164,7 +164,7 @@ class App extends Component {
 							render={()=>
 								this.state.loggedIn ? 
 								<HomePage
-								loggedUser_id={this.state.loggedUser_id}
+									loggedUser_id={this.state.loggedUser_id}
 								/> :
 								<Redirect to="/" />
 							}
@@ -199,6 +199,7 @@ class App extends Component {
 						<Route 
 							exact
 							path={'/convo/:convo_id'}
+							loggedUser_id={this.state.loggedUser_id}
 							loggedIn={this.state.loggedIn}
 							component={ConvoPage}
 						/>
