@@ -36,8 +36,8 @@ class ConvoPage extends React.Component {
                 <div className="convo-page-div">
                     <h1>Chat between {testUsers[this.state.user1 -1].firstName} and {testUsers[this.state.user2 -1].firstName}</h1>
                 </div>
-                <div className="convo-page-div display-pic-sec">            
-                    <img className='convo-pic' src={testImages[4].image} alt="display other users pic" />              
+                <div className="pic-wrap">            
+                    <img className='pic' src={testImages[4].image} alt="display other users pic" />              
                 </div>
                 <div className="comment-container">
                     <ul className="comment-ul">

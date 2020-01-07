@@ -11,29 +11,32 @@ class ProfilePage extends Component {
 }
     render(){
         const {user_id} = this.props.match.params;
-
+        const user_dp = testImages.filter(image=> image.user_id === user_id).slice(0,1)
         const user_object = testUsers.find(user => user.id.toString() === user_id)
         return(
             <div className="content-container">
-                <h1 className="banner-text">{user_object.neighborhood}, {user_object.location.city}</h1>
-                <div className="pic-wrap">
-                    <img className="pic" src={testImages[0].image} alt="test" />        
-                </div>
+                <h1 className="banner-text">{user_object.firstName}'s place at {user_object.neighborhood}, {user_object.location.city}</h1>
                 {user_object.listing ?
-                    <h2 className="banner-text">${user_object.rent} per month</h2> :
+                    <h2 className="rent-text">${user_object.rent} per month</h2> :
                     null
                 }
-                <div className="buttons-area">
-                    <button to="/home" type="button">Pass</button><button to="/home" type="button">Tenn!</button>
+                <div className="pic-wrap">
+                    <img className="pic" src={user_dp.image} alt="test" />        
                 </div>
-                <div className="address-blurb">
-                    <span>I'm {user_object.firstName}, {user_object.lastName}, {user_object.age} years old</span>
+                
+                <div className="buttons-area">
+                    <button to="/home" className="judge-buttons" type="button">Pass</button>
+                    <button to="/home" className="judge-buttons" type="button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
+                </div>
+                <div className="about-blurb">
+                    <h2 className="banner-text-description">About {user_object.firstName}</h2>
+                    <p>{user_object.firstName}, {user_object.lastName}, {user_object.age} years old</p>
                     {user_object.listing ?
-                        <span> and I'm looking for someone to share my place with.</span> :
-                        <span> and I'm looking for somewhere new. </span>
+                        <p> looking for someone to share their place with.</p> :
+                        <p> looking for somewhere new. </p>
                     }
                 </div>
-                <div className="seeking-blurb">
+                <div className="user-blurb">
                     <span> {user_object.blurb} </span>
                 </div>
             </div>

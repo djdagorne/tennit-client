@@ -210,8 +210,10 @@ class CreateAccount extends Component {
                         : null
                     }
 
-                    <Link to="/home" > <button onClick={this.props.toggleCreatePopup}>Cancel</button></Link>
-                    <Link  to="/home" ><button type="submit" onClick={this.props.toggleCreatePopup}>Submit</button></Link>
+                    <button onClick={this.props.toggleCreatePopup}>Cancel</button>
+                    <Link  to="/home" >
+                        <button type="submit" onClick={this.props.toggleCreatePopup}>Submit</button>
+                    </Link>
 
                 </form>
                 </div>

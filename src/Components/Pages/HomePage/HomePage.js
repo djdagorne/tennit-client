@@ -22,7 +22,7 @@ class HomePage extends Component {
         return(
             <div className="content-container">
                 <h1 className="banner-text">
-                    Welcome back, 
+                    Welcome back,{' '}
                     <Link 
                         className="banner-text" 
                         to={`/profile/${this.props.loggedUser_id}`}>
@@ -44,14 +44,14 @@ class HomePage extends Component {
                     <ul className="convo-ul">
                         {userMatches1.map((match, index)=>
                             <li className="convo-li" key={index} >
-                                <Link to={`/convo/${match.id}`}>
+                                <Link userClass="user-link" to={`/convo/${match.id}`}>
                                     {testUsers[match.user2_id-1].firstName +' '+ testUsers[match.user2_id-1].lastName}
                                 </Link>
                             </li>
                         )}
                         {userMatches2.map((match, index)=>
                             <li className="convo-li" key={index} >
-                                <Link to={`/convo/${match.id}`}>
+                                <Link userClass="user-link" to={`/convo/${match.id}`}>
                                     {testUsers[match.user1_id-1].firstName +' '+ testUsers[match.user1_id-1].lastName}
                                 </Link>
                             </li>

@@ -68,7 +68,6 @@ class App extends Component {
 		});
 	}
 	handleSubmit = (e) => {
-		//TODO get footer at bottom
 		//TODO more CSS always
 		//TODO get edit account page working with fake data
 		//TODO get search working with fake listings

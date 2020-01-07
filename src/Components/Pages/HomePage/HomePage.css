@@ -21,13 +21,12 @@
 
 .convo-ul{
   position: relative;
-  width: 60%;
-  margin: 0;
-  left: 20vw;
+  margin: auto;
 }
 
 .convo-li{
-  text-align: left;
-  text-justify: left;
   margin: 10px;
+}
+
+.user-link{
 }

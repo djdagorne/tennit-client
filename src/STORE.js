@@ -77,7 +77,7 @@ function makeUserArray() {
                 city: 'Toronto'
             },
             rent: '1000',
-            listing: true,
+            listing: false,
             blurb: '~user blerb text~',
         },
     ]
