@@ -40,7 +40,7 @@ class Header extends Component {
         return(
             <nav className="nav-logged-in">
                 <Link to="/home" className="logo text-shadow">tenn.it</Link>
-                <button  onClick={this.props.toggleLogIn} className="log-button text-shadow">log out</button>
+                <button to="/"  onClick={this.props.toggleLogIn} className="log-button text-shadow">log out</button>
 
                 <button onClick={this.props.toggleCreatePopup} className="account-button text-shadow">edit profile</button>
             </nav>

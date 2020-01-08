@@ -4,7 +4,7 @@ import './HomePage.css'
 import STORE from '../../../STORE'
 import TennitContext from '../../../TennitContext'
 // import TokenService from '../../../Services/TokenService';
-//import {Button} from '../../../Utils/Utils.js'
+// import {Button} from '../../../Utils/Utils.js'
 /* import Carousel from '../../../Utils/Carousel' */
 
 class HomePage extends Component {
@@ -23,7 +23,7 @@ class HomePage extends Component {
         
         return(
             <div className="content-container">
-                
+                <button onClick={e=>console.log(this.context)}>log context</button>
                 <h1 className="banner-text">
                     Welcome back,{' '}
                     <Link 

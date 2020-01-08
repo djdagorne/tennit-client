@@ -11,8 +11,8 @@ class ProfilePage extends Component {
 }
     render(){
         const {user_id} = this.props.match.params;
-        const user_dp = testImages.filter(image=> image.user_id === user_id).slice(0,1)
-        const user_object = testUsers.find(user => user.id.toString() === user_id)
+        const user_dp = testImages.filter(image=> image.user_id.toString() === user_id.toString()).splice(0,1)
+        const user_object = testUsers.find(user => user.id.toString() === user_id.toString())
         return(
             <div className="content-container">
                 <h1 className="banner-text">{user_object.firstName}'s place at {user_object.neighborhood}, {user_object.location.city}</h1>

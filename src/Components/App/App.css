@@ -6,15 +6,18 @@ body {
   margin:0;
   padding:0;
   text-align: center;
+  min-height: 100vh;
 }
 
 .root{
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .app-container{
+  position: relative;
   padding-bottom: 20px;
+  min-height: 100vh;
 }
 
 .footer { /* weird shit */
@@ -108,9 +111,25 @@ label {
   z-index:-1;
 }
 
+.splash-background{  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  filter:blur(2px);
+  background-image: 
+    linear-gradient(
+      rgba(136, 136, 136, 0.3), /* tinted so text stands out */
+      rgba(134, 134, 134, 0.158)
+    ),
+    url("../../imgs/IMG_1745.jpg");
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
+}
 header {
   position: relative;
-  margin-top: 60px;
 }
 
 

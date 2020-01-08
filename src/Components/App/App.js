@@ -18,6 +18,7 @@ import TennitContext from '../../TennitContext';
 
 //TODO move data management to context, ask Ali about this
 //TODO more CSS always
+//why does logging out on certain pages get rid of 
 class App extends Component {
 	static contextType = TennitContext
     constructor(props){
@@ -103,7 +104,6 @@ class App extends Component {
 	render(){
 		return (
 			<div className="app-container">
-				<div className="tile-background"/>
 				<header>
 					<Header
 						loggedIn={this.state.loggedIn}
@@ -123,6 +123,10 @@ class App extends Component {
 						handleInputChange={this.handleInputChange.bind(this)}
 					/>
 				</header>
+				{this.state.loggedIn ?
+					<div className="tile-background"/> :
+					<div className="splash-background"/>
+				}
 				<main>
 					<Switch>
 					<Route

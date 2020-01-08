@@ -30,13 +30,12 @@ class SplashPage extends Component {
 
     render(){
         return (
-            <>
-            <div className="splash-background"></div>
-            <div className="slogan">
-                <h1 className="slogan-text">Fall in love.</h1> 
-                <h2 className="slogan-text">with affordable rent.</h2>
+            <div className="slogan-wrap">
+                <div className="slogan">
+                    <h1 className="slogan-text">Fall in love.</h1> 
+                    <h2 className="slogan-text">with affordable rent.</h2>
+                </div>
             </div>
-            </>
         );
     }
 }

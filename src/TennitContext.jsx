@@ -2,18 +2,6 @@ import React from 'react'
 import STORE from './STORE'
 
 const TennitContext = React.createContext({
-        testUsers: [],
-        testImages: [],
-        testMatches: [],
-        testConvos: [],
-        testComments: [],
-        loggedUserId: {},
-        loggedIn: {},
-        showLogInPopup: ()=>{},
-        showCreatePopup: ()=>{},
-        toggleLogIn: ()=>{},
-        toggleLogInPopup:()=>{},
-        toggleCreatePopup: ()=>{},
     }
 )
 
@@ -44,6 +32,9 @@ export class TennitProvider extends React.Component {
       comment
     ])
   }
+  randomFunc(){
+    return 'what'
+  }
 
   render() {
     const { testUsers, testImages, testMatches, testConvos, testComments} = STORE.makeThingsFixtures()
@@ -60,7 +51,8 @@ export class TennitProvider extends React.Component {
         toggleLogIn: ()=>{},
         toggleLogInPopup:()=>{},
         toggleCreatePopup: ()=>{},
-        testtext: 'pepe'
+        testtext: 'pepe',
+        randomFunc: this.randomFunc()
     }
     return (
       <TennitContext.Provider value={contextValue}>
