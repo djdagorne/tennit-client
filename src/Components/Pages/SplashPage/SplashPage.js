@@ -1,11 +1,14 @@
 import React, { Component} from 'react';
 import './SplashPage.css';
+import TennitContext from '../../../TennitContext';
 // import CreateAccount from '../CreateAccount/CreateAccount.js'
 // import LogIn from '../LogIn/LogIn'
 // import TokenService from '../../../Services/TokenService';
 //import {Button} from '../../../Utils/Utils'
 
 class SplashPage extends Component {
+    static contextType = TennitContext
+
     constructor(props){
         super(props);
         this.state = {

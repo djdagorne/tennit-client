@@ -1,33 +1,9 @@
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0, 0.5);
-  z-index: 10;
-}
 
-.popup_inner {
-  overflow-y: scroll;
-  height: 300px;
-  width: 260px;
-  margin: auto;
-  padding-left: 10px; /* offset the scrollbar width, to keep form centered */
-  margin-top: 25vh;
-  border-radius: 10px;
-  background-color: #F2C49B;
-  z-index: 11;
-}
-
-.popup_inner h2{
-  margin: 0;
-  margin-top: 20px;
-}
 
 .slogan{
   filter:blur(0px);
-  display: block;
+  display: flex;
+  flex-direction: column;
   margin-top: 33vh;
   margin-bottom:40vh; /* messing with this moves the footer :S idk */
   padding: 0;
@@ -52,14 +28,8 @@ h2.slogan-text{
   letter-spacing: 4px; 
 }
 
-.sign-up-button{
-    margin-top: 20px;
-    border-radius: 5px;
-    font-size:20px;
-  }
-
 .splash-background{  
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;

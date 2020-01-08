@@ -11,7 +11,7 @@ class ProfilePage extends Component {
 }
     render(){
         const {user_id} = this.props.match.params;
-        const user_dp = testImages.filter(image=> image.user_id === user_id).slice(0,1)
+        const user_dp = testImages.filter(image=> image.user_id == user_id).slice(0,1)
         const user_object = testUsers.find(user => user.id.toString() === user_id)
         return(
             <div className="content-container">
@@ -21,7 +21,7 @@ class ProfilePage extends Component {
                     null
                 }
                 <div className="pic-wrap">
-                    <img className="pic" src={user_dp.image} alt="test" />        
+                    <img className="pic" src={user_dp[0].image} alt="test" />        
                 </div>
                 
                 <div className="buttons-area">

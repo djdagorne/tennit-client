@@ -20,12 +20,12 @@ class LogIn extends Component {
     toggleLogIn= () => {
         this.setState({
             toggleLogIn: !this.state.loggedIn
-        })
+        },()=>{this.forceUpdate()})
     }
     render(){
         return(
-            <div className="popup sign-up">
-                <div className="popup_inner log-in">
+            <div className="popup">
+                <div className="popup-inner ">
                     <h2>Log In</h2>
                     <button onClick={this.props.closePopup}> {/* make this button an X in the top right corner */}
                         Cancel
@@ -37,26 +37,30 @@ class LogIn extends Component {
                             
                         {this.props.error && <p>{this.props.error}</p>}
                         </div>
-                        <div className="form-section">
+                        <div className="form-item">
+                            <label htmlFor="email">Email</label>
                             <input 
                                 name="email"
                                 type="email"
-                                placeholder="Email"
+                                placeholder="john@email.com"
                                 onChange={this.props.handleInputChange}
                                 />
                         </div>
-                        <div className="form-section">
+                        <div className="form-item">
+                            <label htmlFor="Password">Password</label>
                             <input 
                                 name="password"
                                 type="password"  
-                                placeholder="Password"
+                                placeholder="********"
                                 onChange={this.props.handleInputChange}
                                 />
                         </div>
+                        <div className="buttons">
                             <button 
                                 type="submit">
                                 Log in
                             </button>
+                        </div>
                     </form>
                 </div>
             </div>

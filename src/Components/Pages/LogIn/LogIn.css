@@ -1,13 +1,71 @@
 input[type~=text],
+input[type~=textarea],
 input[type~=url],
 input[type~=email],
 input[type~=password],
-input[type~=option],
+input[type~=select],
 select,
 textarea{
-    width: 90%;
+    width: 75%;
+    background-color: transparent;
+    border: 1px solid #b9b9b9;
+    border-radius: 5px;
+    font-size: 1.2em;
+    padding: 2px 4px;
+}
+
+label{
+    margin-top:10px;
+    margin-left: 55px;
+    text-align: left;
 }
 
 form{
     margin: 20px 0 20px 0;
+}
+
+.popup {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.5);
+    z-index: 10;
+}
+
+.popup-inner {
+    overflow-y: scroll;
+    max-height: 500px;
+    width: 60%;
+    margin: auto;
+    padding-left: 10px; /* offset the scrollbar width, to keep form centered */
+    vertical-align: justify;
+    border-radius: 10px;
+    background-color: #F0F0F2;
+    z-index: 11;
+}
+
+.log-in-popup-inner h2{
+    margin: 0;
+    margin-top: 20px;
+}
+
+.listing-section, .listing-section label{
+    display: inline-block;
+    margin: auto;
+}
+
+.listing-details{
+    display:block;
+}
+
+.checkbox-wrap{
+    margin-top: 20px;
+}
+
+.buttons{
+    margin-top: 20px;
 }

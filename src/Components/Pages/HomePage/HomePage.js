@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import {Link } from 'react-router-dom';
 import './HomePage.css'
 import STORE from '../../../STORE'
+import TennitContext from '../../../TennitContext'
 // import TokenService from '../../../Services/TokenService';
 //import {Button} from '../../../Utils/Utils.js'
 /* import Carousel from '../../../Utils/Carousel' */
 
 class HomePage extends Component {
+    static contextType = TennitContext
     constructor(props){
         super(props);
         this.state = {
@@ -21,6 +23,7 @@ class HomePage extends Component {
         
         return(
             <div className="content-container">
+                
                 <h1 className="banner-text">
                     Welcome back,{' '}
                     <Link 
@@ -35,13 +38,15 @@ class HomePage extends Component {
                 </div>
 
                 <Link to="/search">
-                    <button>Search Now!</button>
+                    <button className="rounded-button">SEARCH</button>
                 </Link>
                     
                 <div className="active-convos">
-                    <h2 className="banner-text">Your Active Convos</h2>
-                    <p className="banner-text-description">See who's looking to make a move</p>
-                    <ul className="convo-ul">
+                    <div className="convo-banner">
+                        <h2 className="banner-text home-banner">Your Active Convos</h2>
+                        <p className="banner-text-description">See who's looking to make a move</p>
+                    </div>
+                                    <ul className="convo-ul">
                         {userMatches1.map((match, index)=>
                             <li className="convo-li" key={index} >
                                 <Link userClass="user-link" to={`/convo/${match.id}`}>

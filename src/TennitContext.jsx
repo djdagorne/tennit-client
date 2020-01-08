@@ -48,18 +48,19 @@ export class TennitProvider extends React.Component {
   render() {
     const { testUsers, testImages, testMatches, testConvos, testComments} = STORE.makeThingsFixtures()
     const contextValue = {
-        loggedUserId: '',
+        loggedUser_Id: '',
         loggedIn: false,
-        showLogInPopup: '',
-        showCreatePopup: '',
+        showLogInPopup: false,
+        showCreatePopup: false,
         testUsers,
         testImages,
         testMatches,
         testConvos,
         testComments,
-        toggleLogIn: '',
-        toggleLogInPopup: '',
-        toggleCreatePopup: ''
+        toggleLogIn: ()=>{},
+        toggleLogInPopup:()=>{},
+        toggleCreatePopup: ()=>{},
+        testtext: 'pepe'
     }
     return (
       <TennitContext.Provider value={contextValue}>

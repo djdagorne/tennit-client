@@ -2,21 +2,27 @@
   display: inline-block;
   background: #eee;
   width: 100%;
+  border-radius: 1000px;
 }
 .banner-text{
   color: #323238;
   font-size: 1.5em;
   line-height: 1;
+  margin: 0 auto;
 }
 
 .banner-text-description{
   color: #323238;
   font-size: 1em;
-  margin: 0;
+  margin: 0 auto 25px auto;
+}
+
+.convo-banner{
+  margin: 25px auto;
 }
 
 .pic-wrap{
-  margin: 25px;
+  margin: 35px;
 }
 
 .convo-ul{
@@ -25,8 +31,39 @@
 }
 
 .convo-li{
-  margin: 10px;
+  margin: 10px 15%;
+  padding: 5px;
+  border: 1px #323238 solid;
+  border-radius: 10px;
 }
 
-.user-link{
+.convo-li a{
+  color: #323238;
+  text-decoration: none;
+}
+
+/* 
+  #F0F0F2   --offwhite
+  #323238   --text color
+  #BF946F
+  #A6763C
+ */
+.rounded-button{
+  background: #592202;
+  width: 150px;
+  height: 35px;
+  outline: none;
+  border: none;
+  color: #F0F0F2;
+  cursor: pointer;
+  font-size: 18px;
+  transition: .4s;
+  font-weight: 900;
+  border-radius: 100px;
+}
+
+.rounded-button:hover, .rounded-button:focus{
+  background: #F0F0F2;
+  border: 2px solid #592202;
+  color: #592202;
 }

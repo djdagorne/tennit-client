@@ -6,6 +6,7 @@ class CreateAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
+            loggedUser_id: this.props.loggedUser_id,
             loggedIn: this.props.loggedIn,
             listingChecked: false,
             toggleCreatePopup: this.props.toggleCreatePopup,
@@ -22,12 +23,14 @@ class CreateAccount extends Component {
 
     render(){
         return(
-            <div className="popup sign-up">
-                <div className="popup_inner">
-                    <h3>Sign Up</h3>
+            <div className="popup">
+                <div className="popup-inner">
+                    <h3>Sign Up</h3> 
+                    <button onClick={e=>console.log(this.props)}>log</button>
                     <form id="sign-up" >
+                    <button className="close-form" onClick={this.props.toggleCreatePopup}>Cancel</button>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="email">Your email</label>
                         <input 
                             type="email" 
@@ -37,7 +40,7 @@ class CreateAccount extends Component {
                         /> 
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="password">Your password</label>
                         <input 
                             type="password" 
@@ -47,7 +50,7 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="first-name">First Name</label>
                         <input 
                             type="text" 
@@ -57,7 +60,7 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="last-name">Last Name</label>
                         <input 
                             type="text" 
@@ -67,7 +70,7 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="form-section-dropdown">
+                    <div className="form-item-dropdown">
                         <label htmlFor="gender">Gender</label>
                         <select name="gender" 
                         /* required */>
@@ -78,9 +81,9 @@ class CreateAccount extends Component {
                         </select>
                     </div>
 
-                    <div className="form-section-dropdown">
-                        <label htmlFor="looking-for-gender">Looking for</label>
-                        <select name="looking-for-gender" 
+                    <div className="form-item-dropdown">
+                        <label htmlFor="seeking-gender">Looking for</label>
+                        <select name="seeking-gender" 
                         /* required */>
                             <option value="none">please pick one</option>
                             <option value="male">male</option>
@@ -89,7 +92,7 @@ class CreateAccount extends Component {
                         </select>
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="phone">Phone Number</label>
                         <input 
                             type="text" 
@@ -99,7 +102,7 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="age">Age</label>
                         <input 
                             type="text" 
@@ -110,16 +113,7 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="search-segnment-dropdown">
-                        <label htmlFor="country">country:</label>
-                        <select name="country" /* required */>
-                            <option value="none">please pick one</option>
-                            <option>Canada</option>
-                            <option>United States of America</option>
-                        </select>
-                    </div>
-
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="provence">Provence or State</label>
                         <input 
                             type="text" 
@@ -129,7 +123,7 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="city">City</label>
                         <input 
                             type="text" 
@@ -139,8 +133,8 @@ class CreateAccount extends Component {
                         />
                     </div>
 
-                    <div className="form-section">
-                        <label htmlFor="image">Display your apartment image, link here</label>
+                    <div className="form-item">
+                        <label htmlFor="image">Apartment image (link here)</label>
                         <input 
                                 type="url" 
                                 name="image" 
@@ -149,7 +143,7 @@ class CreateAccount extends Component {
                             />
                     </div>
 
-                    <div className="form-section">
+                    <div className="form-item">
                         <label htmlFor="user-details">Details</label>
                         <textarea 
                             rows="5" 
@@ -159,7 +153,7 @@ class CreateAccount extends Component {
                         />
                     </div>    
 
-                    <div className="listing-section">
+                    <div className="checkbox-wrap">
                         <label className="listing-section" htmlFor="listing-boolean">List your place?</label>
                         <input 
                             className="listing-section"
@@ -171,7 +165,7 @@ class CreateAccount extends Component {
 
                     {this.state.listingChecked ? 
                         <div className="listing-details">
-                            <div className="form-section">
+                            <div className="form-item">
                                 <label htmlFor="address">Address</label>
                                 <input 
                                     type="text" 
@@ -180,7 +174,7 @@ class CreateAccount extends Component {
                                 />
                             </div>
 
-                            <div className="form-section">
+                            <div className="form-item">
                                 <label htmlFor="neighborhood">Neighborhood (optional)</label>
                                 <input 
                                     type="text" 
@@ -189,7 +183,7 @@ class CreateAccount extends Component {
                                 />
                             </div>
 
-                            <div className="form-section">
+                            <div className="form-item">
                                 <label htmlFor="rent">Monthly rent cost (per person)</label>
                                 <input 
                                     type="text" 
@@ -198,7 +192,7 @@ class CreateAccount extends Component {
                                 />
                             </div>
 
-                            <div className="form-section">
+                            <div className="form-item">
                                 <label htmlFor="home-details">Details</label>
                                 <textarea 
                                     rows="5" 
@@ -209,11 +203,13 @@ class CreateAccount extends Component {
                         </div> 
                         : null
                     }
-
-                    <button onClick={this.props.toggleCreatePopup}>Cancel</button>
-                    <Link  to="/home" >
-                        <button type="submit" onClick={this.props.toggleCreatePopup}>Submit</button>
-                    </Link>
+                    <div className="buttons">
+                        <button  onClick={this.props.toggleCreatePopup}>Cancel</button>
+                        <Link  to="/home" >
+                            <button className="buttons" type="submit" onClick={this.props.toggleCreatePopup}>Submit</button>
+                        </Link> 
+                    </div>
+                    
 
                 </form>
                 </div>

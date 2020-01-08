@@ -12,12 +12,12 @@ import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
 import STORE from '../../STORE'
-//import TokenService from '../../Services/TokenService'
-// import TennitContext from '../../TennitContext';
+// import TokenService from '../../Services/TokenService'
+import TennitContext from '../../TennitContext';
 
 
 class App extends Component {
-	
+	static contextType = TennitContext
     constructor(props){
         super(props);
         this.state = {
@@ -27,7 +27,7 @@ class App extends Component {
             showCreatePopup: false,
             email: '',
             password: '',
-            error: null
+			error: null,
         }
 	}
 	toggleLogIn = () => {
@@ -100,8 +100,7 @@ class App extends Component {
 				console.log(this.state.error)
 			})
         }
-    }
-
+	}
 	render(){
 		return (
 			<div className="app-container">
@@ -111,10 +110,10 @@ class App extends Component {
 						loggedIn={this.state.loggedIn}
 						toggleLogIn={this.toggleLogIn.bind(this)}
 
+						loggedUser_id={this.state.loggedUser_id}
 						showLogInPopup={this.state.showLogInPopup}
 						toggleLogInPopup={this.toggleLogInPopup.bind(this)}
 						handleSubmit={this.handleSubmit.bind(this)}
-						loggedUser_id={this.state.loggedUser_id}
 						email={this.state.email}
 						password={this.state.password}
 
