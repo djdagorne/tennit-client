@@ -8,6 +8,30 @@ body {
   text-align: center;
 }
 
+.root{
+  position: relative;
+  min-height: 100%;
+}
+
+.app-container{
+  padding-bottom: 20px;
+}
+
+.footer { /* weird shit */
+  position: absolute;
+  bottom:0;
+  width:100%;
+  height:20px;
+  text-align: center;
+  color: #F0F0F2;
+}
+
+footer a{
+  margin:0 1vw 0 1vw;
+  color: #F0F0F2;
+  text-decoration: none;
+}
+
 ul{
     margin: 25px auto;
     padding: 0;
@@ -55,15 +79,19 @@ label {
 }
 
 .content-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background:#F0F0F2;
   margin: 10vh auto 15vh auto;
   width: 75%;
   padding: 30px 10px 45px 10px;
-  border-radius: 15px;
+  border-radius: 4px;
 }
 
 .tile-background{
   position: fixed;
+  background: #BF946F;
   top: 0;
   left: 0;
   right: 0;
@@ -111,8 +139,6 @@ nav {
   letter-spacing: -2px;
   line-height: 1.5em;
 }
-.logo:hover{
-}
 
 .log-button, .account-button{
   font-family: 'Raleway', sans-serif;
@@ -144,20 +170,6 @@ nav {
   cursor: pointer;
 } 
 
-
-footer { /* weird shit */
-  bottom:0;
-  width:100%;
-  height:19px;
-  text-align: center;
-  color: #F0F0F2;
-}
-
-footer a{
-  margin:0 1vw 0 1vw;
-  color: #F0F0F2;
-  text-decoration: none;
-}
 
 @media only screen and (min-width: 600px) {
   .content-container {

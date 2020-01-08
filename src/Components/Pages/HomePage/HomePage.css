@@ -4,6 +4,13 @@
   width: 100%;
   border-radius: 1000px;
 }
+
+.pic-wrap{
+  margin: 35px;
+  min-height: 250px;
+  width: 80%
+}
+
 .banner-text{
   color: #323238;
   font-size: 1.5em;
@@ -21,9 +28,6 @@
   margin: 25px auto;
 }
 
-.pic-wrap{
-  margin: 35px;
-}
 
 .convo-ul{
   position: relative;
@@ -31,10 +35,10 @@
 }
 
 .convo-li{
-  margin: 10px 15%;
+  margin: 10px 35px;
   padding: 5px;
   border: 1px #323238 solid;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .convo-li a{

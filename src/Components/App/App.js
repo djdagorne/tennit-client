@@ -16,6 +16,8 @@ import STORE from '../../STORE'
 import TennitContext from '../../TennitContext';
 
 
+//TODO move data management to context, ask Ali about this
+//TODO more CSS always
 class App extends Component {
 	static contextType = TennitContext
     constructor(props){
@@ -68,9 +70,6 @@ class App extends Component {
 		});
 	}
 	handleSubmit = (e) => {
-		//TODO more CSS always
-		//TODO get edit account page working with fake data
-		//TODO get search working with fake listings
 
 
         e.preventDefault();

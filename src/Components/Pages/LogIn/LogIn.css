@@ -3,7 +3,7 @@ input[type~=textarea],
 input[type~=url],
 input[type~=email],
 input[type~=password],
-input[type~=select],
+input[type~=number],
 select,
 textarea{
     width: 75%;
@@ -39,11 +39,11 @@ form{
 .popup-inner {
     overflow-y: scroll;
     max-height: 500px;
-    width: 60%;
+    width: 75%;
     margin: auto;
     padding-left: 10px; /* offset the scrollbar width, to keep form centered */
     vertical-align: justify;
-    border-radius: 10px;
+    border-radius: 4px;
     background-color: #F0F0F2;
     z-index: 11;
 }

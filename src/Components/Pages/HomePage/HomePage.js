@@ -37,9 +37,11 @@ class HomePage extends Component {
                     <img className='pic' src={testImages[0].image} alt="test" />     
                 </div>
 
-                <Link to="/search">
-                    <button className="rounded-button">SEARCH</button>
-                </Link>
+                <div className="button-wrap">
+                    <Link to="/search">
+                        <button className="rounded-button">SEARCH</button>
+                    </Link>
+                </div>
                     
                 <div className="active-convos">
                     <div className="convo-banner">
@@ -49,14 +51,14 @@ class HomePage extends Component {
                                     <ul className="convo-ul">
                         {userMatches1.map((match, index)=>
                             <li className="convo-li" key={index} >
-                                <Link userClass="user-link" to={`/convo/${match.id}`}>
+                                <Link className="user-link" to={`/convo/${match.id}`}>
                                     {testUsers[match.user2_id-1].firstName +' '+ testUsers[match.user2_id-1].lastName}
                                 </Link>
                             </li>
                         )}
                         {userMatches2.map((match, index)=>
                             <li className="convo-li" key={index} >
-                                <Link userClass="user-link" to={`/convo/${match.id}`}>
+                                <Link className="user-link" to={`/convo/${match.id}`}>
                                     {testUsers[match.user1_id-1].firstName +' '+ testUsers[match.user1_id-1].lastName}
                                 </Link>
                             </li>

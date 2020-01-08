@@ -5,21 +5,12 @@ import './SearchPage.css';
 class SearchPage extends Component {
     render(){
         return(
-            <>
+            <div className="content-container">
                 
-                <h1>Search</h1>
+                <h1 className="banner-text">Search</h1>
 
                 <form className="search">
-                    <span>Find listings in...</span>
-
-                    <div className="search-segnment dropdown">
-                        <label htmlFor="country">country:</label>
-                        <select name="country" required>
-                        <option value="none">please pick one</option>
-                        <option>Canada</option>
-                        <option>United States of America</option>
-                        </select>
-                    </div>
+                <h2 >Find listings in...</h2>
 
                     <div className="search-segment">
                         <label htmlFor="provence">provence/state:</label>
@@ -38,7 +29,7 @@ class SearchPage extends Component {
                     
                     <Link to="/results" type="submit"><button>Search Now</button></Link> {/* TODO make search button a component to regulate styling */}
                 </form>
-            </>
+            </div>
         )
     }
 }
