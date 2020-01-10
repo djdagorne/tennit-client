@@ -26,7 +26,7 @@ class CreateAccount extends Component {
             <div className="popup">
                 <div className="popup-inner">
                     <h3>Sign Up</h3> 
-                    <button onClick={e=>console.log(this.props)}>log</button>
+                    <button onClick={e=>console.log(this.props)}>log props</button>
                     <form id="sign-up" >
                     <button className="close-form" onClick={this.props.toggleCreatePopup}>Cancel</button>
 

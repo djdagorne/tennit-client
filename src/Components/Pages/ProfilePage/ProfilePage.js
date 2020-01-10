@@ -25,8 +25,8 @@ class ProfilePage extends Component {
                 </div>
                 
                 <div className="button-wrap">
-                    <button to="/home" className="rounded-button" type="button">Pass</button>
-                    <button to="/home" className="rounded-button" type="button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
+                    <button to="/home" className="rounded-button" >Pass</button>
+                    <button to="/home" className="rounded-button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
                 </div>
                 <div className="about-blurb">
                     <h2 className="banner-text">About {user_object.firstName}</h2>
