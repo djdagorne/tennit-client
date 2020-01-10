@@ -18,7 +18,7 @@ import TennitContext from '../../TennitContext';
 
 //TODO move data management to context, ask Ali about this
 //TODO more CSS always
-//why does logging out on certain pages get rid of 
+//TODO set up private routes
 class App extends Component {
 	static contextType = TennitContext
     constructor(props){

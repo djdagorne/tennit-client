@@ -35,6 +35,21 @@ export class TennitProvider extends React.Component {
   randomFunc(){
     return 'what'
   }
+  // contextLogIn = () => {
+	// 	if(this.state.loggedIn){
+	// 		this.setState({
+	// 			showLogInPopup: false,
+	// 			loggedIn: false
+	// 		})
+	// 		this.forceUpdate()
+	// 	}else{
+	// 		this.setState({
+	// 			showLogInPopup: false,
+	// 			loggedIn: true
+	// 		})
+	// 		this.forceUpdate()
+	// 	}
+	// }
 
   render() {
     const { testUsers, testImages, testMatches, testConvos, testComments} = STORE.makeThingsFixtures()
@@ -51,8 +66,8 @@ export class TennitProvider extends React.Component {
         toggleLogIn: ()=>{},
         toggleLogInPopup:()=>{},
         toggleCreatePopup: ()=>{},
-        testtext: 'pepe',
-        randomFunc: this.randomFunc()
+        randomFunc: this.randomFunc(),
+        // contextLogIn: this.contextLogIn()
     }
     return (
       <TennitContext.Provider value={contextValue}>

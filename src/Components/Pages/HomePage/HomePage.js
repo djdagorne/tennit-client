@@ -48,21 +48,21 @@ class HomePage extends Component {
                         <h2 className="banner-text home-banner">Your Active Convos</h2>
                         <p className="banner-text-description">See who's looking to make a move</p>
                     </div>
-                                    <ul className="convo-ul">
-                        {userMatches1.map((match, index)=>
-                            <li className="convo-li" key={index} >
-                                <Link className="user-link" to={`/convo/${match.id}`}>
-                                    {testUsers[match.user2_id-1].firstName +' '+ testUsers[match.user2_id-1].lastName}
-                                </Link>
-                            </li>
-                        )}
-                        {userMatches2.map((match, index)=>
-                            <li className="convo-li" key={index} >
-                                <Link className="user-link" to={`/convo/${match.id}`}>
-                                    {testUsers[match.user1_id-1].firstName +' '+ testUsers[match.user1_id-1].lastName}
-                                </Link>
-                            </li>
-                        )}
+                        <ul className="convo-ul">
+                            {userMatches1.map((match, index)=>
+                                <li className="convo-li" key={index} >
+                                    <Link className="user-link" to={`/convo/${match.id}`}>
+                                        {testUsers[match.user2_id-1].firstName +' '+ testUsers[match.user2_id-1].lastName}
+                                    </Link>
+                                </li>
+                            )}
+                            {userMatches2.map((match, index)=>
+                                <li className="convo-li" key={index} >
+                                    <Link className="user-link" to={`/convo/${match.id}`}>
+                                        {testUsers[match.user1_id-1].firstName +' '+ testUsers[match.user1_id-1].lastName}
+                                    </Link>
+                                </li>
+                            )}
                     </ul>
                 </div>
             </div>

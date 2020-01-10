@@ -8,35 +8,24 @@ class ResultsPage extends React.Component {
         const {testUsers, testImages} = STORE.makeThingsFixtures()
 
         return( 
-            <>
+            <div>
                 <ul>
-                    <div>
-                    <h1>Results:</h1>
-                    </div>
-
+                    <h1 className="result-header">Results:</h1>
                     {testUsers.map((user, index)=>
-                    <li key={index}>
-                        <img className="pic" src={testImages[index].image} alt={testImages[index].id}></img>
-                        <br/>
-                        <span>${user.rent} per Month</span>
-                        <br/>
-                        <span>{user.neighborhood}, {user.location.city}</span>
-                    </li>)}
-                    {/*
-                    
-                    <li>
-                    <div className="display-pic-sec">
-                        <div className="pic">user display pic, links to profile</div>
-                        <span>[neighborhood], [city], [rent price]</span>        
-                    </div>
-                    </li> 
-                    
-                    */}
+                        <li key={index} className="content-container results-container">
+                            <div className="pic-wrap">
+                                <img className="pic" src={testImages[index].image} alt={testImages[index].id}></img>
+                            </div>                            
+                            <h1 className="result-name">{user.firstName + ' ' + user.lastName}</h1>
+                            <h2 className="result-rent">${user.rent} per Month</h2>
+                            <p className="result-info">{user.neighborhood}, {user.location.city}</p>
+                        </li>
+                    )}
                 </ul>
-                <div>
-                    <Link to="/search"><button href="#" className="search-now">Search Again</button></Link>
+                <div className="button-wrap result-bottom">
+                    <Link to="/search"><button href="#" className="rounded-button double-size">Search Again</button></Link>
                 </div>
-            </>
+            </div>
         )
     }
 }

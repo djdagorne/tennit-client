@@ -1,17 +1,42 @@
-/* 
-li{
-  list-style: none;
-  width:  100%;
-  display: block;
-  margin: 0;
-  padding: 20px;
+.result-list-item{
+  margin-bottom: 45px;
 }
 
-ul{
-  list-style: none;
-  display: block;
-  margin: 0;
-  padding: 0;
-  
-  width:  100%;
-} */
+.result-header{
+  margin: auto;
+  margin-top: 70px;
+  font-size: 2em;
+  color: #323238;
+  padding: 10px;
+  background: #F0F0F2;
+  border-radius: 4px;
+  width: 50%;
+}
+
+.results-container{
+  margin: 45px auto;
+}
+
+.result-name{
+  color: #323238;
+  font-size: 1.2em;
+  margin: 10px;
+}
+
+.result-rent{
+  font-size: 1.5em;
+  margin: 0
+}
+
+.result-info{
+  margin:10px;
+}
+
+.result-search-again-wrap{
+  margin-top: -65px;
+  margin-bottom: 65px;
+}
+
+.result-bottom{
+  margin-bottom: 55px;
+}

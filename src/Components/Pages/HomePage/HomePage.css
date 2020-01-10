@@ -13,9 +13,9 @@
 
 .banner-text{
   color: #323238;
-  font-size: 1.5em;
+  font-size: 1.7em;
   line-height: 1;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 .banner-text-description{
@@ -35,17 +35,21 @@
 }
 
 .convo-li{
-  margin: 10px 35px;
+  margin: 10px 5px;
   padding: 5px;
   border: 1px #323238 solid;
   border-radius: 4px;
 }
 
-.convo-li a{
+.user-link{
   color: #323238;
   text-decoration: none;
+  transition: 0.3s ease;
 }
 
+.user-link:hover{
+  font-weight: 900;
+}
 /* 
   #F0F0F2   --offwhite
   #323238   --text color
@@ -70,4 +74,9 @@
   background: #F0F0F2;
   border: 2px solid #592202;
   color: #592202;
+}
+
+.double-size{
+  width: 300px;
+  height: 70px;
 }

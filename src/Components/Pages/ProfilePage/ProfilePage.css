@@ -2,11 +2,11 @@
     font-size: 2em;
 }
 
-.buttons-area{
-    margin: 35px 0;
-}
-
 .judge-buttons{
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.about-blurb{
+    margin: 10px 0;
 }

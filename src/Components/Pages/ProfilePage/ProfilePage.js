@@ -24,12 +24,12 @@ class ProfilePage extends Component {
                     <img className="pic" src={user_dp[0].image} alt="test" />        
                 </div>
                 
-                <div className="buttons-area">
-                    <button to="/home" className="judge-buttons" type="button">Pass</button>
-                    <button to="/home" className="judge-buttons" type="button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
+                <div className="button-wrap">
+                    <button to="/home" className="rounded-button" type="button">Pass</button>
+                    <button to="/home" className="rounded-button" type="button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
                 </div>
                 <div className="about-blurb">
-                    <h2 className="banner-text-description">About {user_object.firstName}</h2>
+                    <h2 className="banner-text">About {user_object.firstName}</h2>
                     <p>{user_object.firstName}, {user_object.lastName}, {user_object.age} years old</p>
                     {user_object.listing ?
                         <p> looking for someone to share their place with.</p> :

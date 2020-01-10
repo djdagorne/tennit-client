@@ -38,7 +38,7 @@ class LogIn extends Component {
                         {this.props.error && <p>{this.props.error}</p>}
                         </div>
                         <div className="form-item">
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">Email (john@email.com)</label>
                             <input 
                                 name="email"
                                 type="email"
@@ -47,7 +47,7 @@ class LogIn extends Component {
                                 />
                         </div>
                         <div className="form-item">
-                            <label htmlFor="Password">Password</label>
+                            <label htmlFor="Password">Password (AAaa11!!)</label>
                             <input 
                                 name="password"
                                 type="password"  
@@ -55,8 +55,9 @@ class LogIn extends Component {
                                 onChange={this.props.handleInputChange}
                                 />
                         </div>
-                        <div className="buttons">
+                        <div className="button-wrap">
                             <button 
+                                className="rounded-button"
                                 type="submit">
                                 Log in
                             </button>
