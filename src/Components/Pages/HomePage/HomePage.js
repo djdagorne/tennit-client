@@ -12,7 +12,7 @@ class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedUser_id: this.props.loggedUser_id || 1,
+            loggedUser_id: this.props.loggedUser_id,
         }
 	}
     render(){
@@ -23,7 +23,7 @@ class HomePage extends Component {
         
         return(
             <div className="content-container">
-                <button onClick={e=>console.log(this.context)}>log context</button>
+                <button onClick={e=>{console.log(TennitContext)}} >context log</button>
                 <h1 className="banner-text">
                     Welcome back,{' '}
                     <Link 

@@ -31,7 +31,6 @@ class Header extends Component {
                 <Link to="/" className="logo text-shadow">tenn.it</Link>
                 <button className="log-button text-shadow" onClick={this.props.toggleLogInPopup}>log in (demo)</button>
                 {/* <button className="account-button text-shadow" onClick={this.props.toggleCreatePopup}>sign up</button> */}
-
            </nav>
         )
     }
@@ -41,7 +40,6 @@ class Header extends Component {
             <nav className="nav-logged-in">
                 <Link to="/home" className="logo text-shadow">tenn.it</Link>
                 <button to="/"  onClick={this.props.toggleLogIn} className="log-button text-shadow">log out</button>
-
                 <button onClick={this.props.toggleCreatePopup} className="account-button text-shadow">edit profile</button>
             </nav>
         )
