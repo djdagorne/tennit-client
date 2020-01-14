@@ -12,24 +12,22 @@ class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedUser_id: this.props.loggedUser_id,
         }
 	}
     render(){
         const {testUsers, testImages, testMatches} = STORE.makeThingsFixtures()
         
-        const userMatches1 = testMatches.filter(match => match.user1_id === this.props.loggedUser_id) 
-        const userMatches2 = testMatches.filter(match => match.user2_id === this.props.loggedUser_id)
+        const userMatches1 = testMatches.filter(match => match.user1_id === this.context.loggedUser_id) 
+        const userMatches2 = testMatches.filter(match => match.user2_id === this.context.loggedUser_id)
         
         return(
             <div className="content-container">
-                <button onClick={e=>{console.log(TennitContext)}} >context log</button>
                 <h1 className="banner-text">
                     Welcome back,{' '}
                     <Link 
                         className="banner-text" 
-                        to={`/profile/${this.props.loggedUser_id}`}>
-                            {testUsers[this.props.loggedUser_id-1].firstName}
+                        to={`/profile/${this.context.loggedUser_id}`}>
+                            {testUsers[this.context.loggedUser_id-1].firstName}
                     </Link>
                 </h1>
 

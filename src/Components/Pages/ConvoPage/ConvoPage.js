@@ -2,9 +2,11 @@ import React from 'react';
 //import {Link} from 'react-router-dom';
 import './ConvoPage.css';
 import STORE from '../../../STORE'
+import TennitContext from '../../../TennitContext';
 
 const {testUsers, testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 class ConvoPage extends React.Component { 
+    static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
@@ -13,7 +15,7 @@ class ConvoPage extends React.Component {
             user2: testMatches[this.props.match.params.convo_id-1].user2_id,
         }
     }
-    handleSubmit = (e) => {
+    handleCommentSubmit = (e) => {
         e.preventDefault();
         const {textInput} = e.target
         const existingComments = this.state.currentConvo
@@ -49,7 +51,7 @@ class ConvoPage extends React.Component {
                             </li>
                         )}
                     </ul>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleCommentSubmit}>
                         <textarea className="comment-textarea" id="textInput" placeholder=""></textarea>
                         <button className="send-message-button" type="submit">send message</button>
                     </form>

@@ -1,49 +1,36 @@
 import React, {Component} from 'react';
 import './LogIn.css'
+import TennitContext from '../../../TennitContext'
 //import {Button, Input} from '../../../Utils/Utils'
 
 class LogIn extends Component {
-	
+	static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
-            handleSubmit:this.props.handleSubmit,
-            loggedUser_id: this.props.loggedUser_id,
-            loggedIn: this.props.loggedIn,
-            email: this.props.email,
-            password: this.props.password,
-            handleInputChange: this.props.handleInputChange,
-            error: this.props.error
         }
-    }
-
-    toggleLogIn= () => {
-        this.setState({
-            toggleLogIn: !this.state.loggedIn
-        },()=>{this.forceUpdate()})
     }
     render(){
         return(
             <div className="popup">
                 <div className="popup-inner ">
                     <h2>Log In</h2>
-                    <button onClick={this.props.closePopup}> {/* make this button an X in the top right corner */}
+                    <button onClick={this.context.toggleLogInPopup}> {/* make this button an X in the top right corner */}
                         Cancel
                     </button>
                     <form
-                        onSubmit={this.props.handleSubmit}
+                        onSubmit={this.context.handleLogIn}
                         id="sign-up">
-                        <div>
-                            
-                        {this.props.error && <p>{this.props.error}</p>}
-                        </div>
+                        {/* <div>
+                            {this.context.error && <p>{this.context.error}</p>}
+                        </div> */}
                         <div className="form-item">
                             <label htmlFor="email">Email (john@email.com)</label>
                             <input 
                                 name="email"
                                 type="email"
                                 placeholder="john@email.com"
-                                onChange={this.props.handleInputChange}
+                                onChange={this.context.handleInputChange}
                                 />
                         </div>
                         <div className="form-item">
@@ -52,7 +39,7 @@ class LogIn extends Component {
                                 name="password"
                                 type="password"  
                                 placeholder="********"
-                                onChange={this.props.handleInputChange}
+                                onChange={this.context.handleInputChange}
                                 />
                         </div>
                         <div className="button-wrap">

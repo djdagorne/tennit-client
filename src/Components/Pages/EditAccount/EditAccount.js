@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import './CreateAccount.css';
+import './EditAccount.css';
 import TennitContext from '../../../TennitContext';
 
-class CreateAccount extends Component {
+class EditAccount extends Component {
     static contextType = TennitContext;
     constructor(props){
         super(props);
@@ -24,8 +24,8 @@ class CreateAccount extends Component {
             <div className="popup">
                 <div className="popup-inner">
                     <h3>Sign Up</h3> 
-                    <form id="sign-up" >
-                    <button className="close-form" onClick={this.context.toggleCreatePopup}>Cancel</button>
+                    <form id="edit-account" >
+                    <button className="close-form" onClick={this.context.toggleEditPopup}>Cancel</button>
 
                     <div className="form-item">
                         <label htmlFor="email">Your email</label>
@@ -46,66 +46,12 @@ class CreateAccount extends Component {
                             /* required */
                         />
                     </div>
-
-                    <div className="form-item">
-                        <label htmlFor="first-name">First Name</label>
-                        <input 
-                            type="text" 
-                            name="first-name" 
-                            placeholder="Smithy" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="last-name">Last Name</label>
-                        <input 
-                            type="text" 
-                            name="last-name" 
-                            placeholder="Smitherson" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item-dropdown">
-                        <label htmlFor="gender">Gender</label>
-                        <select name="gender" 
-                        /* required */>
-                            <option value="none">please pick one</option>
-                            <option value="male">male</option>
-                            <option value="female">female</option>
-                            <option value="other">prefer not to say</option>
-                        </select>
-                    </div>
-
-                    <div className="form-item-dropdown">
-                        <label htmlFor="seeking-gender">Looking for</label>
-                        <select name="seeking-gender" 
-                        /* required */>
-                            <option value="none">please pick one</option>
-                            <option value="male">male</option>
-                            <option value="female">female</option>
-                            <option value="other">either</option>
-                        </select>
-                    </div>
-
                     <div className="form-item">
                         <label htmlFor="phone">Phone Number</label>
                         <input 
                             type="text" 
                             name="phone" 
                             placeholder="555-555-5555" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="age">Age</label>
-                        <input 
-                            type="text" 
-                            name="age" 
-                            placeholder="18" 
-                            min="18" 
                             /* required */
                         />
                     </div>
@@ -201,9 +147,9 @@ class CreateAccount extends Component {
                         : null
                     }
                     <div className="buttons">
-                        <button  onClick={this.context.toggleCreatePopup}>Cancel</button>
+                        <button  onClick={this.context.toggleEditPopup}>Cancel</button>
                         <Link  to="/home" >
-                            <button className="buttons" type="submit" onClick={this.context.toggleCreatePopup}>Submit</button>
+                            <button className="buttons" type="submit" onClick={this.context.toggleEditPopup}>Submit</button>
                         </Link> 
                     </div>
                     
@@ -215,4 +161,4 @@ class CreateAccount extends Component {
     }
 }
 
-export default CreateAccount;
+export default EditAccount;

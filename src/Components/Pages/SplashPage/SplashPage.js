@@ -9,24 +9,6 @@ import TennitContext from '../../../TennitContext';
 class SplashPage extends Component {
     static contextType = TennitContext
 
-    constructor(props){
-        super(props);
-        this.state = {
-            loggedIn: this.props.loggedIn,
-            toggleLogIn: this.props.toggleLogIn,
-            showLogInPopup: this.props.showLogInPopup,
-            toggleLogInPopup: this.props.toggleLogInPopup,
-            showCreatePopup: this.props.showCreate,
-            toggleCreatePopup: this.props.toggleCreatePopup,
-            loggedUser_id: this.props.loggedUser_id,
-            handleSubmit: this.props.handleSubmit,
-
-            email: this.props.email,
-            password: this.props.password,
-            handleInputChange: this.props.handleInputChange,
-        }
-    }
-
 
     render(){
         return (

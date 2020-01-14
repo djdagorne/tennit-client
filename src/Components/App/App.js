@@ -15,39 +15,18 @@ import STORE from '../../STORE'
 // import TokenService from '../../Services/TokenService'
 import TennitContext from '../../TennitContext';
 
-
-//TODO move data management to context, ask Ali about this
-//TODO more CSS always
+//TODO set up access tokens
 //TODO set up private routes
-/* 
-const contextValue = {
-		loggedUser_id: null,
-		loggedIn: false,  //testing purposes
-		showLogInPopup: false,
-		showCreatePopup: false,
-		email: '',
-		password: '',
-		error: null,
-		testUsers,
-		testImages,
-		testMatches,
-		testComments,
-		toggleLogIn: ()=>{},
-		toggleLogInPopup:()=>{},
-		toggleCreatePopup: ()=>{},
-		randomFunc: ()=>{},
-} 
-*/
 
 class App extends Component {
-	static contextType = TennitContext
     constructor(props){
         super(props);
         this.state = {
 			loggedUser_id: null,
 			loggedIn: false,  //testing purposes
 			showLogInPopup: false,
-            showCreatePopup: false,
+			showCreatePopup: false,
+			showEditPopup: false,
             email: '',
             password: '',
 			error: null,
@@ -80,8 +59,14 @@ class App extends Component {
             showCreatePopup: !this.state.showCreatePopup
         })
 	}
+
+    toggleEditPopup = () => {
+        this.setState({
+            showEditPopup: !this.state.showEditPopup
+        })
+	}
 	
-	handleInputChange(event) {
+	handleInputChange = (event) => {
 		const target = event.target;
 		const value = target.value;
 		const name = target.name;
@@ -90,8 +75,8 @@ class App extends Component {
 			  [name]: value
 		});
 	}
-	handleSubmit = (e) => {
-        e.preventDefault();
+	handleLogIn = (e) => {
+		e.preventDefault();
         const { email, password } = this.state
         if(email.length === 0){
             this.setState({error: 'email required'}, ()=>{
@@ -121,31 +106,30 @@ class App extends Component {
 	}
 	render(){
 		const contextValue = {
-			test: 'test'
+			error: this.state.error,
+			loggedIn: this.state.loggedIn,
+			loggedUser_id: this.state.loggedUser_id,
+			showLogInPopup: this.state.showLogInPopup,
+			showCreatePopup: this.state.showCreatePopup,
+			showEditPopup: this.state.showEditPopup,
+
+			email: this.state.email,
+			password: this.state.password,
+
+			toggleLogIn: this.toggleLogIn,
+			toggleLogInPopup: this.toggleLogInPopup,
+			handleLogIn: this.handleLogIn,
+			handleInputChange: this.handleInputChange,
+			toggleCreatePopup: this.toggleCreatePopup,
+			toggleEditPopup: this.toggleEditPopup,
 		}
 		return (
-			<TennitContext>
+			<TennitContext.Provider value={contextValue}>
 				<div className="app-container">
 					<header>
-						<Header
-							loggedIn={this.state.loggedIn}
-							toggleLogIn={this.toggleLogIn.bind(this)}
-
-							loggedUser_id={this.state.loggedUser_id}
-							showLogInPopup={this.state.showLogInPopup}
-							toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-							handleSubmit={this.handleSubmit.bind(this)}
-							email={this.state.email}
-							password={this.state.password}
-
-							
-							showCreatePopup={this.state.showCreatePopup}
-							toggleCreatePopup={this.toggleCreatePopup.bind(this)}
-
-							handleInputChange={this.handleInputChange.bind(this)}
-						/>
+						<Header />
 					</header>
-					{this.state.loggedIn ?
+					{contextValue.loggedIn ?
 						<div className="tile-background"/> :
 						<div className="splash-background"/>
 					}
@@ -154,95 +138,45 @@ class App extends Component {
 						<Route
 								exact
 								path={'/'}
-								loggedUser_id={this.state.loggedUser_id}
-								loggedIn={this.state.loggedIn}
 								render={() =>
-									!this.state.loggedIn ?
-									<SplashPage
-										error={this.state.error}
-
-										loggedIn={this.state.loggedIn}
-										toggleLogIn={this.toggleLogIn.bind(this)}
-										showLogInPopup={this.state.showLogInPopup}
-										toggleLogInPopup={this.toggleLogInPopup.bind(this)}
-										handleSubmit={this.handleSubmit.bind(this)}
-										loggedUser_id={this.state.loggedUser_id}
-										email={this.state.email}
-										password={this.state.password}
-
-										showCreatePopup={this.state.showCreatePopup}
-										toggleCreatePopup={this.toggleCreatePopup.bind(this)}
-
-
-										handleInputChange={this.handleInputChange.bind(this)}
-									/> :
-									<Redirect to="/home" />
+									contextValue.loggedIn ?
+									<Redirect to="/home" /> :
+									<SplashPage /> 
 								}
 							/>
 							<Route
 								exact
 								path={'/home'}
-								loggedUser_id={this.state.loggedUser_id}
-								loggedIn={this.state.loggedIn}
-								render={()=>
-									this.state.loggedIn ? 
-									<HomePage
-										loggedUser_id={this.state.loggedUser_id}
-									/> :
-									<Redirect to="/" />
+								render={() =>
+									contextValue.loggedIn ?
+									<HomePage /> :
+									<Redirect to="/" /> 
 								}
 							/>
 							<Route
 								exact
 								path={'/edit-account'}
-								loggedIn={this.state.loggedIn}
-								// component={CreateAccount}
-								render={()=>
-									!this.state.loggedIn ? 
-									<CreateAccount
-									/> :
-									<Redirect to="/home" />
-								}
+								component={CreateAccount}
 							/>
 							<Route 
 								exact
 								path={'/profile/:user_id'}
-								loggedIn={this.state.loggedIn}
 								component={ProfilePage}
-								render={()=>
-									this.state.loggedIn ? 
-									<ProfilePage
-										exact
-										path={'/profile/:user_id'}
-										loggedIn={this.state.loggedIn}
-									/> :
-									<Redirect to="/" />
-								}
 							/>
 							<Route 
 								exact
 								path={'/convo/:convo_id'}
-								loggedUser_id={this.state.loggedUser_id}
-								loggedIn={this.state.loggedIn}
 								component={ConvoPage}
 							/>
 							<Route 
 								exact
 								path={'/results'}
-								loggedIn={this.state.loggedIn}
-								// component={ResultsPage}
-								render={()=>
-									this.state.loggedIn ? 
-									<ResultsPage
-										loggedIn={this.state.loggedIn}
-									/> :
-									<Redirect to="/" />
-								}
+								component={ResultsPage}
+								
 							/>
 							<Route 
 								exact
 								path={'/search'}
-								loggedIn={this.state.loggedIn}
 								component={SearchPage}
 							/>
 						</Switch>
@@ -251,7 +185,7 @@ class App extends Component {
 						<Footer/>
 					</footer>
 				</div>
-			</TennitContext>
+			</TennitContext.Provider>
 		);
 	}
 }
