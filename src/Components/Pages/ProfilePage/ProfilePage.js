@@ -29,16 +29,17 @@ class ProfilePage extends Component {
                     <button to="/home" className="rounded-button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
                 </div>
                 <div className="about-blurb">
-                    <h2 className="banner-text">About {user_object.firstName}</h2>
-                    <p>{user_object.firstName}, {user_object.lastName}, {user_object.age} years old</p>
+                    <h2 className="banner-text">{user_object.firstName}, {user_object.lastName}, {user_object.age} years old</h2>
                     {user_object.listing ?
-                        <p> looking for someone to share their place with.</p> :
-                        <p> looking for somewhere new. </p>
+                        <div className="user-blurb">
+                            <p> {user_object.userBlurb} </p>
+                            <p> {user_object.blurb} </p> 
+                        </div>  :
+                        <p> {user_object.userBlurb} </p>
                     }
                 </div>
-                <div className="user-blurb">
-                    <span> {user_object.blurb} </span>
-                </div>
+                
+                    
             </div>
         )
     }

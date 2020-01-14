@@ -19,6 +19,7 @@ import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 
 
 class App extends Component {
+	static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
@@ -26,8 +27,6 @@ class App extends Component {
 			showLogInPopup: false,
 			showCreatePopup: false,
 			showEditPopup: false,
-            email: 'test',
-            password: '',
 			error: null,
 			testUsers: STORE.makeUserArray()
         }
@@ -37,10 +36,7 @@ class App extends Component {
 		if(TokenService.getAuthToken()){
 			const unpw = TokenService.decodeAuthToken().split(":");
 			const matchedUser = this.state.testUsers.filter(users => unpw[0] === users.email)
-
 			this.setState({
-				email: matchedUser[0].email,
-				password: matchedUser[0].password,
 				loggedUser: matchedUser[0]
 			})
 		}
@@ -48,18 +44,21 @@ class App extends Component {
 
 	toggleLogIn = () => {
 		if(TokenService.hasAuthToken()){
+			console.log('has token, setting state')
+			TokenService.clearAuthToken()
 			this.setState({
 				showLogInPopup: false,
 				email: '',
 				password: '',
 				loggedUser: {},
-			},()=>{TokenService.clearAuthToken()})
-			this.forceUpdate()
+			},()=>this.forceUpdate())
+			
+			console.log('state set')
 		}else{
+			console.log('no token, closing popup')
 			this.setState({
 				showLogInPopup: false
 			})
-			this.forceUpdate()
 		}
 	}
 
@@ -94,7 +93,7 @@ class App extends Component {
 	handleLogIn = (e) => {
 		e.preventDefault();
 		//check if credentials are valid, assign the loggedUser
-        const { email, password } = this.state
+		const { email, password } = this.state
         if(email.length === 0){
             this.setState({error: 'email required'}, ()=>{
 				console.log(this.state.error)
@@ -107,17 +106,19 @@ class App extends Component {
 			})
 			return
         }
-		const verify = STORE.makeUserArray()
 
-		const matchedUser = verify.filter(userItems => email === userItems.email)
+		const matchedUser = this.state.testUsers.filter(userItems => email === userItems.email)
+
         if(password === matchedUser[0].password){
+			
+		console.log(email, password)
             this.setState({
-                loggedUser: matchedUser[0]
+				loggedUser: matchedUser[0],
+				showLogInPopup: false
 			})
 			TokenService.saveAuthToken(
 				TokenService.makeBasicAuthToken(email, password)
 			)
-            this.toggleLogIn()
         }else{
             this.setState({error: 'username and password do not match, email admin to verify'}, ()=>{
 				console.log(this.state.error)
@@ -125,20 +126,28 @@ class App extends Component {
         }
 	}
 	render(){
+		const {testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 		const contextValue = {
-			error: this.state.error,
-			loggedUser: this.state.loggedUser,
-			showLogInPopup: this.state.showLogInPopup,
-			showCreatePopup: this.state.showCreatePopup,
-			showEditPopup: this.state.showEditPopup,
+			...this.state,
+			// error: this.state.error,
+			// showLogInPopup: this.state.showLogInPopup,
+			// showCreatePopup: this.state.showCreatePopup,
+			// showEditPopup: this.state.showEditPopup,
 
-			email: this.state.email,
-			password: this.state.password,
+			// loggedUser: this.state.loggedUser,
+			// email: this.state.email,
+			// password: this.state.password,
+
+			//testUsers: this.state.testUsers,
+			testImages: testImages,
+			testMatches: testMatches,
+			testComments: testComments,
 
 			toggleLogIn: this.toggleLogIn,
 			handleLogIn: this.handleLogIn,
 			handleInputChange: this.handleInputChange,
 			togglePopup: this.togglePopup
+
 		}
 		return (
 			<TennitContext.Provider value={contextValue}>
@@ -146,7 +155,7 @@ class App extends Component {
 					<header>
 						<Header />
 					</header>
-					{TokenService.hasAuthToken() ?
+					{ TokenService.hasAuthToken() ?
 						<div className="tile-background"/> :
 						<div className="splash-background"/>
 					}

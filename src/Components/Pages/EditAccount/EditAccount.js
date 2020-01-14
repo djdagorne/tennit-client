@@ -8,14 +8,35 @@ export default class EditAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
-            listingChecked: false,
+            loggedUser: this.props.loggedUser,
+            phone: '',
+            provence: '',
+            city: '',
+            listing: false,
+            //find a way to implement image links into form
+            blurb: '',
+            userBlurb: '',
+            neighborhood: '',
         };
     };
 
     toggleListingSection = () => {
         this.setState({
-            listingChecked: !this.state.listingChecked
+            listing: !this.state.listing,
         });
+    }
+
+    handleEditSubmit = (e) => {
+        e.preventDefault();
+        this.context.togglePopup('edit')
+        if(this.context.email === this.context.loggedUser.email && 
+            this.context.password === this.context.loggedUser.password){
+                const newUser = {...this.context.loggedUser, ...this.state}
+                 console.log('newUser:')
+                console.log(newUser)
+                this.setState({
+                })
+            }
     }
 
 
@@ -28,130 +49,141 @@ export default class EditAccount extends Component {
                         onClick={e=>this.context.togglePopup('edit')}>
                             X
                     </button>
+                    <button 
+                        className="close-popup" 
+                        onClick={e=>console.log(this.context.loggedUser)}>
+                            loggeduser context
+                    </button>
 
                     <h3>Sign Up</h3> 
-                    <form id="edit-account" >
-                    
-                    <div className="form-item">
-                        <label htmlFor="email">Your email</label>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="smithy@smithmail.com" 
-                            /* required */
-                        /> 
-                    </div>
+                    <form 
+                        id="edit-account" 
+                        onSubmit={this.handleEditSubmit}>
+                        
+                        <div className="form-item">
+                            <label htmlFor="email">Your email</label>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                placeholder="smithy@smithmail.com" 
+                                onChange={this.context.handleInputChange}
+                                required
+                            /> 
+                        </div>
 
-                    <div className="form-item">
-                        <label htmlFor="password">Your password</label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            placeholder="*******" 
-                            /* required */
-                        />
-                    </div>
-                    
-                    <div className="form-item">
-                        <label htmlFor="phone">Phone Number</label>
-                        <input 
-                            type="text" 
-                            name="phone" 
-                            placeholder="555-555-5555" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="provence">Provence or State</label>
-                        <input 
-                            type="text" 
-                            name="provence" 
-                            placeholder="Enter provence/state" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="city">City</label>
-                        <input 
-                            type="text" 
-                            name="city" 
-                            placeholder="Enter city name" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="image">Apartment image (link here)</label>
-                        <input 
-                                type="url" 
-                                name="image" 
-                                placeholder="https://imagehost.com/image.jpg" 
+                        <div className="form-item">
+                            <label htmlFor="password">Your password</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                placeholder="*******" 
+                                onChange={this.context.handleInputChange}
+                                required
+                            />
+                        </div>
+                        
+                        <div className="form-item">
+                            <label htmlFor="phone">Phone Number</label>
+                            <input 
+                                type="text" 
+                                name="phone" 
+                                placeholder={this.context.loggedUser.phone} 
                                 /* required */
                             />
-                    </div>
+                        </div>
 
-                    <div className="form-item">
-                        <label htmlFor="user-details">Details</label>
-                        <textarea 
-                            rows="5" 
-                            name="user-details" 
-                            placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
-                            /* required */
-                        />
-                    </div>    
+                        <div className="form-item">
+                            <label htmlFor="provence">Provence or State</label>
+                            <input 
+                                type="text" 
+                                name="provence" 
+                                onChange={this.context.handleInputChange}
+                                placeholder={this.context.loggedUser.location.provence} 
+                                /* required */
+                            />
+                        </div>
 
-                    <div className="checkbox-wrap">
-                        <label className="listing-section" htmlFor="listing-boolean">List your place?</label>
-                        <input 
-                            className="listing-section"
-                            type="checkbox" 
-                            name="listing-boolean" 
-                            onClick={this.toggleListingSection}
-                        />
-                    </div>
+                        <div className="form-item">
+                            <label htmlFor="city">City</label>
+                            <input 
+                                type="text" 
+                                name="city" 
+                                onChange={this.context.handleInputChange}
+                                placeholder={this.context.loggedUser.location.city} 
+                                /* required */
+                            />
+                        </div>
 
-                    {this.state.listingChecked ? 
-                        <div className="listing-details">
-
-                            <div className="form-item">
-                                <label htmlFor="neighborhood">Neighborhood (optional)</label>
-                                <input 
-                                    type="text" 
-                                    name="neighborhood" 
-                                    placeholder="eg financial district"
+                        <div className="form-item">
+                            <label htmlFor="image">Apartment image (link here)</label>
+                            <input 
+                                    type="url" 
+                                    name="image" 
+                                    placeholder="https://imagehost.com/image.jpg" 
+                                    /* required */
                                 />
-                            </div>
+                        </div>
 
-                            <div className="form-item">
-                                <label htmlFor="rent">Monthly rent cost (per person)</label>
-                                <input 
-                                    type="text" 
-                                    name="rent" 
-                                    placeholder="eg 750"
-                                />
-                            </div>
+                        <div className="form-item">
+                            <label htmlFor="userBlurb">Details</label>
+                            <textarea 
+                                rows="5" 
+                                name="userBlurb" 
+                                onChange={this.context.handleInputChange}
+                                placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
+                                /* required */
+                            />
+                        </div>    
 
-                            <div className="form-item">
-                                <label htmlFor="home-details">Details</label>
-                                <textarea 
-                                    rows="5" 
-                                    name="home-details" 
-                                    placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
-                                />
-                            </div>  
-                        </div> 
-                        : null
-                    }
-                    <div className="button-wrap">
-                        <Link  to="/home" >
-                            <button className="rounded-button" type="submit" onClick={e=>this.context.togglePopup('edit')}>Submit</button>
-                        </Link> 
-                    </div>
-                    
+                        <div className="checkbox-wrap">
+                            <label className="listing-section" htmlFor="listing-boolean">List your place?</label>
+                            <input 
+                                className="listing-section"
+                                type="checkbox" 
+                                name="listing-boolean" 
+                                onClick={this.toggleListingSection}
+                            />
+                        </div>
 
-                </form>
+                        {this.state.listing ? 
+                            <div className="listing-details">
+
+                                <div className="form-item">
+                                    <label htmlFor="neighborhood">Neighborhood (optional)</label>
+                                    <input 
+                                        type="text" 
+                                        name="neighborhood" 
+                                        onChange={this.context.handleInputChange}
+                                    />
+                                </div>
+
+                                <div className="form-item">
+                                    <label htmlFor="rent">Monthly rent cost (per person)</label>
+                                    <input 
+                                        type="text" 
+                                        name="rent" 
+                                        onChange={this.context.handleInputChange}
+                                    />
+                                </div>
+
+                                <div className="form-item">
+                                    <label htmlFor="home-details">Details</label>
+                                    <textarea 
+                                        rows="5" 
+                                        name="blurb" 
+                                        onChange={this.context.handleInputChange}
+                                        placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
+                                    />
+                                </div>  
+                            </div> 
+                            : null
+                        }
+                        <div className="button-wrap">
+                                <button className="rounded-button" type="submit">Submit</button>
+                        </div>
+                        
+
+                    </form>
                 </div>
             </div>
         )

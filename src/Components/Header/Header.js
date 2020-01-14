@@ -18,8 +18,16 @@ class Header extends Component {
     renderLogInLink = () =>{
         return(
             <nav className="nav-not-logged-in">
-                <Link to="/" className="logo text-shadow">tenn.it</Link>
-                <button className="log-button text-shadow" onClick={e=>this.context.togglePopup('login')}>log in (demo)</button>
+                <Link 
+                    to="/" 
+                    className="logo text-shadow">
+                        tenn.it
+                </Link>
+                <button 
+                    className="log-button text-shadow" 
+                    onClick={e=>this.context.togglePopup('login')}>
+                        log in (demo)
+                </button>
                 {/* <button className="account-button text-shadow" onClick={e=>this.context.togglePopup('create')}>sign up</button> */}
            </nav>
         )
@@ -28,9 +36,23 @@ class Header extends Component {
     renderLogOutLink = () =>{
         return(
             <nav className="nav-logged-in">
-                <Link to="/home" className="logo text-shadow">tenn.it</Link>
-                <Link to="/"><button  onClick={this.context.toggleLogIn} className="log-button text-shadow">log out</button></Link>
-                <button onClick={e=>this.context.togglePopup('edit')} className="account-button text-shadow">edit profile</button>
+                <Link 
+                    to="/home" 
+                    className="logo text-shadow">
+                        tenn.it
+                </Link>
+                <Link to="/">
+                    <button  
+                        onClick={this.context.toggleLogIn} 
+                        className="log-button text-shadow">
+                            log out
+                    </button>
+                </Link>
+                <button 
+                    onClick={e=>this.context.togglePopup('edit')} 
+                    className="account-button text-shadow">
+                        edit profile
+                </button>
             </nav>
         )
     }
@@ -45,9 +67,9 @@ class Header extends Component {
                 }
 
                 {this.context.showLogInPopup ?
-                        <LogIn /> :
-                        null
-                    }
+                    <LogIn /> :
+                    null
+                }
 
                 {this.context.showCreatePopup ? 
                     <CreateAccount /> :

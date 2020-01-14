@@ -1,20 +1,37 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import './ResultsPage.css'
+import TennitContext from '../../../TennitContext'
 import STORE from '../../../STORE'
 
-class ResultsPage extends React.Component {
+class ResultsPage extends React.Component { //TODO make search results into a popup? 
+    static contextType = TennitContext;
+    constructor(props){
+        super(props);
+        this.state={
+            searchList: []
+        }
+    }
+    componentDidMount = () => {        
+        const filterUser = this.context.testUsers.filter(user => user.id !== this.context.loggedUser.id)
+        const filterProv = filterUser.filter(user => user.location.provence.toLowerCase().includes(this.context.searchProvence.toLowerCase()) )
+        const filterCity = filterProv.filter(user => user.location.city.toLowerCase().includes(this.context.searchCity.toLowerCase()))
+        const filterRent = filterCity.filter(user => Number(user.rent) <= Number(this.context.searchRent))
+        console.log(filterRent)
+        this.setState({
+            searchList: filterRent
+        })
+    }
     render(){
-        const {testUsers, testImages} = STORE.makeThingsFixtures()
 
         return( 
             <div>
                 <ul>
                     <h1 className="result-header">Results:</h1>
-                    {testUsers.map((user, index)=>
+                    {this.state.searchList.map((user, index)=>
                         <li key={index} className="content-container results-container">
                             <div className="pic-wrap">
-                                <img className="pic" src={testImages[index].image} alt={testImages[index].id}></img>
+                                <img className="pic" src={this.context.testImages[index].image} alt={this.context.testImages[index].id}></img>
                             </div>                            
                             <h1 className="result-name">{user.firstName + ' ' + user.lastName}</h1>
                             <h2 className="result-rent">${user.rent} per Month</h2>

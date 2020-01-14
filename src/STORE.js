@@ -15,9 +15,10 @@ function makeUserArray() {
                 provence: 'Ontario',
                 city: 'Toronto'
             },
-            rent: '1000',
+            rent: 1000,
             listing: true,
-            blurb: '~user blerb text~',
+            userBlurb: 'i am user!',
+            blurb: 'this is setting description!',
         },
         {
             id: 2,
@@ -34,9 +35,10 @@ function makeUserArray() {
                 provence: 'Ontario',
                 city: 'Toronto'
             },
-            rent: '1000',
+            rent: 1001,
             listing: true,
-            blurb: '~user blerb text~',
+            userBlurb: 'i am user!',
+            blurb: 'this is setting description!',
         },
         {
             id: 3,
@@ -48,14 +50,15 @@ function makeUserArray() {
             prefGender: 'male',
             age: 20,
             phone: '555-555-5555',
-            neighborhood: 'Kensington',
+            neighborhood: 'Clarkson',
             location: {
                 provence: 'Ontario',
-                city: 'Toronto'
+                city: 'Mississauga'
             },
-            rent: '1500',
+            rent: 1500,
             listing: true,
-            blurb: '~user blerb text~',
+            userBlurb: 'i am user!',
+            blurb: 'this is setting description!',
         },
         {
             id: 4,
@@ -72,9 +75,10 @@ function makeUserArray() {
                 provence: 'Ontario',
                 city: 'Toronto'
             },
-            rent: '700',
+            rent: 700,
             listing: false,
-            blurb: '~user blerb text~',
+            userBlurb: 'i am user!',
+            blurb: 'this is setting description!',
         },
     ]
 }
