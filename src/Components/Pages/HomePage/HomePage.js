@@ -15,8 +15,8 @@ export default class HomePage extends Component {
     render(){
         const {testUsers, testImages, testMatches} = STORE.makeThingsFixtures()
         
-        const userMatches1 = testMatches.filter(match => match.user1_id === this.context.loggedUser_id) 
-        const userMatches2 = testMatches.filter(match => match.user2_id === this.context.loggedUser_id)
+        const userMatches1 = testMatches.filter(match => match.user1_id === this.context.loggedUser.id) 
+        const userMatches2 = testMatches.filter(match => match.user2_id === this.context.loggedUser.id)
         
         return(
             <div className="content-container">
@@ -24,8 +24,8 @@ export default class HomePage extends Component {
                     Welcome back,{' '}
                     <Link 
                         className="banner-text" 
-                        to={`/profile/${this.context.loggedUser_id}`}>
-                            {testUsers[this.context.loggedUser_id-1].firstName}
+                        to={`/profile/${this.context.loggedUser.id}`}>
+                            {testUsers[this.context.loggedUser.id-1].firstName}
                     </Link>
                 </h1>
 

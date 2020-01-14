@@ -22,8 +22,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedUser_id: null,
-			loggedIn: false,
+			loggedUser: {},
 			showLogInPopup: false,
 			showCreatePopup: false,
 			showEditPopup: false,
@@ -42,26 +41,23 @@ class App extends Component {
 			this.setState({
 				email: matchedUser[0].email,
 				password: matchedUser[0].password,
-				loggedUser_id: matchedUser[0].id,
-				loggedIn: true,
+				loggedUser: matchedUser[0]
 			})
 		}
 	}
 
 	toggleLogIn = () => {
-		if(this.state.loggedIn){
+		if(TokenService.hasAuthToken()){
 			this.setState({
 				showLogInPopup: false,
-				loggedIn: false,
 				email: '',
 				password: '',
-				loggedUser_id: null,
+				loggedUser: {},
 			},()=>{TokenService.clearAuthToken()})
 			this.forceUpdate()
 		}else{
 			this.setState({
-				showLogInPopup: false,
-				loggedIn: true
+				showLogInPopup: false
 			})
 			this.forceUpdate()
 		}
@@ -97,7 +93,7 @@ class App extends Component {
 	
 	handleLogIn = (e) => {
 		e.preventDefault();
-		//check if credentials are valid, assign the loggedUser_id, set loggedIn to true (replace later with access tokens)
+		//check if credentials are valid, assign the loggedUser
         const { email, password } = this.state
         if(email.length === 0){
             this.setState({error: 'email required'}, ()=>{
@@ -116,7 +112,7 @@ class App extends Component {
 		const matchedUser = verify.filter(userItems => email === userItems.email)
         if(password === matchedUser[0].password){
             this.setState({
-                loggedUser_id: matchedUser[0].id
+                loggedUser: matchedUser[0]
 			})
 			TokenService.saveAuthToken(
 				TokenService.makeBasicAuthToken(email, password)
@@ -131,8 +127,7 @@ class App extends Component {
 	render(){
 		const contextValue = {
 			error: this.state.error,
-			loggedIn: this.state.loggedIn,
-			loggedUser_id: this.state.loggedUser_id,
+			loggedUser: this.state.loggedUser,
 			showLogInPopup: this.state.showLogInPopup,
 			showCreatePopup: this.state.showCreatePopup,
 			showEditPopup: this.state.showEditPopup,
@@ -151,7 +146,7 @@ class App extends Component {
 					<header>
 						<Header />
 					</header>
-					{contextValue.loggedIn ?
+					{TokenService.hasAuthToken() ?
 						<div className="tile-background"/> :
 						<div className="splash-background"/>
 					}
@@ -161,21 +156,11 @@ class App extends Component {
 								exact
 								path={'/'}
 								component={SplashPage}
-								// render={() =>
-								// 	contextValue.loggedIn ?
-								// 	<Redirect to="/home" /> :
-								// 	<SplashPage /> 
-								// }
 							/>
 							<PrivateRoute
 								exact
 								path={'/home'}
 								component={HomePage}
-								// render={() =>
-								// 	contextValue.loggedIn ?
-								// 	<HomePage /> :
-								// 	<Redirect to="/" /> 
-								// }
 							/>
 							<PrivateRoute 
 								exact

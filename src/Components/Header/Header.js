@@ -5,6 +5,7 @@ import LogIn from '../Pages/LogIn/LogIn.js'
 import EditAccount from '../Pages/EditAccount/EditAccount'
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
 import TennitContext from '../../TennitContext'
+import TokenService from '../../Services/TokenService';
 
 class Header extends Component {
     static contextType = TennitContext
@@ -38,7 +39,7 @@ class Header extends Component {
     render(){
         return (
             <>
-                {this.context.loggedIn ? 
+                {TokenService.hasAuthToken() ? 
                     this.renderLogOutLink() :
                     this.renderLogInLink()
                 }

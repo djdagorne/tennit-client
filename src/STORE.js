@@ -53,7 +53,7 @@ function makeUserArray() {
                 provence: 'Ontario',
                 city: 'Toronto'
             },
-            rent: '1000',
+            rent: '1500',
             listing: true,
             blurb: '~user blerb text~',
         },
@@ -72,7 +72,7 @@ function makeUserArray() {
                 provence: 'Ontario',
                 city: 'Toronto'
             },
-            rent: '1000',
+            rent: '700',
             listing: false,
             blurb: '~user blerb text~',
         },
