@@ -10,34 +10,53 @@ import ProfilePage from '../Pages/ProfilePage/ProfilePage';
 import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
-import CreateAccount from '../Pages/CreateAccount/CreateAccount'
+import NotFoundPage from '../Pages/NotFoundPage/NotFoundPage'
 import STORE from '../../STORE'
-// import TokenService from '../../Services/TokenService'
+import TokenService from '../../Services/TokenService'
 import TennitContext from '../../TennitContext';
+import PrivateRoute from '../../Utils/PrivateRoute'
+import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 
-//TODO set up access tokens
-//TODO set up private routes
 
 class App extends Component {
     constructor(props){
         super(props);
         this.state = {
 			loggedUser_id: null,
-			loggedIn: false,  //testing purposes
+			loggedIn: false,
 			showLogInPopup: false,
 			showCreatePopup: false,
 			showEditPopup: false,
-            email: '',
+            email: 'test',
             password: '',
 			error: null,
+			testUsers: STORE.makeUserArray()
         }
 	}
+
+	componentWillMount = () => {
+		if(TokenService.getAuthToken()){
+			const unpw = TokenService.decodeAuthToken().split(":");
+			const matchedUser = this.state.testUsers.filter(users => unpw[0] === users.email)
+
+			this.setState({
+				email: matchedUser[0].email,
+				password: matchedUser[0].password,
+				loggedUser_id: matchedUser[0].id,
+				loggedIn: true,
+			})
+		}
+	}
+
 	toggleLogIn = () => {
 		if(this.state.loggedIn){
 			this.setState({
 				showLogInPopup: false,
-				loggedIn: false
-			})
+				loggedIn: false,
+				email: '',
+				password: '',
+				loggedUser_id: null,
+			},()=>{TokenService.clearAuthToken()})
 			this.forceUpdate()
 		}else{
 			this.setState({
@@ -48,23 +67,23 @@ class App extends Component {
 		}
 	}
 
-    toggleLogInPopup = () =>{
-        this.setState({
-            showLogInPopup: !this.state.showLogInPopup
-        })
+    togglePopup = (e) =>{
+		if(e === 'login'){
+			this.setState({
+				showLogInPopup: !this.state.showLogInPopup
+			})
+		}
+		if(e === 'create'){
+			this.setState({
+				showCreatePopup: !this.state.showCreatePopup
+			})
+		}
+		if(e === 'edit'){
+			this.setState({
+				showEditPopup: !this.state.showEditPopup
+			})
+		}
     }
-
-    toggleCreatePopup = () => {
-        this.setState({
-            showCreatePopup: !this.state.showCreatePopup
-        })
-	}
-
-    toggleEditPopup = () => {
-        this.setState({
-            showEditPopup: !this.state.showEditPopup
-        })
-	}
 	
 	handleInputChange = (event) => {
 		const target = event.target;
@@ -75,8 +94,10 @@ class App extends Component {
 			  [name]: value
 		});
 	}
+	
 	handleLogIn = (e) => {
 		e.preventDefault();
+		//check if credentials are valid, assign the loggedUser_id, set loggedIn to true (replace later with access tokens)
         const { email, password } = this.state
         if(email.length === 0){
             this.setState({error: 'email required'}, ()=>{
@@ -97,6 +118,9 @@ class App extends Component {
             this.setState({
                 loggedUser_id: matchedUser[0].id
 			})
+			TokenService.saveAuthToken(
+				TokenService.makeBasicAuthToken(email, password)
+			)
             this.toggleLogIn()
         }else{
             this.setState({error: 'username and password do not match, email admin to verify'}, ()=>{
@@ -117,11 +141,9 @@ class App extends Component {
 			password: this.state.password,
 
 			toggleLogIn: this.toggleLogIn,
-			toggleLogInPopup: this.toggleLogInPopup,
 			handleLogIn: this.handleLogIn,
 			handleInputChange: this.handleInputChange,
-			toggleCreatePopup: this.toggleCreatePopup,
-			toggleEditPopup: this.toggleEditPopup,
+			togglePopup: this.togglePopup
 		}
 		return (
 			<TennitContext.Provider value={contextValue}>
@@ -135,49 +157,49 @@ class App extends Component {
 					}
 					<main>
 						<Switch>
-						<Route
+							<PublicOnlyRoute
 								exact
 								path={'/'}
-								render={() =>
-									contextValue.loggedIn ?
-									<Redirect to="/home" /> :
-									<SplashPage /> 
-								}
+								component={SplashPage}
+								// render={() =>
+								// 	contextValue.loggedIn ?
+								// 	<Redirect to="/home" /> :
+								// 	<SplashPage /> 
+								// }
 							/>
-							<Route
+							<PrivateRoute
 								exact
 								path={'/home'}
-								render={() =>
-									contextValue.loggedIn ?
-									<HomePage /> :
-									<Redirect to="/" /> 
-								}
+								component={HomePage}
+								// render={() =>
+								// 	contextValue.loggedIn ?
+								// 	<HomePage /> :
+								// 	<Redirect to="/" /> 
+								// }
 							/>
-							<Route
-								exact
-								path={'/edit-account'}
-								component={CreateAccount}
-							/>
-							<Route 
+							<PrivateRoute 
 								exact
 								path={'/profile/:user_id'}
 								component={ProfilePage}
 							/>
-							<Route 
+							<PrivateRoute 
 								exact
 								path={'/convo/:convo_id'}
 								component={ConvoPage}
 							/>
-							<Route 
+							<PrivateRoute 
 								exact
 								path={'/results'}
 								component={ResultsPage}
 								
 							/>
-							<Route 
+							<PrivateRoute 
 								exact
 								path={'/search'}
 								component={SearchPage}
+							/>
+							<Route 
+								component={NotFoundPage}
 							/>
 						</Switch>
 					</main>

@@ -3,11 +3,9 @@ import {Link } from 'react-router-dom';
 import './HomePage.css'
 import STORE from '../../../STORE'
 import TennitContext from '../../../TennitContext'
-// import TokenService from '../../../Services/TokenService';
-// import {Button} from '../../../Utils/Utils.js'
-/* import Carousel from '../../../Utils/Carousel' */
+import TokenService from '../../../Services/TokenService';
 
-class HomePage extends Component {
+export default class HomePage extends Component {
     static contextType = TennitContext
     constructor(props){
         super(props);
@@ -67,5 +65,3 @@ class HomePage extends Component {
         )
     }
 }
-
-export default HomePage;

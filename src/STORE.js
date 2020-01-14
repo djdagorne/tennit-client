@@ -12,7 +12,6 @@ function makeUserArray() {
             phone: '555-555-5555',
             neighborhood: 'Leaside',
             location: {
-                country: 'Canada',
                 provence: 'Ontario',
                 city: 'Toronto'
             },
@@ -32,7 +31,6 @@ function makeUserArray() {
             phone: '555-555-5555',
             neighborhood: 'The Annex',
             location: {
-                country: 'Canada',
                 provence: 'Ontario',
                 city: 'Toronto'
             },
@@ -52,7 +50,6 @@ function makeUserArray() {
             phone: '555-555-5555',
             neighborhood: 'Kensington',
             location: {
-                country: 'Canada',
                 provence: 'Ontario',
                 city: 'Toronto'
             },
@@ -72,7 +69,6 @@ function makeUserArray() {
             phone: '555-555-5555',
             neighborhood: 'Yorkdale',
             location: {
-                country: 'Canada',
                 provence: 'Ontario',
                 city: 'Toronto'
             },

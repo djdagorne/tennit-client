@@ -1,12 +1,9 @@
 import React, { Component} from 'react';
 import './SplashPage.css';
 import TennitContext from '../../../TennitContext';
-// import CreateAccount from '../CreateAccount/CreateAccount.js'
-// import LogIn from '../LogIn/LogIn'
 // import TokenService from '../../../Services/TokenService';
-//import {Button} from '../../../Utils/Utils'
 
-class SplashPage extends Component {
+export default class SplashPage extends Component {
     static contextType = TennitContext
 
 
@@ -21,5 +18,3 @@ class SplashPage extends Component {
         );
     }
 }
-
-export default SplashPage;

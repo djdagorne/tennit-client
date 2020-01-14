@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import TokenService from '../Services/TokenService'
 
 const PrivateRoute = ({ component, ...props }) => {
     const Component = component
@@ -7,7 +8,7 @@ const PrivateRoute = ({ component, ...props }) => {
         <Route
             {...props}
             render={componentProps => (
-                false //hasToken
+                TokenService.hasAuthToken() //hasToken
                 ? <Component {...componentProps} />
                 : <Redirect
                     to={{

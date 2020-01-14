@@ -22,10 +22,15 @@ class CreateAccount extends Component {
     render(){
         return(
             <div className="popup">
-                <div className="popup-inner">
+                <div className="popup-inner">                    
+                <button 
+                    className="close-popup" 
+                    onClick={e=>this.context.togglePopup('create')}>
+                        X
+                </button>
+
                     <h3>Sign Up</h3> 
                     <form id="sign-up" >
-                    <button className="close-form" onClick={this.context.toggleCreatePopup}>Cancel</button>
 
                     <div className="form-item">
                         <label htmlFor="email">Your email</label>
@@ -200,10 +205,9 @@ class CreateAccount extends Component {
                         </div> 
                         : null
                     }
-                    <div className="buttons">
-                        <button  onClick={this.context.toggleCreatePopup}>Cancel</button>
+                    <div className="button-wrap">
                         <Link  to="/home" >
-                            <button className="buttons" type="submit" onClick={this.context.toggleCreatePopup}>Submit</button>
+                            <button className="rounded-button" type="submit" onClick={e=>this.context.togglePopup('create')}>Submit</button>
                         </Link> 
                     </div>
                     

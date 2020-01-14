@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import './EditAccount.css';
 import TennitContext from '../../../TennitContext';
 
-class EditAccount extends Component {
+export default class EditAccount extends Component {
     static contextType = TennitContext;
     constructor(props){
         super(props);
@@ -12,7 +12,7 @@ class EditAccount extends Component {
         };
     };
 
-    toggleListingSection(){
+    toggleListingSection = () => {
         this.setState({
             listingChecked: !this.state.listingChecked
         });
@@ -23,10 +23,15 @@ class EditAccount extends Component {
         return(
             <div className="popup">
                 <div className="popup-inner">
+                    <button 
+                        className="close-popup" 
+                        onClick={e=>this.context.togglePopup('edit')}>
+                            X
+                    </button>
+
                     <h3>Sign Up</h3> 
                     <form id="edit-account" >
-                    <button className="close-form" onClick={this.context.toggleEditPopup}>Cancel</button>
-
+                    
                     <div className="form-item">
                         <label htmlFor="email">Your email</label>
                         <input 
@@ -46,6 +51,7 @@ class EditAccount extends Component {
                             /* required */
                         />
                     </div>
+                    
                     <div className="form-item">
                         <label htmlFor="phone">Phone Number</label>
                         <input 
@@ -102,20 +108,12 @@ class EditAccount extends Component {
                             className="listing-section"
                             type="checkbox" 
                             name="listing-boolean" 
-                            onClick={()=> this.toggleListingSection(this.state.listingChecked)}
+                            onClick={this.toggleListingSection}
                         />
                     </div>
 
                     {this.state.listingChecked ? 
                         <div className="listing-details">
-                            <div className="form-item">
-                                <label htmlFor="address">Address</label>
-                                <input 
-                                    type="text" 
-                                    name="address" 
-                                    placeholder="123 Street Road"
-                                />
-                            </div>
 
                             <div className="form-item">
                                 <label htmlFor="neighborhood">Neighborhood (optional)</label>
@@ -131,7 +129,7 @@ class EditAccount extends Component {
                                 <input 
                                     type="text" 
                                     name="rent" 
-                                    placeholder="750"
+                                    placeholder="eg 750"
                                 />
                             </div>
 
@@ -146,10 +144,9 @@ class EditAccount extends Component {
                         </div> 
                         : null
                     }
-                    <div className="buttons">
-                        <button  onClick={this.context.toggleEditPopup}>Cancel</button>
+                    <div className="button-wrap">
                         <Link  to="/home" >
-                            <button className="buttons" type="submit" onClick={this.context.toggleEditPopup}>Submit</button>
+                            <button className="rounded-button" type="submit" onClick={e=>this.context.togglePopup('edit')}>Submit</button>
                         </Link> 
                     </div>
                     
@@ -160,5 +157,3 @@ class EditAccount extends Component {
         )
     }
 }
-
-export default EditAccount;

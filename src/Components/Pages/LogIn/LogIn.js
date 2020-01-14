@@ -14,10 +14,13 @@ class LogIn extends Component {
         return(
             <div className="popup">
                 <div className="popup-inner ">
-                    <h2>Log In</h2>
-                    <button onClick={this.context.toggleLogInPopup}> {/* make this button an X in the top right corner */}
-                        Cancel
+                    
+                    <button 
+                        className="close-popup" 
+                        onClick={e=>this.context.togglePopup('login')}> {/* make this button an X in the top right corner */}
+                            X
                     </button>
+                    <h2>Log In</h2>
                     <form
                         onSubmit={this.context.handleLogIn}
                         id="sign-up">

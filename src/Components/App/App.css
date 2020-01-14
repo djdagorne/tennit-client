@@ -190,7 +190,14 @@ nav {
 } 
 
 .button-wrap{
-  margin: 0px auto;
+  margin: 10px auto;
+}
+
+.close-popup{
+  position: sticky;
+  float: right;
+  margin-right: 10px;
+  top: 10px;
 }
 
 
