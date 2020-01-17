@@ -9,7 +9,7 @@ export default class EditAccount extends Component {
         super(props);
         this.state = {
             loggedUser: this.props.loggedUser,
-            provence: '',
+            province: '',
             city: '',
             listing: false,
             //find a way to implement image links into form
@@ -54,7 +54,7 @@ export default class EditAccount extends Component {
                             loggeduser context
                     </button>
 
-                    <h3>Sign Up</h3> 
+                    <h3>Edit Account</h3> 
                     <form 
                         id="edit-account" 
                         onSubmit={this.handleEditSubmit}>
@@ -82,12 +82,12 @@ export default class EditAccount extends Component {
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="provence">Provence or State</label>
+                            <label htmlFor="province">Province or State</label>
                             <input 
                                 type="text" 
-                                name="provence" 
+                                name="province" 
                                 onChange={this.context.handleInputChange}
-                                placeholder={this.context.loggedUser.provence} 
+                                placeholder={this.context.loggedUser.province} 
                                 /* required */
                             />
                         </div>

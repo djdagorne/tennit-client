@@ -106,11 +106,11 @@ class CreateAccount extends Component {
                     </div>
 
                     <div className="form-item">
-                        <label htmlFor="provence">Provence or State</label>
+                        <label htmlFor="province">Province or State</label>
                         <input 
                             type="text" 
-                            name="provence" 
-                            placeholder="Enter provence/state" 
+                            name="province" 
+                            placeholder="Enter province/state" 
                             /* required */
                         />
                     </div>

@@ -125,6 +125,7 @@ class App extends Component {
 			})
         }
 	}
+	
 	render(){
 		const {testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 		const contextValue = {

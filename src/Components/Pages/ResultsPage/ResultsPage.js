@@ -14,7 +14,7 @@ class ResultsPage extends React.Component { //TODO make search results into a po
     }
     componentDidMount = () => {        
         const filterUser = this.context.testUsers.filter(user => user.id !== this.context.loggedUser.id)
-        const filterProv = filterUser.filter(user => user.provence.toLowerCase().includes(this.context.searchProvence.toLowerCase()) )
+        const filterProv = filterUser.filter(user => user.province.toLowerCase().includes(this.context.searchProvince.toLowerCase()) )
         const filterCity = filterProv.filter(user => user.city.toLowerCase().includes(this.context.searchCity.toLowerCase()))
         const filterRent = filterCity.filter(user => Number(user.rent) <= Number(this.context.searchRent))
         console.log(filterRent)
@@ -29,6 +29,7 @@ class ResultsPage extends React.Component { //TODO make search results into a po
                 <ul>
                     <h1 className="result-header">Results:</h1>
                     {this.state.searchList.map((user, index)=>
+                        //TODO add links to dynamic list objects
                         <li key={index} className="content-container results-container">
                             <div className="pic-wrap">
                                 <img className="pic" src={this.context.testImages[index].image} alt={this.context.testImages[index].id}></img>

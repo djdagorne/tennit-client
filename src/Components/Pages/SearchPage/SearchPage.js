@@ -35,10 +35,10 @@ class SearchPage extends Component {
                 <h2 >Find listings in...</h2>
 
                     <div className="search-segment">
-                        <label htmlFor="provence">provence/state:</label>
+                        <label htmlFor="province">province/state:</label>
                         <input 
                             type="text" 
-                            name="searchProvence" 
+                            name="searchProvince" 
                             onChange={this.context.handleInputChange}
                             placeholder="eg Ontario" /* required *//>
                     </div>
