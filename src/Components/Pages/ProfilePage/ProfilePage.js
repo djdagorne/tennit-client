@@ -15,7 +15,7 @@ class ProfilePage extends Component {
         const user_object = testUsers.find(user => user.id.toString() === user_id.toString())
         return(
             <div className="content-container">
-                <h1 className="banner-text">{user_object.firstName}'s place at {user_object.neighborhood}, {user_object.city}</h1>
+                <h1 className="banner-text">{user_object.firstname}'s place at {user_object.neighborhood}, {user_object.city}</h1>
                 {user_object.listing ?
                     <h2 className="rent-text">${user_object.rent} per month</h2> :
                     null
@@ -29,13 +29,13 @@ class ProfilePage extends Component {
                     <button to="/home" className="rounded-button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
                 </div>
                 <div className="about-blurb">
-                    <h2 className="banner-text">{user_object.firstName}, {user_object.lastName}, {user_object.age} years old</h2>
+                    <h2 className="banner-text">{user_object.firstname}, {user_object.lastname}, {user_object.age} years old</h2>
                     {user_object.listing ?
                         <div className="user-blurb">
-                            <p> {user_object.userBlurb} </p>
+                            <p> {user_object.userblurb} </p>
                             <p> {user_object.blurb} </p> 
                         </div>  :
-                        <p> {user_object.userBlurb} </p>
+                        <p> {user_object.userblurb} </p>
                     }
                 </div>
                 

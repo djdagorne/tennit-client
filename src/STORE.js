@@ -4,43 +4,43 @@ function makeUserArray() {
             id: 1,
             email: 'john@email.com',
             password: 'AAaa11!!',
-            firstName: 'John',
-            lastName: 'Johnson',
-            gender: 'male',
-            prefGender: 'female',
+            firstname: 'John',
+            lastname: 'Johnson',
+            usergender: 'male',
+            prefgender: 'female',
             age: 20,
             provence: 'Ontario',
             city: 'Toronto',
             neighborhood: 'Leaside',
             rent: 1000,
             listing: true,
-            userBlurb: 'i am user!',
+            userblurb: 'i am user!',
             blurb: 'this is setting description!',
         },
         {
             id: 2,
             email: 'susan@email.com',
             password: 'AAaa11!!',
-            firstName: 'Susan',
-            lastName: 'Susanson',
-            gender: 'female',
-            prefGender: 'none',
+            firstname: 'Susan',
+            lastname: 'Susanson',
+            usergender: 'female',
+            prefGender: 'other',
             age: 20,
             provence: 'Ontario',
             city: 'Toronto',
             neighborhood: 'The Annex',
             rent: 1001,
             listing: true,
-            userBlurb: 'i am user!',
+            userblurb: 'i am user!',
             blurb: 'this is setting description!',
         },
         {
             id: 3,
             email: 'gertrude@email.com',
             password: 'AAaa11!!',
-            firstName: 'Gertrude',
-            lastName: 'Gertrudeson',
-            gender: 'female',
+            firstname: 'Gertrude',
+            lastname: 'Gertrudeson',
+            usergender: 'female',
             prefGender: 'male',
             age: 20,
             provence: 'Ontario',
@@ -48,24 +48,24 @@ function makeUserArray() {
             neighborhood: 'Clarkson',
             rent: 1500,
             listing: true,
-            userBlurb: 'i am user!',
+            userblurb: 'i am user!',
             blurb: 'this is setting description!',
         },
         {
             id: 4,
             email: 'margret@email.com',
             password: 'AAaa11!!',
-            firstName: 'Margret',
-            lastName: 'Margretson',
-            gender: 'female',
-            prefGender: 'none',
+            firstname: 'Margret',
+            lastname: 'Margretson',
+            usergender: 'female',
+            prefGender: 'other',
             age: 20,
             provence: 'Ontario',
             city: 'Toronto',
             neighborhood: 'Yorkdale',
             rent: 700,
             listing: false,
-            userBlurb: 'i am user!',
+            userblurb: 'i am user!',
             blurb: 'this is setting description!',
         },
     ]
@@ -128,7 +128,6 @@ function makeMatchArray(users){
             user2_id: users[1].id, //FK susan
             user1_bool: true, 
             user2_bool: true, //susan and john liked eachother
-            filter: false,
         },
         {
             id: 2,
@@ -136,7 +135,6 @@ function makeMatchArray(users){
             user2_id: users[2].id, //FK gert
             user1_bool: false, 
             user2_bool: true, //susan2  liked john
-            filter: false
         },
         {
             id: 3,
@@ -144,7 +142,6 @@ function makeMatchArray(users){
             user2_id: users[3].id, //FK marg
             user1_bool: false, 
             user2_bool: true, //susan3 liked john
-            filter: false,
         },
         {
             id: 4,
@@ -152,30 +149,9 @@ function makeMatchArray(users){
             user2_id: users[3].id, //FK marg
             user1_bool: true, 
             user2_bool: true, 
-            filter: false,
         },
     ]
 }
-//how will convo's be created? 
-//once both users 'like' each other, both booleans being true, it will create a new row in the convo table
-//when users are on their profile, the page will display links to convos via the convo.id to a new page that displays comments associated with it
-
-// function makeConvoArray(matches){
-//     return[
-//         {
-//             id: 1,
-//             user1_id: matches[0].user1_id, //FK
-//             user2_id: matches[0].user2_id, //FK
-//             date_created: new Date(),
-//         },
-//         {
-//             id: 2,
-//             user1_id: matches[3].user1_id, //FK
-//             user2_id: matches[3].user2_id, //FK
-//             date_created: new Date(),
-//         },
-//     ]
-// }
 
 function makeCommentArray(matches){
     return[

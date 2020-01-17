@@ -36,7 +36,7 @@ class ConvoPage extends React.Component {
             <div className="content-container">
             {/* <button onClick={e=>console.log('match id ' + this.props.match.params.convo_id)}>asdasdasd</button> */}
                 <div className="convo-page-div">
-                    <h1 className="banner-text">Chat between {testUsers[this.state.user1 -1].firstName} and {testUsers[this.state.user2 -1].firstName}</h1>
+                    <h1 className="banner-text">Chat between {testUsers[this.state.user1 -1].firstname} and {testUsers[this.state.user2 -1].firstname}</h1>
                 </div>
                 <div className="pic-wrap">            
                     <img className='pic' src={testImages[4].image} alt="display other users pic" />              
@@ -46,7 +46,7 @@ class ConvoPage extends React.Component {
                         {this.state.currentConvo.map((comment, index)=>
                             <li className="comment-li" key={index}>
                                 <div className="textbubble">
-                                    <p className="comment-text"><b>{testUsers[comment.poster_id-1].firstName}</b>: {comment.comment}</p>
+                                    <p className="comment-text"><b>{testUsers[comment.poster_id-1].firstname}</b>: {comment.comment}</p>
                                 </div>
                             </li>
                         )}

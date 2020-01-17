@@ -33,7 +33,7 @@ class ResultsPage extends React.Component { //TODO make search results into a po
                             <div className="pic-wrap">
                                 <img className="pic" src={this.context.testImages[index].image} alt={this.context.testImages[index].id}></img>
                             </div>                            
-                            <h1 className="result-name">{user.firstName + ' ' + user.lastName}</h1>
+                            <h1 className="result-name">{user.firstname + ' ' + user.lastname}</h1>
                             <h2 className="result-rent">${user.rent} per Month</h2>
                             <p className="result-info">{user.neighborhood}, {user.city}</p>
                         </li>

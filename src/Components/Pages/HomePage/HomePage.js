@@ -25,7 +25,7 @@ export default class HomePage extends Component {
                     <Link 
                         className="banner-text" 
                         to={`/profile/${this.context.loggedUser.id}`}>
-                            {testUsers[this.context.loggedUser.id-1].firstName}
+                            {testUsers[this.context.loggedUser.id-1].firstname}
                     </Link>
                 </h1>
 
@@ -48,14 +48,14 @@ export default class HomePage extends Component {
                             {userMatches1.map((match, index)=>
                                 <li className="convo-li" key={index} >
                                     <Link className="user-link" to={`/convo/${match.id}`}>
-                                        {testUsers[match.user2_id-1].firstName +' '+ testUsers[match.user2_id-1].lastName}
+                                        {testUsers[match.user2_id-1].firstname +' '+ testUsers[match.user2_id-1].lastname}
                                     </Link>
                                 </li>
                             )}
                             {userMatches2.map((match, index)=>
                                 <li className="convo-li" key={index} >
                                     <Link className="user-link" to={`/convo/${match.id}`}>
-                                        {testUsers[match.user1_id-1].firstName +' '+ testUsers[match.user1_id-1].lastName}
+                                        {testUsers[match.user1_id-1].firstname +' '+ testUsers[match.user1_id-1].lastname}
                                     </Link>
                                 </li>
                             )}

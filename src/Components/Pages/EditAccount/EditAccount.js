@@ -14,7 +14,7 @@ export default class EditAccount extends Component {
             listing: false,
             //find a way to implement image links into form
             blurb: '',
-            userBlurb: '',
+            userblurb: '',
             neighborhood: '',
         };
     };
@@ -114,10 +114,10 @@ export default class EditAccount extends Component {
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="userBlurb">Details</label>
+                            <label htmlFor="userblurb">Details</label>
                             <textarea 
                                 rows="5" 
-                                name="userBlurb" 
+                                name="userblurb" 
                                 onChange={this.context.handleInputChange}
                                 placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
                                 /* required */
