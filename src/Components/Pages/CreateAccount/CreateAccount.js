@@ -95,16 +95,6 @@ class CreateAccount extends Component {
                     </div>
 
                     <div className="form-item">
-                        <label htmlFor="phone">Phone Number</label>
-                        <input 
-                            type="text" 
-                            name="phone" 
-                            placeholder="555-555-5555" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
                         <label htmlFor="age">Age</label>
                         <input 
                             type="text" 

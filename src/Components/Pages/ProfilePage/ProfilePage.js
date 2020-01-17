@@ -15,7 +15,7 @@ class ProfilePage extends Component {
         const user_object = testUsers.find(user => user.id.toString() === user_id.toString())
         return(
             <div className="content-container">
-                <h1 className="banner-text">{user_object.firstName}'s place at {user_object.neighborhood}, {user_object.location.city}</h1>
+                <h1 className="banner-text">{user_object.firstName}'s place at {user_object.neighborhood}, {user_object.city}</h1>
                 {user_object.listing ?
                     <h2 className="rent-text">${user_object.rent} per month</h2> :
                     null

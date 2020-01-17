@@ -9,12 +9,9 @@ function makeUserArray() {
             gender: 'male',
             prefGender: 'female',
             age: 20,
-            phone: '555-555-5555',
+            provence: 'Ontario',
+            city: 'Toronto',
             neighborhood: 'Leaside',
-            location: {
-                provence: 'Ontario',
-                city: 'Toronto'
-            },
             rent: 1000,
             listing: true,
             userBlurb: 'i am user!',
@@ -27,14 +24,11 @@ function makeUserArray() {
             firstName: 'Susan',
             lastName: 'Susanson',
             gender: 'female',
-            prefGender: 'male',
+            prefGender: 'none',
             age: 20,
-            phone: '555-555-5555',
+            provence: 'Ontario',
+            city: 'Toronto',
             neighborhood: 'The Annex',
-            location: {
-                provence: 'Ontario',
-                city: 'Toronto'
-            },
             rent: 1001,
             listing: true,
             userBlurb: 'i am user!',
@@ -49,12 +43,9 @@ function makeUserArray() {
             gender: 'female',
             prefGender: 'male',
             age: 20,
-            phone: '555-555-5555',
+            provence: 'Ontario',
+            city: 'Mississauga',
             neighborhood: 'Clarkson',
-            location: {
-                provence: 'Ontario',
-                city: 'Mississauga'
-            },
             rent: 1500,
             listing: true,
             userBlurb: 'i am user!',
@@ -67,14 +58,11 @@ function makeUserArray() {
             firstName: 'Margret',
             lastName: 'Margretson',
             gender: 'female',
-            prefGender: 'male',
+            prefGender: 'none',
             age: 20,
-            phone: '555-555-5555',
+            provence: 'Ontario',
+            city: 'Toronto',
             neighborhood: 'Yorkdale',
-            location: {
-                provence: 'Ontario',
-                city: 'Toronto'
-            },
             rent: 700,
             listing: false,
             userBlurb: 'i am user!',
@@ -112,13 +100,13 @@ function makeImageArray(user){
         {
             id: 5,
             image: 'https://loremflickr.com/500/500/landscape?random=5',
-            user_id: user[1].id,
+            user_id: user[2].id,
             date_updated: new Date(),
         },
         {
             id: 6,
             image: 'https://loremflickr.com/500/500/landscape?random=6',
-            user_id: user[1].id,
+            user_id: user[3].id,
             date_updated: new Date(),
         },
     ]

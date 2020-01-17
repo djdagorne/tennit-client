@@ -14,8 +14,8 @@ class ResultsPage extends React.Component { //TODO make search results into a po
     }
     componentDidMount = () => {        
         const filterUser = this.context.testUsers.filter(user => user.id !== this.context.loggedUser.id)
-        const filterProv = filterUser.filter(user => user.location.provence.toLowerCase().includes(this.context.searchProvence.toLowerCase()) )
-        const filterCity = filterProv.filter(user => user.location.city.toLowerCase().includes(this.context.searchCity.toLowerCase()))
+        const filterProv = filterUser.filter(user => user.provence.toLowerCase().includes(this.context.searchProvence.toLowerCase()) )
+        const filterCity = filterProv.filter(user => user.city.toLowerCase().includes(this.context.searchCity.toLowerCase()))
         const filterRent = filterCity.filter(user => Number(user.rent) <= Number(this.context.searchRent))
         console.log(filterRent)
         this.setState({
@@ -35,7 +35,7 @@ class ResultsPage extends React.Component { //TODO make search results into a po
                             </div>                            
                             <h1 className="result-name">{user.firstName + ' ' + user.lastName}</h1>
                             <h2 className="result-rent">${user.rent} per Month</h2>
-                            <p className="result-info">{user.neighborhood}, {user.location.city}</p>
+                            <p className="result-info">{user.neighborhood}, {user.city}</p>
                         </li>
                     )}
                 </ul>

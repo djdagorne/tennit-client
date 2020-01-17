@@ -9,7 +9,6 @@ export default class EditAccount extends Component {
         super(props);
         this.state = {
             loggedUser: this.props.loggedUser,
-            phone: '',
             provence: '',
             city: '',
             listing: false,
@@ -81,16 +80,6 @@ export default class EditAccount extends Component {
                                 required
                             />
                         </div>
-                        
-                        <div className="form-item">
-                            <label htmlFor="phone">Phone Number</label>
-                            <input 
-                                type="text" 
-                                name="phone" 
-                                placeholder={this.context.loggedUser.phone} 
-                                /* required */
-                            />
-                        </div>
 
                         <div className="form-item">
                             <label htmlFor="provence">Provence or State</label>
@@ -98,7 +87,7 @@ export default class EditAccount extends Component {
                                 type="text" 
                                 name="provence" 
                                 onChange={this.context.handleInputChange}
-                                placeholder={this.context.loggedUser.location.provence} 
+                                placeholder={this.context.loggedUser.provence} 
                                 /* required */
                             />
                         </div>
@@ -109,7 +98,7 @@ export default class EditAccount extends Component {
                                 type="text" 
                                 name="city" 
                                 onChange={this.context.handleInputChange}
-                                placeholder={this.context.loggedUser.location.city} 
+                                placeholder={this.context.loggedUser.city} 
                                 /* required */
                             />
                         </div>
