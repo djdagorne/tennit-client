@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './EditAccount.css';
 import TennitContext from '../../../TennitContext';
 
@@ -31,10 +30,7 @@ export default class EditAccount extends Component {
         if(this.context.email === this.context.loggedUser.email && 
             this.context.password === this.context.loggedUser.password){
                 const newUser = {...this.context.loggedUser, ...this.state}
-                 console.log('newUser:')
-                console.log(newUser)
-                this.setState({
-                })
+                this.context.loggedUser = newUser;
             }
     }
 

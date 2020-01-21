@@ -90,6 +90,8 @@ label {
   width: 75%;
   padding: 30px 10px 45px 10px;
   border-radius: 4px;
+  
+  box-shadow: 0px 5px 10px rgba(102, 102, 102, 0.368);
 }
 
 .tile-background{

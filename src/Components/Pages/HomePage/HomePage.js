@@ -3,7 +3,6 @@ import {Link } from 'react-router-dom';
 import './HomePage.css'
 import STORE from '../../../STORE'
 import TennitContext from '../../../TennitContext'
-import TokenService from '../../../Services/TokenService';
 
 export default class HomePage extends Component {
     static contextType = TennitContext

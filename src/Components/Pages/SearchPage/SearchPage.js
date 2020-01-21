@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
 
@@ -8,21 +7,26 @@ class SearchPage extends Component {
     constructor(props){
         super(props);
         this.state={
+            searchCity: '',
+            searchProvince: '',
+            searchRent: '',
         }
     }
     handleSearch = (e) => {
         e.preventDefault();
-        
+        const {searchCity, searchProvince, searchRent} = this.state;
+        this.context.searchQuery = {searchCity, searchProvince, searchRent}
+        this.props.history.push('/results')
     }
-    // handleInputChange = (event) => {
-	// 	const target = event.target;
-	// 	const value = target.value;
-	// 	const name = target.name;
+    handleInputChange = (event) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
 	
-	// 	this.setState({
-	// 		  [name]: value
-	// 	});
-	// }
+		this.setState({
+			  [name]: value
+		});
+	}
     render(){
         return(
             <div className="content-container">
@@ -31,6 +35,7 @@ class SearchPage extends Component {
 
                 <form 
                     className="search"
+                    onSubmit={this.handleSearch}
                     >
                 <h2 >Find listings in...</h2>
 
@@ -39,8 +44,8 @@ class SearchPage extends Component {
                         <input 
                             type="text" 
                             name="searchProvince" 
-                            onChange={this.context.handleInputChange}
-                            placeholder="eg Ontario" /* required *//>
+                            onChange={this.handleInputChange}
+                            placeholder="eg Ontario" required/>
                     </div>
 
                     <div className="search-segment">
@@ -48,8 +53,8 @@ class SearchPage extends Component {
                         <input 
                             type="text" 
                             name="searchCity" 
-                            onChange={this.context.handleInputChange}
-                            placeholder="eg Toronto" /* required *//>
+                            onChange={this.handleInputChange}
+                            placeholder="eg Toronto" required/>
                     </div>
 
                     <div className="search-segment">
@@ -57,14 +62,12 @@ class SearchPage extends Component {
                         <input 
                             type="text" 
                             name="searchRent" 
-                            onChange={this.context.handleInputChange}
-                            placeholder="eg 750"/>
+                            onChange={this.handleInputChange}
+                            placeholder="eg 750" required/>
                     </div>
                     
                     <div className="button-wrap">
-                        <Link to="/results">
                             <button type="submit" className="rounded-button">SEARCH</button>
-                        </Link>
                     </div>
                 </form>
             </div>

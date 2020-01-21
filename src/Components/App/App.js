@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom'
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import Header from  '../Header/Header';
@@ -44,7 +43,6 @@ class App extends Component {
 
 	toggleLogIn = () => {
 		if(TokenService.hasAuthToken()){
-			console.log('has token, setting state')
 			TokenService.clearAuthToken()
 			this.setState({
 				showLogInPopup: false,
@@ -53,9 +51,7 @@ class App extends Component {
 				loggedUser: {},
 			},()=>this.forceUpdate())
 			
-			console.log('state set')
 		}else{
-			console.log('no token, closing popup')
 			this.setState({
 				showLogInPopup: false
 			})
@@ -110,8 +106,6 @@ class App extends Component {
 		const matchedUser = this.state.testUsers.filter(userItems => email === userItems.email)
 
         if(password === matchedUser[0].password){
-			
-		console.log(email, password)
             this.setState({
 				loggedUser: matchedUser[0],
 				showLogInPopup: false
@@ -140,6 +134,7 @@ class App extends Component {
 			// password: this.state.password,
 
 			//testUsers: this.state.testUsers,
+			searchQuery: {},
 			testImages: testImages,
 			testMatches: testMatches,
 			testComments: testComments,
