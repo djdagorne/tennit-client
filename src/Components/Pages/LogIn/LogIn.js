@@ -13,7 +13,7 @@ class LogIn extends Component {
     render(){
         return(
             <div className="popup">
-                <div className="popup-inner ">
+                <div className="popup-inner">
                     
                     <button 
                         className="close-popup" 

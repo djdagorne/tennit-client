@@ -1,27 +1,42 @@
 import React, {Component} from 'react';
 import './ProfilePage.css';
-import STORE from '../../../STORE'
+import config from '../../../config'
 
-const {testUsers, testImages} = STORE.makeThingsFixtures()
 class ProfilePage extends Component {
     constructor(props){
-    super(props);
-    this.state = {
+        super(props);
+        this.state = {
+            listingData: {},
+            userImage: {}
+        }
     }
-}
+    componentDidMount(){
+        return fetch(`${config.API_ENDPOINT}/listings/${this.props.match.params.user_id}`, {
+            headers: {
+            },
+        })
+            .then(res => {
+                if(!res.ok){
+                    throw new Error(res.statusText);
+                }
+                return res.json();
+            })
+            .then(res=>{
+                this.setState({
+                    listingData: res
+                })
+            })
+    }
     render(){
-        const {user_id} = this.props.match.params;
-        const user_dp = testImages.filter(image=> image.user_id.toString() === user_id.toString()).splice(0,1)
-        const user_object = testUsers.find(user => user.id.toString() === user_id.toString())
         return(
             <div className="content-container">
-                <h1 className="banner-text">{user_object.firstname}'s place at {user_object.neighborhood}, {user_object.city}</h1>
-                {user_object.listing ?
-                    <h2 className="rent-text">${user_object.rent} per month</h2> :
+                <h1 className="banner-text">{this.state.listingData.firstname}'s place at {this.state.listingData.neighborhood}, {this.state.listingData.city}</h1>
+                {this.state.listingData.listing ?
+                    <h2 className="rent-text">${this.state.listingData.rent} per month</h2> :
                     null
                 }
                 <div className="pic-wrap">
-                    <img className="pic" src={user_dp[0].image} alt="test" />        
+                    <img className="pic" src={this.state.listingData.image} alt="test" />        
                 </div>
                 
                 <div className="button-wrap">
@@ -29,13 +44,13 @@ class ProfilePage extends Component {
                     <button to="/home" className="rounded-button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
                 </div>
                 <div className="about-blurb">
-                    <h2 className="banner-text">{user_object.firstname}, {user_object.lastname}, {user_object.age} years old</h2>
-                    {user_object.listing ?
+                    <h2 className="banner-text">{this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old</h2>
+                    {this.state.listingData.listing ?
                         <div className="user-blurb">
-                            <p> {user_object.userblurb} </p>
-                            <p> {user_object.blurb} </p> 
+                            <p> {this.state.listingData.userblurb} </p>
+                            <p> {this.state.listingData.blurb} </p> 
                         </div>  :
-                        <p> {user_object.userblurb} </p>
+                        <p> {this.state.listingData.userblurb} </p>
                     }
                 </div>
                 

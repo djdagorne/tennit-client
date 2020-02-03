@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "now --prod ./build",
+    "deploy": "now --name tennit --prod ./build",
     "lazypush": "git add . && git commit -m 'fixes' && git push origin master"
   },
   "eslintConfig": {

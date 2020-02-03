@@ -1,52 +1,129 @@
 import React from 'react';
 //import {Link} from 'react-router-dom';
 import './ConvoPage.css';
-import STORE from '../../../STORE'
+import config from '../../../config' //TODO get this off of local json shit
 import TennitContext from '../../../TennitContext';
 
-const {testUsers, testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 class ConvoPage extends React.Component { 
     static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
-            currentConvo: testComments.filter(comments => testMatches[this.props.match.params.convo_id -1].id === comments.convo_id), //-1 cause convo_id doesnt start at 0
-            user1: testMatches[this.props.match.params.convo_id-1].user1_id,
-            user2: testMatches[this.props.match.params.convo_id-1].user2_id,
+            comments: [],
+            user2_listing: {},
         }
     }
+    
+    componentDidMount(){ 
+        this.requestComments()
+        this.assignUsers()
+    }
+
+    requestComments = () => {
+        return fetch(`${config.API_ENDPOINT}/comments/${this.props.match.params.match_id}`, {
+            headers: {
+            },
+        })
+            .then(res => {
+                if(!res.ok){
+                    throw new Error(res.statusText);
+                }
+                return res.json();
+            })
+            .then(data => {
+                this.setState({
+                    comments: data
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    assignUsers = () => {
+        console.log('assignUsers')
+        return fetch(`${config.API_ENDPOINT}/matches/${this.props.match.params.match_id}`, {
+            headers: {
+            },
+        })
+            .then(res => {
+                if(!res.ok){
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(matchData =>{
+                if(matchData.user1_id === this.context.loggedUserId){
+                    return fetch(`${config.API_ENDPOINT}/listings/${matchData.user2_id}`, {
+                        headers: {
+                        },
+                    }) 
+                        .then(res => { 
+                            if(!res.ok){
+                                throw new Error(res.statusText)
+                            }
+                            return res.json()
+                        })
+                        .then(user => {
+                            console.log('assigning u2')
+                            this.setState({
+                                user2_listing: user
+                            })
+                        })
+                }else{
+                    return fetch(`${config.API_ENDPOINT}/listings/${matchData.user1_id}`, {
+                        headers: {
+                        },
+                    })
+                        .then(res => { 
+                            if(!res.ok){
+                                throw new Error(res.statusText)
+                            }
+                            return res.json()
+                        })
+                        .then(user => {
+                            console.log('assigning u1')
+                            this.setState({
+                                user2_listing: user
+                            })
+                        })
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     handleCommentSubmit = (e) => {
         e.preventDefault();
         const {textInput} = e.target
-        const existingComments = this.state.currentConvo
-        const newComment = {
-            id: this.state.currentConvo.length + 1,
-            convo_id: this.state.currentConvo.convo_id,
-            poster_id: 1,
-            comment: textInput,
-        }
-        const newConvo = existingComments.push(newComment)
-        //relevantConvo.push(newComment)
-        this.setState({
-            currentConvo: newConvo
-        })
+        console.log(textInput.value)
     }
+
     render(){
         return(
             <div className="content-container">
-            {/* <button onClick={e=>console.log('match id ' + this.props.match.params.convo_id)}>asdasdasd</button> */}
+            {/* <button onClick={e=>console.log('match id ' + this.props.match.params.match_id)}>asdasdasd</button> */}
                 <div className="convo-page-div">
-                    <h1 className="banner-text">Chat between {testUsers[this.state.user1 -1].firstname} and {testUsers[this.state.user2 -1].firstname}</h1>
+                    <h1 className="banner-text">Chat between {this.context.loggedUser.firstname} and {this.state.user2_listing.firstname}</h1>
                 </div>
                 <div className="pic-wrap">            
-                    <img className='pic' src={testImages[4].image} alt="display other users pic" />              
+                    <img className='pic' src={this.state.user2_listing.image} alt="display other users pic" />              
                 </div>
                 <div className="comment-container">
                     <ul className="comment-ul">
-                        {this.state.currentConvo.map((comment, index)=>
+                        {this.state.comments.map((comment, index)=>
                             <li className="comment-li" key={index}>
                                 <div className="textbubble">
-                                    <p className="comment-text"><b>{testUsers[comment.poster_id-1].firstname}</b>: {comment.comment}</p>
+                                    <p className="comment-text">
+                                        <b>
+                                            {comment.user_id === this.context.loggedUserId
+                                            ? this.context.loggedUser.firstname
+                                            : this.state.user2_listing.firstname
+                                            }
+                                        </b>
+                                        : {comment.comment}
+                                    </p>
                                 </div>
                             </li>
                         )}

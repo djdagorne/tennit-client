@@ -10,11 +10,11 @@ import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import NotFoundPage from '../Pages/NotFoundPage/NotFoundPage'
-import STORE from '../../STORE'
 import TokenService from '../../Services/TokenService'
 import TennitContext from '../../TennitContext';
 import PrivateRoute from '../../Utils/PrivateRoute'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
+import config from '../../config'
 
 
 class App extends Component {
@@ -22,23 +22,108 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
+			loggedUserId: '',
 			loggedUser: {},
+			loggedUserMatches: [],
 			showLogInPopup: false,
 			showCreatePopup: false,
 			showEditPopup: false,
 			error: null,
-			testUsers: STORE.makeUserArray()
         }
 	}
 
-	componentWillMount = () => {
+	componentDidMount = () => {
+		console.log('didMount')
+		console.log(this.state.loggedUserId)
 		if(TokenService.getAuthToken()){
-			const unpw = TokenService.decodeAuthToken().split(":");
-			const matchedUser = this.state.testUsers.filter(users => unpw[0] === users.email)
-			this.setState({
-				loggedUser: matchedUser[0]
-			})
+			const usernamePassword = TokenService.decodeAuthToken().split(":");
+			this.requestCreds(usernamePassword)
 		}
+	}
+	
+
+	requestCreds = (usernamePassword) => {
+		console.log('reqCreds')
+		console.log(this.state.loggedUserId)
+		return fetch(`${config.API_ENDPOINT}/users/?email=${usernamePassword[0]}`, {
+			headers: {
+			},
+		})
+			.then(res => {
+				if(!res.ok){
+					throw new Error(res.statusText);
+				}
+				return res.json();
+			})
+			.then(user => {
+				if(user.password === usernamePassword[1]){
+					this.context.loggedUserId = user.id
+					TokenService.saveAuthToken(
+						TokenService.makeBasicAuthToken(usernamePassword[0], usernamePassword[1])
+					)
+					this.context.loggedUserId = user.id
+					this.setState({
+						showLogInPopup: false,
+						loggedUserId: user.id
+					},()=>{
+						this.assignUser()
+					})
+				}else{
+					throw new Error(user.statusText);
+				}					
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
+	
+	assignUser = () =>{
+		console.log('assignUserApp')
+		console.log(this.state.loggedUserId)
+		return fetch(`${config.API_ENDPOINT}/listings/${this.state.loggedUserId}`, {
+				headers: {
+				},
+			})
+			.then(res => {
+				if(!res.ok){
+					 throw new Error(res.statusText);
+				}
+				return res.json();
+			  })
+			  .then(data => {
+					this.setState({
+						loggedUser: data
+				 	},()=>{
+						 this.requestMatches()
+					});
+			  })
+			  .catch(err => {
+				  console.log(err.json())
+			  })
+	}
+	
+	requestMatches = () => {
+		console.log('reqMatches')
+		console.log(this.state.loggedUserId)
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.state.loggedUserId}`, {
+            headers: {
+            },
+        })
+        .then(res => {
+            if(!res.ok){
+				throw new Error(res.statusText);
+            }
+            return res.json();
+			})
+			.then(data => {
+				this.context.loggedUserMatches = data
+				this.setState({
+					userMatches: data
+				});
+			})
+			.catch(err => {
+				console.log(err)
+			})
 	}
 
 	toggleLogIn = () => {
@@ -48,9 +133,8 @@ class App extends Component {
 				showLogInPopup: false,
 				email: '',
 				password: '',
-				loggedUser: {},
+				loggedUserId: null,
 			},()=>this.forceUpdate())
-			
 		}else{
 			this.setState({
 				showLogInPopup: false
@@ -103,47 +187,21 @@ class App extends Component {
 			return
         }
 
-		const matchedUser = this.state.testUsers.filter(userItems => email === userItems.email)
+		const credentials = [email, password]
+		
+		this.requestCreds(credentials)
 
-        if(password === matchedUser[0].password){
-            this.setState({
-				loggedUser: matchedUser[0],
-				showLogInPopup: false
-			})
-			TokenService.saveAuthToken(
-				TokenService.makeBasicAuthToken(email, password)
-			)
-        }else{
-            this.setState({error: 'username and password do not match, email admin to verify'}, ()=>{
-				console.log(this.state.error)
-			})
-        }
 	}
 	
 	render(){
-		const {testImages, testMatches, testComments} = STORE.makeThingsFixtures()
 		const contextValue = {
 			...this.state,
-			// error: this.state.error,
-			// showLogInPopup: this.state.showLogInPopup,
-			// showCreatePopup: this.state.showCreatePopup,
-			// showEditPopup: this.state.showEditPopup,
-
-			// loggedUser: this.state.loggedUser,
-			// email: this.state.email,
-			// password: this.state.password,
-
-			//testUsers: this.state.testUsers,
-			searchQuery: {},
-			testImages: testImages,
-			testMatches: testMatches,
-			testComments: testComments,
+			searchQuery: [],
 
 			toggleLogIn: this.toggleLogIn,
 			handleLogIn: this.handleLogIn,
 			handleInputChange: this.handleInputChange,
 			togglePopup: this.togglePopup
-
 		}
 		return (
 			<TennitContext.Provider value={contextValue}>
@@ -174,7 +232,7 @@ class App extends Component {
 							/>
 							<PrivateRoute 
 								exact
-								path={'/convo/:convo_id'}
+								path={'/convo/:match_id'}
 								component={ConvoPage}
 							/>
 							<PrivateRoute 

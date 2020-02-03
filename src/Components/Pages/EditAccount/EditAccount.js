@@ -7,7 +7,6 @@ export default class EditAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedUser: this.props.loggedUser,
             province: '',
             city: '',
             listing: false,
@@ -27,11 +26,7 @@ export default class EditAccount extends Component {
     handleEditSubmit = (e) => {
         e.preventDefault();
         this.context.togglePopup('edit')
-        if(this.context.email === this.context.loggedUser.email && 
-            this.context.password === this.context.loggedUser.password){
-                const newUser = {...this.context.loggedUser, ...this.state}
-                this.context.loggedUser = newUser;
-            }
+        
     }
 
 
@@ -44,11 +39,11 @@ export default class EditAccount extends Component {
                         onClick={e=>this.context.togglePopup('edit')}>
                             X
                     </button>
-                    <button 
+                    {/* <button 
                         className="close-popup" 
                         onClick={e=>console.log(this.context.loggedUser)}>
                             loggeduser context
-                    </button>
+                    </button> */}
 
                     <h3>Edit Account</h3> 
                     <form 
@@ -83,7 +78,6 @@ export default class EditAccount extends Component {
                                 type="text" 
                                 name="province" 
                                 onChange={this.context.handleInputChange}
-                                placeholder={this.context.loggedUser.province} 
                                 /* required */
                             />
                         </div>
@@ -94,7 +88,6 @@ export default class EditAccount extends Component {
                                 type="text" 
                                 name="city" 
                                 onChange={this.context.handleInputChange}
-                                placeholder={this.context.loggedUser.city} 
                                 /* required */
                             />
                         </div>

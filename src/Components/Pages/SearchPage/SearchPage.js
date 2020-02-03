@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
+import config from '../../../config'
+//import TennitApiServices from '../../../Services/tennit-api-services';
 
 class SearchPage extends Component {
     static contextType = TennitContext;
@@ -12,12 +14,40 @@ class SearchPage extends Component {
             searchRent: '',
         }
     }
+
     handleSearch = (e) => {
         e.preventDefault();
         const {searchCity, searchProvince, searchRent} = this.state;
-        this.context.searchQuery = {searchCity, searchProvince, searchRent}
-        this.props.history.push('/results')
+            const params = [];
+            if (searchCity) {
+                params.push(`city=${searchCity}`);
+            }
+            if (searchProvince) {
+                params.push(`province=${searchProvince}`);
+            }
+            if (searchRent) {
+                params.push(`rent=${searchRent}`);
+            }
+            const query = params.join('&');
+
+            return fetch(`${config.API_ENDPOINT}/listings/?${query}`, {
+                headers: {
+                },
+            })
+                .then(res => {
+                    if(!res.ok){
+                        throw new Error(res.statusText);
+                    }
+                    return res.json();
+                })
+                .then(res=>
+                    this.context.searchQuery = res
+                )
+                .then(()=>
+                    this.props.history.push('/results')
+                )
     }
+
     handleInputChange = (event) => {
 		const target = event.target;
 		const value = target.value;
@@ -45,7 +75,7 @@ class SearchPage extends Component {
                             type="text" 
                             name="searchProvince" 
                             onChange={this.handleInputChange}
-                            placeholder="eg Ontario" required/>
+                            placeholder="eg Ontario"/>
                     </div>
 
                     <div className="search-segment">
@@ -54,7 +84,7 @@ class SearchPage extends Component {
                             type="text" 
                             name="searchCity" 
                             onChange={this.handleInputChange}
-                            placeholder="eg Toronto" required/>
+                            placeholder="eg Toronto"/>
                     </div>
 
                     <div className="search-segment">

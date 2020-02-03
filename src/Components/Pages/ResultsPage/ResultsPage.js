@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {Link} from 'react-router-dom'
 import './ResultsPage.css'
 import TennitContext from '../../../TennitContext'
@@ -8,22 +8,11 @@ class ResultsPage extends React.Component { //TODO make search results into a po
     constructor(props){
         super(props);
         this.state={
-            searchList: []
         }
     }
-    makeFilter = () => {
-        if(this.context.searchQuery > 0){
-            const filterUser = this.context.testUsers.filter(user => user.id !== this.context.loggedUser.id)
-            const filterProv = filterUser.filter(user => user.province.toLowerCase().includes(this.context.searchQuery.searchProvince.toLowerCase()) )
-            const filterCity = filterProv.filter(user => user.city.toLowerCase().includes(this.context.searchQuery.searchCity.toLowerCase()))
-            const filterRent = filterCity.filter(user => Number(user.rent) <= Number(this.context.searchQuery.searchRent))
-            this.setState({
-                searchList: filterRent
-            })
-        }
-    }
-    componentDidMount = () => {        
-        this.makeFilter()
+    componentDidUpdate = () => {    
+        // console.log(this.context.searchQuery)
+        // this.forceUpdate()
     }
     render(){
 
@@ -31,12 +20,12 @@ class ResultsPage extends React.Component { //TODO make search results into a po
             <div>
                 <ul>
                     <h1 className="result-header">Results:</h1>
-                    {this.state.searchList.length > 0 ? 
-                        this.state.searchList.map((user, index)=>
+                    {this.context.searchQuery.length > 0 ? 
+                        this.context.searchQuery.map((user, index)=>
                         //TODO add links to dynamic list objects
                         <li key={index} className="content-container results-container">
                             <div className="pic-wrap">
-                                <img className="pic" src={this.context.testImages[index].image} alt={this.context.testImages[index].id}></img>
+                                <img className="pic" src={user.image} alt="users profile pic" ></img>
                             </div>                            
                             <h1 className="result-name">{user.firstname + ' ' + user.lastname}</h1>
                             <h2 className="result-rent">${user.rent} per Month</h2>
