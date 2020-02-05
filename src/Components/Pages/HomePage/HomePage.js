@@ -12,8 +12,9 @@ export default class HomePage extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidCatch(){
     }
+
 
     render(){
         return(
@@ -28,7 +29,7 @@ export default class HomePage extends Component {
                 </h1>
 
                 <div className="pic-wrap">
-                    <img className='pic' src={this.context.loggedUser.image} alt="test" />     
+                    <img className='pic' src={this.context.loggedUser.image} alt="profile pic" />     
                 </div>
 
                 <div className="button-wrap">
@@ -43,7 +44,7 @@ export default class HomePage extends Component {
                         <p className="banner-text-description">See who's looking to make a move</p>
                     </div>
                         <ul className="convo-ul"> {/* TODO ask ali how to approach this. how would i join tables in my server? */}
-                            {this.context.loggedUserMatches.map((match, index)=> 
+                            {this.context.loggedUserMatches.map((match, index) => 
                                 (match.user1_id === this.context.loggedUserId) 
                                 ?   <li className="convo-li" key={index} >
                                         <Link className="user-link" to={`/convo/${match.id}`}>

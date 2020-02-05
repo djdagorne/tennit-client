@@ -28,7 +28,11 @@ class Header extends Component {
                     onClick={e=>this.context.togglePopup('login')}>
                         log in (demo)
                 </button>
-                {/* <button className="account-button text-shadow" onClick={e=>this.context.togglePopup('create')}>sign up</button> */}
+                <button 
+                    className="account-button text-shadow" 
+                    onClick={e=>this.context.togglePopup('create')}>
+                        sign up
+                </button>
            </nav>
         )
     }

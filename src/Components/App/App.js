@@ -33,8 +33,6 @@ class App extends Component {
 	}
 
 	componentDidMount = () => {
-		console.log('didMount')
-		console.log(this.state.loggedUserId)
 		if(TokenService.getAuthToken()){
 			const usernamePassword = TokenService.decodeAuthToken().split(":");
 			this.requestCreds(usernamePassword)
@@ -43,8 +41,6 @@ class App extends Component {
 	
 
 	requestCreds = (usernamePassword) => {
-		console.log('reqCreds')
-		console.log(this.state.loggedUserId)
 		return fetch(`${config.API_ENDPOINT}/users/?email=${usernamePassword[0]}`, {
 			headers: {
 			},
@@ -78,8 +74,6 @@ class App extends Component {
 	}
 	
 	assignUser = () =>{
-		console.log('assignUserApp')
-		console.log(this.state.loggedUserId)
 		return fetch(`${config.API_ENDPOINT}/listings/${this.state.loggedUserId}`, {
 				headers: {
 				},
@@ -98,14 +92,11 @@ class App extends Component {
 					});
 			  })
 			  .catch(err => {
-				  console.log(err.json())
+				  console.log(err)
 			  })
 	}
-	
 	requestMatches = () => {
-		console.log('reqMatches')
-		console.log(this.state.loggedUserId)
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.state.loggedUserId}`, {
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.context.loggedUserId}`, {
             headers: {
             },
         })
@@ -118,13 +109,14 @@ class App extends Component {
 			.then(data => {
 				this.context.loggedUserMatches = data
 				this.setState({
-					userMatches: data
+					loggedUserMatches: data
 				});
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
+	
 
 	toggleLogIn = () => {
 		if(TokenService.hasAuthToken()){

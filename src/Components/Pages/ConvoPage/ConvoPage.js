@@ -10,13 +10,21 @@ class ConvoPage extends React.Component {
         super(props);
         this.state = {
             comments: [],
+            user1_listing: {},
             user2_listing: {},
+            textarea: ''
         }
     }
     
-    componentDidMount(){ 
+    componentWillMount(){ 
         this.requestComments()
         this.assignUsers()
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            textarea: e.target.value
+        })
     }
 
     requestComments = () => {
@@ -41,7 +49,6 @@ class ConvoPage extends React.Component {
     }
 
     assignUsers = () => {
-        console.log('assignUsers')
         return fetch(`${config.API_ENDPOINT}/matches/${this.props.match.params.match_id}`, {
             headers: {
             },
@@ -53,41 +60,41 @@ class ConvoPage extends React.Component {
                 return res.json()
             })
             .then(matchData =>{
-                if(matchData.user1_id === this.context.loggedUserId){
-                    return fetch(`${config.API_ENDPOINT}/listings/${matchData.user2_id}`, {
-                        headers: {
-                        },
-                    }) 
-                        .then(res => { 
-                            if(!res.ok){
-                                throw new Error(res.statusText)
-                            }
-                            return res.json()
-                        })
-                        .then(user => {
-                            console.log('assigning u2')
-                            this.setState({
-                                user2_listing: user
-                            })
-                        })
-                }else{
-                    return fetch(`${config.API_ENDPOINT}/listings/${matchData.user1_id}`, {
-                        headers: {
-                        },
+                return fetch(`${config.API_ENDPOINT}/listings/${matchData.user1_id}`, {
+                    headers: {
+                    },
+                }) 
+                    .then(res => { 
+                        if(!res.ok){
+                            throw new Error(res.statusText)
+                        }
+                        return res.json()
                     })
-                        .then(res => { 
-                            if(!res.ok){
-                                throw new Error(res.statusText)
-                            }
-                            return res.json()
+                    .then(user => {
+                        console.log('assigning u1')
+                        this.setState({
+                            user1_listing: user
                         })
-                        .then(user => {
-                            console.log('assigning u1')
-                            this.setState({
-                                user2_listing: user
+                    })
+                    .then(()=>{
+                        return fetch(`${config.API_ENDPOINT}/listings/${matchData.user2_id}`, {
+                            headers: {
+                            },
+                        })
+                            .then(res => { 
+                                if(!res.ok){
+                                    throw new Error(res.statusText)
+                                }
+                                return res.json()
                             })
-                        })
-                }
+                            .then(user => {
+                                console.log('assigning u2')
+                                console.log('context ', this.context.loggedUserId)
+                                this.setState({
+                                    user2_listing: user
+                                })
+                            })
+                    })
             })
             .catch(err => {
                 console.log(err)
@@ -97,7 +104,34 @@ class ConvoPage extends React.Component {
     handleCommentSubmit = (e) => {
         e.preventDefault();
         const {textInput} = e.target
-        console.log(textInput.value)
+        const newComment = {
+            match_id: this.props.match.params.match_id,
+            user_id: this.context.loggedUserId,
+            comment: textInput.value
+        }
+        return fetch(`${config.API_ENDPOINT}/comments`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(
+                newComment
+            )
+        })
+            .then(res =>
+                (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+            )
+            .then(newCommentChain=>{
+                this.setState({
+                    comments: newCommentChain,
+                    textarea: ''
+                })
+            })
+            .catch(err=>{
+                console.log(err)
+            })
     }
 
     render(){
@@ -117,8 +151,8 @@ class ConvoPage extends React.Component {
                                 <div className="textbubble">
                                     <p className="comment-text">
                                         <b>
-                                            {comment.user_id === this.context.loggedUserId
-                                            ? this.context.loggedUser.firstname
+                                            {(comment.user_id === this.state.user1_listing.user_id)
+                                            ? this.state.user1_listing.firstname
                                             : this.state.user2_listing.firstname
                                             }
                                         </b>
@@ -129,7 +163,7 @@ class ConvoPage extends React.Component {
                         )}
                     </ul>
                     <form onSubmit={this.handleCommentSubmit}>
-                        <textarea className="comment-textarea" id="textInput" placeholder=""></textarea>
+                        <textarea className="comment-textarea" onChange={this.handleChange} id="textInput" value={this.state.textarea} placeholder=""></textarea>
                         <button className="send-message-button" type="submit">send message</button>
                     </form>
                 </div>
