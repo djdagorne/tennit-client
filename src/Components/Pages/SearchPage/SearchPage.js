@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
 import config from '../../../config'
+import TokenService from '../../../Services/TokenService'
 //import TennitApiServices from '../../../Services/tennit-api-services';
 
 class SearchPage extends Component {
@@ -32,6 +33,7 @@ class SearchPage extends Component {
 
             return fetch(`${config.API_ENDPOINT}/listings/?${query}`, {
                 headers: {
+                    'authorization': `basic ${TokenService.getAuthToken()}`,
                 },
             })
                 .then(res => {
@@ -40,9 +42,11 @@ class SearchPage extends Component {
                     }
                     return res.json();
                 })
-                .then(res=>
-                    this.context.searchQuery = res
-                )
+                .then(res=>{
+                    const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other')
+                    const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other')
+                    this.context.searchQuery = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id)
+                })
                 .then(()=>
                     this.props.history.push('/results')
                 )

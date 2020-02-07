@@ -31,6 +31,7 @@ class App extends Component {
 			error: null,
         }
 	}
+	//TODO create POST matches
 
 	componentDidMount = () => {
 		if(TokenService.getAuthToken()){
@@ -53,11 +54,9 @@ class App extends Component {
 			})
 			.then(user => {
 				if(user.password === usernamePassword[1]){
-					this.context.loggedUserId = user.id
 					TokenService.saveAuthToken(
 						TokenService.makeBasicAuthToken(usernamePassword[0], usernamePassword[1])
 					)
-					this.context.loggedUserId = user.id
 					this.setState({
 						showLogInPopup: false,
 						loggedUserId: user.id
@@ -76,28 +75,31 @@ class App extends Component {
 	assignUser = () =>{
 		return fetch(`${config.API_ENDPOINT}/listings/${this.state.loggedUserId}`, {
 				headers: {
+					'authorization': `basic ${TokenService.getAuthToken()}`,
 				},
 			})
 			.then(res => {
 				if(!res.ok){
-					 throw new Error(res.statusText);
+						throw new Error(res.statusText);
 				}
-				return res.json();
-			  })
-			  .then(data => {
-					this.setState({
-						loggedUser: data
-				 	},()=>{
-						 this.requestMatches()
-					});
-			  })
-			  .catch(err => {
-				  console.log(err)
-			  })
+				return res.json()
+			})
+			.then(data => {
+				this.context.loggedUser = data
+				this.setState({
+					loggedUser: data
+				},()=>{
+					this.requestMatches()
+				});
+			})
+			.catch(err => {
+				console.log(err)
+			})
 	}
 	requestMatches = () => {
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.context.loggedUserId}`, {
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.state.loggedUserId}`, {
             headers: {
+				'authorization': `basic ${TokenService.getAuthToken()}`,
             },
         })
         .then(res => {
@@ -105,16 +107,16 @@ class App extends Component {
 				throw new Error(res.statusText);
             }
             return res.json();
-			})
-			.then(data => {
-				this.context.loggedUserMatches = data
-				this.setState({
-					loggedUserMatches: data
-				});
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		})
+		.then(data => {
+			this.context.loggedUserMatches = data
+			this.setState({
+				loggedUserMatches: data
+			});
+		})
+		.catch(err => {
+			console.log(err)
+		})
 	}
 	
 

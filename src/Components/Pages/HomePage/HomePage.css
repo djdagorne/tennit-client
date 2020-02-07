@@ -1,6 +1,5 @@
 .pic{
   display: inline-block;
-  background: #eee;
   width: 100%;
   border-radius: 1000px;
   box-shadow: 0px 2px 10px rgba(102, 102, 102, 0.268);
@@ -8,13 +7,14 @@
 
 .pic-wrap{
   margin: 35px;
+  border-radius: 1000px;
   min-height: 250px;
   width: 120%
 }
 
 .banner-text{
   color: #323238;
-  font-size: 1.7em;
+  font-size: 25px;
   line-height: 1;
   margin: 10px auto;
 }
@@ -70,7 +70,21 @@
   border-radius: 100px;
 }
 
-.rounded-button:hover, .rounded-button:focus{
+.circle-button{
+  background: #592202;
+  width: 35px;
+  height: 35px;
+  outline: none;
+  border: none;
+  color: #F0F0F2;
+  cursor: pointer;
+  font-size: 18px;
+  transition: .4s;
+  font-weight: 900;
+  border-radius: 100px;
+}
+
+.rounded-button:hover, .rounded-button:focus, .circle-button:hover, .circle-button:focus{
   background: #F0F0F2;
   border: 2px solid #592202;
   color: #592202;
@@ -79,4 +93,9 @@
 .double-size{
   width: 300px;
   height: 70px;
+}
+
+.inline-button{
+  display: inline-block;
+  vertical-align: middle;
 }

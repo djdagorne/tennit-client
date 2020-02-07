@@ -1,21 +1,112 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './CreateAccount.css';
 import TennitContext from '../../../TennitContext';
+import config from '../../../config'
 
 class CreateAccount extends Component {
     static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
-            listingChecked: false,
+            listing: false,
         };
     };
 
-    toggleListingSection(){
+    toggleListingSection = () => {
         this.setState({
-            listingChecked: !this.state.listingChecked
+            listing: !this.state.listing
         });
+    }
+
+    handleInputChange = (event) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+	
+		this.setState({
+			  [name]: value
+		});
+    }
+    
+    handleCreateSubmit = (e) => {
+        e.preventDefault();
+        const newUser = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        const newListing = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            age: this.state.age,
+            usergender: this.state.usergender,
+            prefgender: this.state.prefgender,
+            province: this.state.province,
+            city: this.state.city,
+            userblurb: this.state.userblurb,
+            listing: this.state.listing,
+            rent: this.state.rent,
+            neighborhood: this.state.neighborhood,
+            blurb: this.state.blurb
+        }
+        const newImage = {
+            image: this.state.image
+        }
+
+        return  fetch(`${config.API_ENDPOINT}/users/`, {
+            method: `POST`,
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(
+                newUser
+            )
+        })
+            .then(res => 
+                (!res.ok)
+                ? res.then(e=> Promise.reject(e))
+                : res.json()
+            )
+            .then(user=>{
+                return  fetch(`${config.API_ENDPOINT}/listings/`, {
+                    method: `POST`,
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...newListing,
+                        user_id: user.id,
+                    })
+                })
+                    .then(res => 
+                        (!res.ok)
+                        ? res.then(e=> Promise.reject(e))
+                        : res.json()
+                    )
+                    .then(listing=>{
+                        return  fetch(`${config.API_ENDPOINT}/images/`, {
+                            method: `POST`,
+                            headers: {
+                                'content-type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                user_id: listing.user_id,
+                                ...newImage
+                            })
+                        })
+                        .then(res => 
+                            (!res.ok)
+                            ? res.then(e=> Promise.reject(e))
+                            : res.json()
+                        )
+                        .then(image=>{
+                            this.context.togglePopup('create')
+                        })
+                        
+                    })
+            })
+            .catch(err=>{
+                console.log(err)
+            })
     }
 
 
@@ -23,186 +114,189 @@ class CreateAccount extends Component {
         return(
             <div className="popup">
                 <div className="popup-inner">                    
-                <button 
-                    className="close-popup" 
-                    onClick={e=>this.context.togglePopup('create')}>
-                        X
-                </button>
+                    <button 
+                        className="close-popup" 
+                        onClick={e=>this.context.togglePopup('create')}>
+                            X
+                    </button>
 
                     <h3>Sign Up</h3> 
-                    <form id="sign-up" >
+                    <form 
+                        id="create-account" 
+                        onSubmit={this.handleCreateSubmit}>
 
-                    <div className="form-item">
-                        <label htmlFor="email">Your email</label>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="smithy@smithmail.com" 
-                            /* required */
-                        /> 
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="password">Your password</label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            placeholder="*******" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="first-name">First Name</label>
-                        <input 
-                            type="text" 
-                            name="first-name" 
-                            placeholder="Smithy" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="last-name">Last Name</label>
-                        <input 
-                            type="text" 
-                            name="last-name" 
-                            placeholder="Smitherson" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item-dropdown">
-                        <label htmlFor="gender">Gender</label>
-                        <select name="gender" 
-                        /* required */>
-                            <option value="none">please pick one</option>
-                            <option value="male">male</option>
-                            <option value="female">female</option>
-                            <option value="other">prefer not to say</option>
-                        </select>
-                    </div>
-
-                    <div className="form-item-dropdown">
-                        <label htmlFor="seeking-gender">Looking for</label>
-                        <select name="seeking-gender" 
-                        /* required */>
-                            <option value="none">please pick one</option>
-                            <option value="male">male</option>
-                            <option value="female">female</option>
-                            <option value="other">either</option>
-                        </select>
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="age">Age</label>
-                        <input 
-                            type="text" 
-                            name="age" 
-                            placeholder="18" 
-                            min="18" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="province">Province or State</label>
-                        <input 
-                            type="text" 
-                            name="province" 
-                            placeholder="Enter province/state" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="city">City</label>
-                        <input 
-                            type="text" 
-                            name="city" 
-                            placeholder="Enter city name" 
-                            /* required */
-                        />
-                    </div>
-
-                    <div className="form-item">
-                        <label htmlFor="image">Apartment image (link here)</label>
-                        <input 
-                                type="url" 
-                                name="image" 
-                                placeholder="https://imagehost.com/image.jpg" 
-                                /* required */
+                        <div className="form-item">
+                            <label htmlFor="email">Email</label>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                onChange={this.handleInputChange}
+                                required
                             />
-                    </div>
+                        </div>
 
-                    <div className="form-item">
-                        <label htmlFor="user-details">Details</label>
-                        <textarea 
-                            rows="5" 
-                            name="user-details" 
-                            placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
-                            /* required */
-                        />
-                    </div>    
+                        <div className="form-item">
+                            <label htmlFor="password">password</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                onChange={this.handleInputChange}
+                                required
+                            />
+                        </div>
 
-                    <div className="checkbox-wrap">
-                        <label className="listing-section" htmlFor="listing-boolean">List your place?</label>
-                        <input 
-                            className="listing-section"
-                            type="checkbox" 
-                            name="listing-boolean" 
-                            onClick={()=> this.toggleListingSection(this.state.listingChecked)}
-                        />
-                    </div>
+                        <div className="form-item">
+                            <label htmlFor="firstname">First Name</label>
+                            <input 
+                                type="text" 
+                                name="firstname" 
+                                placeholder="Smithy" 
+                                onChange={this.handleInputChange}
+                                required
+                            />
+                        </div>
 
-                    {this.state.listingChecked ? 
-                        <div className="listing-details">
-                            <div className="form-item">
-                                <label htmlFor="address">Address</label>
-                                <input 
-                                    type="text" 
-                                    name="address" 
-                                    placeholder="123 Street Road"
+                        <div className="form-item">
+                            <label htmlFor="lastname">Last Name</label>
+                            <input 
+                                type="text" 
+                                name="lastname" 
+                                placeholder="Smitherson" 
+                                onChange={this.handleInputChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-item">
+                            <label htmlFor="age">Age</label>
+                            <input 
+                                type="text" 
+                                name="age" 
+                                onChange={this.handleInputChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-item-dropdown">
+                            <label htmlFor="usergender">Gender</label>
+                            <select
+                                onChange={this.handleInputChange} 
+                                name="usergender" 
+                                required>
+                                    <option >please pick one</option>
+                                    <option value="male">male</option>
+                                    <option value="female">female</option>
+                                    <option value="other">other</option>
+                            </select>
+                        </div>
+
+                        <div className="form-item-dropdown">
+                            <label htmlFor="prefgender">Looking for</label>
+                            <select 
+                                onChange={this.handleInputChange}
+                                name="prefgender" 
+                                required>
+                                    <option >please pick one</option>
+                                    <option value="male">male</option>
+                                    <option value="female">female</option>
+                                    <option value="other">either</option>
+                            </select>
+                        </div>
+
+                        <div className="form-item">
+                            <label htmlFor="province">Province</label>
+                            <input 
+                                type="text" 
+                                name="province" 
+                                required
+                                onChange={this.handleInputChange}
+                            />
+                        </div>
+
+                        <div className="form-item">
+                            <label htmlFor="city">City</label>
+                            <input 
+                                type="text" 
+                                name="city" 
+                                onChange={this.handleInputChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-item">
+                            <label htmlFor="image">Apartment Image</label>
+                            <input 
+                                    type="url" 
+                                    name="image" 
+                                    onChange={this.handleInputChange}
+                                    placeholder="as hyperlink" 
+                                    required
                                 />
-                            </div>
+                        </div>
 
-                            <div className="form-item">
-                                <label htmlFor="neighborhood">Neighborhood (optional)</label>
-                                <input 
-                                    type="text" 
-                                    name="neighborhood" 
-                                    placeholder="eg financial district"
-                                />
-                            </div>
+                        <div className="form-item">
+                            <label htmlFor="userblurb">Details</label>
+                            <textarea 
+                                rows="5" 
+                                name="userblurb" 
+                                onChange={this.handleInputChange}
+                                placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
+                                required
+                            />
+                        </div>    
 
-                            <div className="form-item">
-                                <label htmlFor="rent">Monthly rent cost (per person)</label>
-                                <input 
-                                    type="text" 
-                                    name="rent" 
-                                    placeholder="750"
-                                />
-                            </div>
+                        <div className="checkbox-wrap">
+                            <label className="listing-section" htmlFor="listing">List your place?</label>
+                            <input 
+                                className="listing-section"
+                                type="checkbox" 
+                                name="listing" 
+                                onClick={this.toggleListingSection}
+                            />
+                        </div>
 
-                            <div className="form-item">
-                                <label htmlFor="home-details">Details</label>
-                                <textarea 
-                                    rows="5" 
-                                    name="home-details" 
-                                    placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
-                                />
-                            </div>  
-                        </div> 
-                        : null
-                    }
-                    <div className="button-wrap">
-                        <Link  to="/home" >
-                            <button className="rounded-button" type="submit" onClick={e=>this.context.togglePopup('create')}>Submit</button>
-                        </Link> 
-                    </div>
-                    
+                        {this.state.listing ? 
+                            <div className="listing-details">
 
-                </form>
+                                <div className="form-item">
+                                    <label htmlFor="neighborhood">Neighborhood (optional)</label>
+                                    <input 
+                                        type="text" 
+                                        name="neighborhood" 
+                                        onChange={this.handleInputChange}
+                                        
+                                    />
+                                </div>
+
+                                <div className="form-item">
+                                    <label htmlFor="rent">Monthly Rent per Person</label>
+                                    <input 
+                                        type="text" 
+                                        name="rent" 
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-item">
+                                    <label htmlFor="home-details">Details</label>
+                                    <textarea 
+                                        rows="5" 
+                                        name="blurb" 
+                                        onChange={this.handleInputChange}
+                                        placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
+                                        required
+                                    />
+                                </div>  
+                            </div> 
+                            : null
+                        }
+                        <div className="button-wrap">
+                                <button className="rounded-button" type="submit">Submit</button>
+                        </div>
+                        
+
+                    </form>
                 </div>
             </div>
         )

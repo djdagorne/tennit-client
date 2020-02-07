@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './EditAccount.css';
+import config from '../../../config'
+import TokenService from '../../../Services/TokenService'
 import TennitContext from '../../../TennitContext';
 
 export default class EditAccount extends Component {
@@ -7,13 +9,16 @@ export default class EditAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
-            province: '',
-            city: '',
-            listing: false,
-            //find a way to implement image links into form
-            blurb: '',
-            userblurb: '',
-            neighborhood: '',
+            email: null,
+            password: null,
+            province: null,
+            city: null,
+            image: null,
+            userblurb: null,
+            listing: null,
+            neighborhood: null,
+            rent: null,
+            blurb: null,
         };
     };
 
@@ -23,10 +28,85 @@ export default class EditAccount extends Component {
         });
     }
 
+    handleInputChange = (event) => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+	
+		this.setState({
+			  [name]: value
+		});
+	}
+
     handleEditSubmit = (e) => {
         e.preventDefault();
-        this.context.togglePopup('edit')
-        
+        const updatedListing = {
+            province: this.state.province,
+            city: this.state.city,
+            listing: this.state.listing,
+            userblurb: this.state.userblurb,
+            rent: this.state.rent,
+            neighborhood: this.state.neighborhood,
+            blurb: this.state.blurb
+        }
+        const updatedImage = {
+            user_id: this.context.loggedUser.user_id,
+            image: this.state.image
+        }
+
+        for(const [key,value] of Object.entries(updatedListing)){
+            if(value === null){
+                delete updatedListing[key]
+            }
+        }
+        if(Object.keys(updatedListing).length > 0 || this.state.image !== null){
+            return fetch(`${config.API_ENDPOINT}/listings/${this.context.loggedUser.user_id}`, {
+                method: `PATCH`,
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `basic ${TokenService.getAuthToken()}`,
+                },
+                body: JSON.stringify(
+                    updatedListing
+                )
+            })
+                .then(res => 
+                        (!res.ok)
+                        ? res.then(e=> Promise.reject(e))
+                        : res.json()
+                )
+                .then(listing=>{
+                    this.context.loggedUser = listing
+                    this.context.togglePopup('edit')
+                })
+                .then(()=>{
+                    return fetch(`${config.API_ENDPOINT}/images/${this.context.loggedUser.user_id}`, {
+                        method: `PATCH`,
+                        headers: {
+                            'content-type': 'application/json',
+                            'authorization': `basic ${TokenService.getAuthToken()}`,
+                        },
+                        body: JSON.stringify(
+                            updatedImage
+                        )
+                    })
+                        .then(res => 
+                            (!res.ok)
+                            ? res.then(e=> Promise.reject(e))
+                            : res.json()
+                        )
+                        .then(image=>{
+                            this.context.loggedUser.image = image
+                            this.context.togglePopup('edit')
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+        }
     }
 
 
@@ -39,46 +119,18 @@ export default class EditAccount extends Component {
                         onClick={e=>this.context.togglePopup('edit')}>
                             X
                     </button>
-                    {/* <button 
-                        className="close-popup" 
-                        onClick={e=>console.log(this.context.loggedUser)}>
-                            loggeduser context
-                    </button> */}
-
+                    
                     <h3>Edit Account</h3> 
                     <form 
                         id="edit-account" 
                         onSubmit={this.handleEditSubmit}>
-                        
-                        <div className="form-item">
-                            <label htmlFor="email">Your email</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                placeholder="smithy@smithmail.com" 
-                                onChange={this.context.handleInputChange}
-                                required
-                            /> 
-                        </div>
 
                         <div className="form-item">
-                            <label htmlFor="password">Your password</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                placeholder="*******" 
-                                onChange={this.context.handleInputChange}
-                                required
-                            />
-                        </div>
-
-                        <div className="form-item">
-                            <label htmlFor="province">Province or State</label>
+                            <label htmlFor="province">Province</label>
                             <input 
                                 type="text" 
                                 name="province" 
-                                onChange={this.context.handleInputChange}
-                                /* required */
+                                onChange={this.handleInputChange}
                             />
                         </div>
 
@@ -87,18 +139,16 @@ export default class EditAccount extends Component {
                             <input 
                                 type="text" 
                                 name="city" 
-                                onChange={this.context.handleInputChange}
-                                /* required */
+                                onChange={this.handleInputChange}
                             />
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="image">Apartment image (link here)</label>
+                            <label htmlFor="image">Apartment Image</label>
                             <input 
                                     type="url" 
                                     name="image" 
-                                    placeholder="https://imagehost.com/image.jpg" 
-                                    /* required */
+                                    placeholder="as hyperlink" 
                                 />
                         </div>
 
@@ -107,18 +157,18 @@ export default class EditAccount extends Component {
                             <textarea 
                                 rows="5" 
                                 name="userblurb" 
-                                onChange={this.context.handleInputChange}
+                                onChange={this.handleInputChange}
                                 placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
                                 /* required */
                             />
                         </div>    
 
                         <div className="checkbox-wrap">
-                            <label className="listing-section" htmlFor="listing-boolean">List your place?</label>
+                            <label className="listing-section" htmlFor="listing">List your place?</label>
                             <input 
                                 className="listing-section"
                                 type="checkbox" 
-                                name="listing-boolean" 
+                                name="listing" 
                                 onClick={this.toggleListingSection}
                             />
                         </div>
@@ -131,16 +181,17 @@ export default class EditAccount extends Component {
                                     <input 
                                         type="text" 
                                         name="neighborhood" 
-                                        onChange={this.context.handleInputChange}
+                                        onChange={this.handleInputChange}
                                     />
                                 </div>
 
                                 <div className="form-item">
-                                    <label htmlFor="rent">Monthly rent cost (per person)</label>
+                                    <label htmlFor="rent">Monthly Rent per Person</label>
                                     <input 
                                         type="text" 
                                         name="rent" 
-                                        onChange={this.context.handleInputChange}
+                                        onChange={this.handleInputChange}
+                                        required
                                     />
                                 </div>
 
@@ -149,8 +200,9 @@ export default class EditAccount extends Component {
                                     <textarea 
                                         rows="5" 
                                         name="blurb" 
-                                        onChange={this.context.handleInputChange}
+                                        onChange={this.handleInputChange}
                                         placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
+                                        required
                                     />
                                 </div>  
                             </div> 

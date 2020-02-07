@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import './ProfilePage.css';
 import config from '../../../config'
+import TokenService from '../../../Services/TokenService'
+import TennitContext from '../../../TennitContext'
 
 class ProfilePage extends Component {
+    static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
@@ -13,6 +16,7 @@ class ProfilePage extends Component {
     componentDidMount(){
         return fetch(`${config.API_ENDPOINT}/listings/${this.props.match.params.user_id}`, {
             headers: {
+                'authorization': `basic ${TokenService.getAuthToken()}`,
             },
         })
             .then(res => {
@@ -27,21 +31,64 @@ class ProfilePage extends Component {
                 })
             })
     }
+
+    generateNewMatch = (e) => {
+        e.preventDefault();
+        const matchData = {
+            user1_id: this.context.loggedUserId,
+            user2_id: this.state.listingData.user_id
+        }
+        return fetch(`${config.API_ENDPOINT}/matches/`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'authorization': `basic ${TokenService.getAuthToken()}`,
+            },
+            body: JSON.stringify(
+                matchData
+            )
+        })
+        .then(res=>
+            (!res.ok)
+            ? res.json().then(e=> Promise.reject(e))    
+            : res.json()
+        )
+        .then(match=>{
+            const newMatch = {
+                firstname_1: this.context.loggedUser.firstname,
+                lastname_1: this.context.loggedUser.lastname,
+                firstname_2: this.state.listingData.firstname,
+                lastname_2: this.state.listingData.lastname,
+                ...match
+            }
+            this.context.loggedUserMatches.push(newMatch)
+            this.props.history.push('/')
+        })
+        .catch(err=>{
+            console.log(err.error.message)
+        })
+    }
+
     render(){
         return(
             <div className="content-container">
-                <h1 className="banner-text">{this.state.listingData.firstname}'s place at {this.state.listingData.neighborhood}, {this.state.listingData.city}</h1>
                 {this.state.listingData.listing ?
                     <h2 className="rent-text">${this.state.listingData.rent} per month</h2> :
                     null
                 }
+                {this.state.listingData.neighborhood 
+                ? <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.neighborhood}, {this.state.listingData.city} </h1>
+                : <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.city}, {this.state.listingData.province} </h1>
+                }
+                
+                
+                
                 <div className="pic-wrap">
                     <img className="pic" src={this.state.listingData.image} alt="test" />        
                 </div>
                 
                 <div className="button-wrap">
-                    <button to="/home" className="rounded-button" >Pass</button>
-                    <button to="/home" className="rounded-button" onClick={e=>console.log('on click create new match, send to convo URL')}>Tenn!</button>
+                    <button className="rounded-button" onClick={this.generateNewMatch}>Tenn!</button>
                 </div>
                 <div className="about-blurb">
                     <h2 className="banner-text">{this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old</h2>

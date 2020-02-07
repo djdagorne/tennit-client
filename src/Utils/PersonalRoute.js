@@ -8,7 +8,7 @@ const PersonalRoute = ({ component, ...props }) => {
         <Route
             {...props}
             render={componentProps => (
-                TokenService.hasAuthToken() //hasToken
+                TokenService.hasAuthToken() //hasToken //TODO make this check context.loggedUserMatches for a matching id. if context doesn't contain the ID, send to NotFoundPage
                 ? <Component {...componentProps} />
                 : <Redirect
                     to={{
