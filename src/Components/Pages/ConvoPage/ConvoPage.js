@@ -2,7 +2,7 @@ import React from 'react';
 //import {Link} from 'react-router-dom';
 import './ConvoPage.css';
 import {Link} from 'react-router-dom'
-import TokenService from '../../../Services/TokenService'
+import TokenService from '../../../Services/token-service'
 import config from '../../../config' 
 import TennitContext from '../../../TennitContext';
 
@@ -40,7 +40,7 @@ class ConvoPage extends React.Component {
     requestComments = () => {
         return fetch(`${config.API_ENDPOINT}/comments/${this.props.match.params.match_id}`, {
             headers: {
-                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
         })
             .then(res =>
@@ -65,7 +65,7 @@ class ConvoPage extends React.Component {
     assignUsers = () => {
         return fetch(`${config.API_ENDPOINT}/matches/${this.props.match.params.match_id}`, {
             headers: {
-                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
         })
             .then(res =>
@@ -76,7 +76,7 @@ class ConvoPage extends React.Component {
             .then(matchData =>{
                 return fetch(`${config.API_ENDPOINT}/listings/${matchData.user1_id}`, {
                     headers: {
-                        'authorization': `basic ${TokenService.getAuthToken()}`,
+                        'authorization': `Bearer ${TokenService.getAuthToken()}`,
                     },
                 }) 
                     .then(res =>
@@ -92,6 +92,7 @@ class ConvoPage extends React.Component {
                     .then(()=>{
                         return fetch(`${config.API_ENDPOINT}/listings/${matchData.user2_id}`, {
                             headers: {
+                                'authorization': `Bearer ${TokenService.getAuthToken()}`,
                             },
                         })
                             .then(res =>
@@ -127,7 +128,7 @@ class ConvoPage extends React.Component {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify(
                 newComment
@@ -141,7 +142,7 @@ class ConvoPage extends React.Component {
             .then(newCommentChain=>{
                 this.setState({
                     comments: newCommentChain,
-                    textarea: ''
+                    textInput: ''
                 })
             })
             .catch(err=>{
@@ -158,15 +159,21 @@ class ConvoPage extends React.Component {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
-                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
         })
-            .then(res =>
-                (!res.ok)
+            .then(res => {
+                console.log(res)
+                return (!res.ok)
                 ? res.then(e => Promise.reject(e))
-                : res.json()
-            )
+                : res
+            })
             .then(()=>{
+                console.log('test')
+                console.log(this.context.loggedUserMatches)
+                console.log(this.props.match.params.match_id)
+                this.context.loggedUserMatches.filter(matches=> matches.id === this.props.match.params.match_id)
+                console.log(this.context.loggedUserMatches)
                 this.props.history.push('/')
             })
             .catch(err=>{
@@ -178,10 +185,10 @@ class ConvoPage extends React.Component {
         return(
             <>
                 <div className="content-container">
-                    {this.state.error ?
+                    {/* {this.state.error ?
                     <div className="error-text">error: {this.state.error}</div>
                     : 
-                    <>
+                    <> */}
                     <div className="convo-page-div">
                         <h1 className="banner-text">
                             Chat between {this.context.loggedUser.firstname} and 
@@ -229,8 +236,8 @@ class ConvoPage extends React.Component {
                         </ul>
                         <button className="rounded-button" onClick={this.deleteMatch}>Delete Match</button>
                     </div>
-                    </>
-                    }
+                    {/* </>
+                    } */}
                 </div>
             </>
         )

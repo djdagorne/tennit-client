@@ -10,11 +10,13 @@ import ConvoPage from '../Pages/ConvoPage/ConvoPage';
 import SearchPage from '../Pages/SearchPage/SearchPage';
 import ResultsPage from '../Pages/ResultsPage/ResultsPage';
 import NotFoundPage from '../Pages/NotFoundPage/NotFoundPage'
-import TokenService from '../../Services/TokenService'
+import TokenService from '../../Services/token-service'
 import TennitContext from '../../TennitContext';
 import PrivateRoute from '../../Utils/PrivateRoute'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
+import IdleService from '../../Services/idle-service'
 import config from '../../config'
+import TennitApiServices from '../../Services/tennit-api-services';
 
 
 class App extends Component {
@@ -31,63 +33,97 @@ class App extends Component {
 			error: null,
         }
 	}
-	//TODO create POST matches
 
-	componentDidMount = () => {
-		if(TokenService.getAuthToken()){
-			const usernamePassword = TokenService.decodeAuthToken().split(":");
-			this.requestCreds(usernamePassword)
+	componentDidMount(){
+		IdleService.setIdleCallback(this.logoutFromIdle) 
+
+		if(TokenService.hasAuthToken()) {
+			this.assignUser()
+			IdleService.registerIdleTimerResets() //executes a function that resets timers when users inputs are detected
+			TokenService.queueCallbackBeforeExpiry(()=>{ //
+				TennitApiServices.postRefreshToken()
+			})
 		}
+	  }
+	
+	componentWillUnmount(){
+		IdleService.unregisterIdleResets()
+		TokenService.clearCallbackBeforeExpiry()
 	}
 	
+	logoutFromIdle = () => {
+		TokenService.clearAuthToken()
+		TokenService.clearCallbackBeforeExpiry()
+		IdleService.unregisterIdleResets()
+		this.forceUpdate()
+	}
+	
+	handleLogIn = (e) => {
+		e.preventDefault();
+		const { email, password } = this.state
+        if(email.length === 0){
+            this.setState({error: 'email required'}, ()=>{
+				console.log(this.state.error)
+			})
+			return
+        }
+        if(password.length === 0){
+            this.setState({error: 'password required'}, ()=>{
+				console.log(this.state.error)
+			})
+			return
+        }
 
-	requestCreds = (usernamePassword) => {
-		return fetch(`${config.API_ENDPOINT}/users/?email=${usernamePassword[0]}`, {
+		const userCreds = {email, password}
+
+		return fetch(`${config.API_ENDPOINT}/auth/login`, {
+			method: 'POST',
 			headers: {
+                'content-type': 'application/json',
 			},
+			body: JSON.stringify(userCreds)
 		})
 			.then(res => {
+				console.log(res.body)
 				if(!res.ok){
 					throw new Error(res.statusText);
 				}
 				return res.json();
 			})
-			.then(user => {
-				if(user.password === usernamePassword[1]){
-					TokenService.saveAuthToken(
-						TokenService.makeBasicAuthToken(usernamePassword[0], usernamePassword[1])
-					)
-					this.setState({
-						showLogInPopup: false,
-						loggedUserId: user.id
-					},()=>{
-						this.assignUser()
-					})
-				}else{
-					throw new Error(user.statusText);
-				}					
+			.then(res => {
+				TokenService.saveAuthToken(res.authToken)
+				const token = TokenService.getAuthToken(res.authToken)
+				console.log(token)
+				this.setState({
+					showLogInPopup: false,
+					loggedUserId: token.id
+				},()=>{
+					this.assignUser()
+				})				
 			})
 			.catch(err => {
 				console.log(err)
 			})
+
 	}
 	
 	assignUser = () =>{
-		return fetch(`${config.API_ENDPOINT}/listings/${this.state.loggedUserId}`, {
+		return fetch(`${config.API_ENDPOINT}/listings/${TokenService.parseJwt(TokenService.getAuthToken()).id}`, {
 				headers: {
-					'authorization': `basic ${TokenService.getAuthToken()}`,
+					'authorization': `Bearer ${TokenService.getAuthToken()}`,
 				},
 			})
 			.then(res => {
 				if(!res.ok){
-						throw new Error(res.statusText);
+					throw new Error(res.statusText);
 				}
 				return res.json()
 			})
 			.then(data => {
 				this.context.loggedUser = data
 				this.setState({
-					loggedUser: data
+					loggedUser: data,
+					loggedUserId: TokenService.parseJwt(TokenService.getAuthToken()).id
 				},()=>{
 					this.requestMatches()
 				});
@@ -96,17 +132,22 @@ class App extends Component {
 				console.log(err)
 			})
 	}
+
 	requestMatches = () => {
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.state.loggedUserId}`, {
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.state.loggedUser.user_id}`, {
             headers: {
-				'authorization': `basic ${TokenService.getAuthToken()}`,
+				'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
         })
         .then(res => {
             if(!res.ok){
 				throw new Error(res.statusText);
-            }
-            return res.json();
+			}
+			if(res.status === 404){
+            	return []
+			}else{
+				return res.json()
+			}
 		})
 		.then(data => {
 			this.context.loggedUserMatches = data
@@ -162,29 +203,6 @@ class App extends Component {
 		this.setState({
 			  [name]: value
 		});
-	}
-	
-	handleLogIn = (e) => {
-		e.preventDefault();
-		//check if credentials are valid, assign the loggedUser
-		const { email, password } = this.state
-        if(email.length === 0){
-            this.setState({error: 'email required'}, ()=>{
-				console.log(this.state.error)
-			})
-			return
-        }
-        if(password.length === 0){
-            this.setState({error: 'password required'}, ()=>{
-				console.log(this.state.error)
-			})
-			return
-        }
-
-		const credentials = [email, password]
-		
-		this.requestCreds(credentials)
-
 	}
 	
 	render(){

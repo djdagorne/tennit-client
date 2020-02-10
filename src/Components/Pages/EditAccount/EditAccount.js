@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './EditAccount.css';
 import config from '../../../config'
-import TokenService from '../../../Services/TokenService'
+import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext';
 
 export default class EditAccount extends Component {
@@ -64,37 +64,39 @@ export default class EditAccount extends Component {
                 method: `PATCH`,
                 headers: {
                     'content-type': 'application/json',
-                    'authorization': `basic ${TokenService.getAuthToken()}`,
+					'authorization': `Bearer ${TokenService.getAuthToken()}`,
                 },
                 body: JSON.stringify(
                     updatedListing
                 )
             })
-                .then(res => 
-                        (!res.ok)
+                .then(res => {
+                    console.log(res)
+                        return (!res.ok)
                         ? res.then(e=> Promise.reject(e))
                         : res.json()
-                )
+                })
                 .then(listing=>{
+                    console.log(listing)
                     this.context.loggedUser = listing
-                    this.context.togglePopup('edit')
                 })
                 .then(()=>{
                     return fetch(`${config.API_ENDPOINT}/images/${this.context.loggedUser.user_id}`, {
                         method: `PATCH`,
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': `basic ${TokenService.getAuthToken()}`,
+                            'authorization': `Bearer ${TokenService.getAuthToken()}`,
                         },
                         body: JSON.stringify(
                             updatedImage
                         )
                     })
-                        .then(res => 
-                            (!res.ok)
+                        .then(res => {
+                            console.log(res)
+                            return (!res.ok)
                             ? res.then(e=> Promise.reject(e))
-                            : res.json()
-                        )
+                            : res
+                        })
                         .then(image=>{
                             this.context.loggedUser.image = image
                             this.context.togglePopup('edit')

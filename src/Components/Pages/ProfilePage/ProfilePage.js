@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './ProfilePage.css';
 import config from '../../../config'
-import TokenService from '../../../Services/TokenService'
+import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext'
 
 class ProfilePage extends Component {
@@ -16,7 +16,7 @@ class ProfilePage extends Component {
     componentDidMount(){
         return fetch(`${config.API_ENDPOINT}/listings/${this.props.match.params.user_id}`, {
             headers: {
-                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
         })
             .then(res => {
@@ -35,14 +35,14 @@ class ProfilePage extends Component {
     generateNewMatch = (e) => {
         e.preventDefault();
         const matchData = {
-            user1_id: this.context.loggedUserId,
+            user1_id: this.context.loggedUser.user_id,
             user2_id: this.state.listingData.user_id
         }
         return fetch(`${config.API_ENDPOINT}/matches/`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'authorization': `basic ${TokenService.getAuthToken()}`,
+                'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify(
                 matchData

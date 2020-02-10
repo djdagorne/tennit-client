@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
 import config from '../../../config'
-import TokenService from '../../../Services/TokenService'
+import TokenService from '../../../Services/token-service'
 //import TennitApiServices from '../../../Services/tennit-api-services';
 
 class SearchPage extends Component {
@@ -33,7 +33,7 @@ class SearchPage extends Component {
 
             return fetch(`${config.API_ENDPOINT}/listings/?${query}`, {
                 headers: {
-                    'authorization': `basic ${TokenService.getAuthToken()}`,
+					'authorization': `Bearer ${TokenService.getAuthToken()}`,
                 },
             })
                 .then(res => {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './CreateAccount.css';
 import TennitContext from '../../../TennitContext';
+import TokenService from '../../../Services/token-service'
 import config from '../../../config'
 
 class CreateAccount extends Component {
@@ -66,15 +67,17 @@ class CreateAccount extends Component {
                 ? res.then(e=> Promise.reject(e))
                 : res.json()
             )
-            .then(user=>{
+            .then(res=>{
+				const token = TokenService.getAuthToken(res.authToken)
                 return  fetch(`${config.API_ENDPOINT}/listings/`, {
                     method: `POST`,
                     headers: {
                         'content-type': 'application/json',
+                        'authorization': `Bearer ${TokenService.getAuthToken()}`,
                     },
                     body: JSON.stringify({
                         ...newListing,
-                        user_id: user.id,
+                        user_id: token.id,
                     })
                 })
                     .then(res => 
@@ -87,6 +90,7 @@ class CreateAccount extends Component {
                             method: `POST`,
                             headers: {
                                 'content-type': 'application/json',
+                                'authorization': `Bearer ${TokenService.getAuthToken()}`,
                             },
                             body: JSON.stringify({
                                 user_id: listing.user_id,

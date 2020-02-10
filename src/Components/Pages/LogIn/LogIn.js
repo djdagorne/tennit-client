@@ -34,6 +34,7 @@ class LogIn extends Component {
                                 type="email"
                                 placeholder="john@email.com"
                                 onChange={this.context.handleInputChange}
+                                required
                                 />
                         </div>
                         <div className="form-item">
@@ -43,6 +44,7 @@ class LogIn extends Component {
                                 type="password"  
                                 placeholder="********"
                                 onChange={this.context.handleInputChange}
+                                required
                                 />
                         </div>
                         <div className="button-wrap">

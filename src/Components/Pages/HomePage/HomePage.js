@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {Link } from 'react-router-dom';
 import './HomePage.css'
 import TennitContext from '../../../TennitContext'
-//import config from '../../../config'
+import TokenService from '../../../Services/token-service'
+import config from '../../../config'
 
 export default class HomePage extends Component {
     static contextType = TennitContext
@@ -11,6 +12,40 @@ export default class HomePage extends Component {
         this.state = {
         }
     }
+
+    componentDidMount = () => {
+        if(this.context.loggedUser.user_id){
+            
+            this.requestMatches()
+        }
+    }
+
+    requestMatches = () => { //TODO keep identical to App.js requestMatches()
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.context.loggedUser.user_id}`, {
+            headers: {
+				'authorization': `Bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+        .then(res => {
+            if(!res.ok){
+				throw new Error(res.statusText);
+			}
+			if(res.status === 404){
+            	return []
+			}else{
+				return res.json()
+			}
+		})
+		.then(data => {
+			this.context.loggedUserMatches = data
+			this.setState({
+				loggedUserMatches: data
+			});
+		})
+		.catch(err => {
+			console.log(err)
+		})
+	}
 
     render(){
         return(

@@ -5,7 +5,7 @@ import LogIn from '../Pages/LogIn/LogIn.js'
 import EditAccount from '../Pages/EditAccount/EditAccount'
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
 import TennitContext from '../../TennitContext'
-import TokenService from '../../Services/TokenService';
+import TokenService from '../../Services/token-service';
 
 class Header extends Component {
     static contextType = TennitContext

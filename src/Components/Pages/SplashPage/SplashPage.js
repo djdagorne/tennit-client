@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
 import './SplashPage.css';
 import TennitContext from '../../../TennitContext';
-// import TokenService from '../../../Services/TokenService';
-
+/* import TokenService from '../Services/token-service'
+ */
 export default class SplashPage extends Component {
     static contextType = TennitContext
 
