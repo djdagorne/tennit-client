@@ -71,13 +71,11 @@ export default class EditAccount extends Component {
                 )
             })
                 .then(res => {
-                    console.log(res)
                         return (!res.ok)
                         ? res.then(e=> Promise.reject(e))
                         : res.json()
                 })
                 .then(listing=>{
-                    console.log(listing)
                     this.context.loggedUser = listing
                 })
                 .then(()=>{
@@ -92,7 +90,6 @@ export default class EditAccount extends Component {
                         )
                     })
                         .then(res => {
-                            console.log(res)
                             return (!res.ok)
                             ? res.then(e=> Promise.reject(e))
                             : res

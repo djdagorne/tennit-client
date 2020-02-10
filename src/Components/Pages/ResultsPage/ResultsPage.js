@@ -10,10 +10,6 @@ class ResultsPage extends React.Component {
         this.state={
         }
     }
-    componentDidUpdate = () => {    
-        // console.log(this.context.searchQuery)
-        // this.forceUpdate()
-    }
     render(){
 
         return( 

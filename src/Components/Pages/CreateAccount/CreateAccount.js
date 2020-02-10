@@ -68,7 +68,8 @@ class CreateAccount extends Component {
                 : res.json()
             )
             .then(res=>{
-				const token = TokenService.getAuthToken(res.authToken)
+                TokenService.saveAuthToken(res.authToken)
+				const token = TokenService.parseJwt(res.authToken)
                 return  fetch(`${config.API_ENDPOINT}/listings/`, {
                     method: `POST`,
                     headers: {

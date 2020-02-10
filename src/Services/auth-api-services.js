@@ -44,11 +44,9 @@ const AuthApiServices = {
             })
     },
     postRefreshToken(){
-        console.log('postRefreshToken')
         return fetch(`${config.API_ENDPOINT}/auth/refresh`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json',
                 'authorization': `Bearer ${TokenService.getAuthToken()}`
             }
         })
@@ -58,7 +56,6 @@ const AuthApiServices = {
                     : res.json()  
             )
             .then(res => {
-                console.log('refreshing token')
                 TokenService.saveAuthToken(res.authToken)
                 TokenService.queueCallbackBeforeExpiry(()=>{
                     AuthApiServices.postRefreshToken()
@@ -66,7 +63,6 @@ const AuthApiServices = {
                 return res
             })
             .catch(err => {
-                console.log('refresh token error')
                 console.log(err)
             })
     }

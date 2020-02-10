@@ -120,7 +120,7 @@ class ConvoPage extends React.Component {
         const {textInput} = e.target
         const newComment = {
             match_id: this.props.match.params.match_id,
-            user_id: this.context.loggedUser.user_id,
+            user_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
             comment: textInput.value
         }
 
@@ -147,9 +147,7 @@ class ConvoPage extends React.Component {
             })
             .catch(err=>{
                 console.log(err)
-                this.setState({
-                    error: err.error.message
-                })
+                
             })
     }
 
@@ -163,17 +161,12 @@ class ConvoPage extends React.Component {
             },
         })
             .then(res => {
-                console.log(res)
                 return (!res.ok)
                 ? res.then(e => Promise.reject(e))
                 : res
             })
             .then(()=>{
-                console.log('test')
-                console.log(this.context.loggedUserMatches)
-                console.log(this.props.match.params.match_id)
                 this.context.loggedUserMatches.filter(matches=> matches.id === this.props.match.params.match_id)
-                console.log(this.context.loggedUserMatches)
                 this.props.history.push('/')
             })
             .catch(err=>{

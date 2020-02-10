@@ -8,7 +8,8 @@ const PersonalRoute = ({ component, ...props }) => {
         <Route
             {...props}
             render={componentProps => (
-                TokenService.hasAuthToken() //hasToken //TODO make this check context.loggedUserMatches for a matching id. if context doesn't contain the ID, send to NotFoundPage
+                TokenService.hasAuthToken() //compare .params.match_id to loggedUserMatches ?
+                    //TODO cont... maybe set up a seperate service to store match_ids? i am so tired atm sorry future dexter
                 ? <Component {...componentProps} />
                 : <Redirect
                     to={{

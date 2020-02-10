@@ -30,6 +30,9 @@ class ProfilePage extends Component {
                     listingData: res
                 })
             })
+            .catch(err=>{
+                console.log(err)
+            })
     }
 
     generateNewMatch = (e) => {
@@ -65,7 +68,7 @@ class ProfilePage extends Component {
             this.props.history.push('/')
         })
         .catch(err=>{
-            console.log(err.error.message)
+            console.log(err)
         })
     }
 

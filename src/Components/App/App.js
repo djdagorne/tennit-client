@@ -40,7 +40,7 @@ class App extends Component {
 		if(TokenService.hasAuthToken()) {
 			this.assignUser()
 			IdleService.registerIdleTimerResets() //executes a function that resets timers when users inputs are detected
-			TokenService.queueCallbackBeforeExpiry(()=>{ //
+			TokenService.queueCallbackBeforeExpiry(()=>{ //TODO find out why token is being refreshed/why client isnt expiring the session properly
 				AuthApiServices.postRefreshToken()
 			})
 		}
@@ -53,7 +53,7 @@ class App extends Component {
 	
 	logoutFromIdle = () => {
 		TokenService.clearAuthToken()
-		TokenService.clearCallbackBeforeExpiry()
+		TokenService.clearCallbackBeforeExpiry() //TODO look into this one
 		IdleService.unregisterIdleResets()
 		this.forceUpdate()
 	}
@@ -84,7 +84,6 @@ class App extends Component {
 			body: JSON.stringify(userCreds)
 		})
 			.then(res => {
-				console.log(res.body)
 				if(!res.ok){
 					throw new Error(res.statusText);
 				}
@@ -92,11 +91,10 @@ class App extends Component {
 			})
 			.then(res => {
 				TokenService.saveAuthToken(res.authToken)
-				const token = TokenService.getAuthToken(res.authToken)
-				console.log(token)
+				const decodedJwt = TokenService.parseJwt(res.authToken)
 				this.setState({
 					showLogInPopup: false,
-					loggedUserId: token.id
+					loggedUserId: decodedJwt.id
 				},()=>{
 					this.assignUser()
 				})				
@@ -124,40 +122,11 @@ class App extends Component {
 				this.setState({
 					loggedUser: data,
 					loggedUserId: TokenService.parseJwt(TokenService.getAuthToken()).id
-				},()=>{
-					this.requestMatches()
 				});
 			})
 			.catch(err => {
 				console.log(err)
 			})
-	}
-
-	requestMatches = () => {
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.state.loggedUser.user_id}`, {
-            headers: {
-				'authorization': `Bearer ${TokenService.getAuthToken()}`,
-            },
-        })
-        .then(res => {
-            if(!res.ok){
-				throw new Error(res.statusText);
-			}
-			if(res.status === 404){
-            	return []
-			}else{
-				return res.json()
-			}
-		})
-		.then(data => {
-			this.context.loggedUserMatches = data
-			this.setState({
-				loggedUserMatches: data
-			});
-		})
-		.catch(err => {
-			console.log(err)
-		})
 	}
 	
 

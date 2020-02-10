@@ -14,14 +14,13 @@ export default class HomePage extends Component {
     }
 
     componentDidMount = () => {
-        if(this.context.loggedUser.user_id){
-            
+        if(TokenService.getAuthToken()){
             this.requestMatches()
         }
     }
 
-    requestMatches = () => { //TODO keep identical to App.js requestMatches()
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${this.context.loggedUser.user_id}`, {
+    requestMatches = () => {
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${TokenService.parseJwt(TokenService.getAuthToken()).id}`, {
             headers: {
 				'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
@@ -40,6 +39,8 @@ export default class HomePage extends Component {
 			this.context.loggedUserMatches = data
 			this.setState({
 				loggedUserMatches: data
+			},()=>{
+				this.forceUpdate()
 			});
 		})
 		.catch(err => {
