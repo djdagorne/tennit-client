@@ -8,8 +8,7 @@ const PersonalRoute = ({ component, ...props }) => {
         <Route
             {...props}
             render={componentProps => (
-                TokenService.hasAuthToken() //compare .params.match_id to loggedUserMatches ?
-                    //TODO cont... maybe set up a seperate service to store match_ids? i am so tired atm sorry future dexter
+                TokenService.hasAuthToken() //TODO compare .params.match_id to loggedUserMatches 
                 ? <Component {...componentProps} />
                 : <Redirect
                     to={{

@@ -39,8 +39,8 @@ class App extends Component {
 
 		if(TokenService.hasAuthToken()) {
 			this.assignUser()
-			IdleService.registerIdleTimerResets() //executes a function that resets timers when users inputs are detected
-			TokenService.queueCallbackBeforeExpiry(()=>{ //TODO find out why token is being refreshed/why client isnt expiring the session properly
+			IdleService.registerIdleTimerResets() 
+			TokenService.queueCallbackBeforeExpiry(()=>{ 
 				AuthApiServices.postRefreshToken()
 			})
 		}
@@ -53,7 +53,7 @@ class App extends Component {
 	
 	logoutFromIdle = () => {
 		TokenService.clearAuthToken()
-		TokenService.clearCallbackBeforeExpiry() //TODO look into this one
+		TokenService.clearCallbackBeforeExpiry() 
 		IdleService.unregisterIdleResets()
 		this.forceUpdate()
 	}
