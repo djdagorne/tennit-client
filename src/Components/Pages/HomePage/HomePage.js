@@ -14,40 +14,10 @@ export default class HomePage extends Component {
     }
 
     componentDidMount = () => {
-        if(TokenService.getAuthToken()){
-            this.requestMatches()
-        }
+        // if(TokenService.getAuthToken()){
+        //     this.requestMatches()
+        // }
     }
-
-    requestMatches = () => {
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${TokenService.parseJwt(TokenService.getAuthToken()).id}`, {
-            headers: {
-				'authorization': `Bearer ${TokenService.getAuthToken()}`,
-            },
-        })
-        .then(res => {
-            if(!res.ok){
-				throw new Error(res.statusText);
-			}
-			if(res.status === 404){
-            	return []
-			}else{
-				return res.json()
-			}
-		})
-		.then(data => {
-			this.context.loggedUserMatches = data
-			this.setState({
-				loggedUserMatches: data
-			},()=>{
-				this.forceUpdate()
-			});
-		})
-		.catch(err => {
-			console.log(err)
-		})
-	}
-
     render(){
         return(
             <div className="content-container">

@@ -122,12 +122,42 @@ class App extends Component {
 				this.setState({
 					loggedUser: data,
 					loggedUserId: TokenService.parseJwt(TokenService.getAuthToken()).id
-				});
+				},()=>{this.requestMatches()});
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}
+
+    requestMatches = () => {
+		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${TokenService.parseJwt(TokenService.getAuthToken()).id}`, {
+            headers: {
+				'authorization': `Bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+        .then(res => {
+            if(!res.ok){
+				throw new Error(res.statusText);
+			}
+			if(res.status === 404){
+            	return []
+			}else{
+				return res.json()
+			}
+		})
+		.then(data => {
+			this.context.loggedUserMatches = data
+			this.setState({
+				loggedUserMatches: data
+			},()=>{
+				this.forceUpdate()
+			});
+		})
+		.catch(err => {
+			console.log(err)
+		})
+	}
+
 	
 
 	toggleLogIn = () => {
