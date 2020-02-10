@@ -16,7 +16,7 @@ import PrivateRoute from '../../Utils/PrivateRoute'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 import IdleService from '../../Services/idle-service'
 import config from '../../config'
-import TennitApiServices from '../../Services/tennit-api-services';
+import AuthApiServices from '../../Services/auth-api-services';
 
 
 class App extends Component {
@@ -41,7 +41,7 @@ class App extends Component {
 			this.assignUser()
 			IdleService.registerIdleTimerResets() //executes a function that resets timers when users inputs are detected
 			TokenService.queueCallbackBeforeExpiry(()=>{ //
-				TennitApiServices.postRefreshToken()
+				AuthApiServices.postRefreshToken()
 			})
 		}
 	  }

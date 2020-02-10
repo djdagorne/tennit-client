@@ -2,7 +2,7 @@ import config from '../config'
 import TokenService from './token-service'
 import IdleService from './idle-service'
 
-const TennitApiServices = {
+const AuthApiServices = {
     postUser(user) {
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
@@ -38,7 +38,7 @@ const TennitApiServices = {
                 TokenService.saveAuthToken(res.authToken)
                 IdleService.registerIdleTimerResets()
                 TokenService.queueCallbackBeforeExpiry(()=> {
-                    TennitApiServices.postRefreshToken()
+                    AuthApiServices.postRefreshToken()
                 })
                 return res
             })
@@ -61,7 +61,7 @@ const TennitApiServices = {
                 console.log('refreshing token')
                 TokenService.saveAuthToken(res.authToken)
                 TokenService.queueCallbackBeforeExpiry(()=>{
-                    TennitApiServices.postRefreshToken()
+                    AuthApiServices.postRefreshToken()
                 })
                 return res
             })
@@ -73,4 +73,4 @@ const TennitApiServices = {
     
 }
 
-export default TennitApiServices
+export default AuthApiServices

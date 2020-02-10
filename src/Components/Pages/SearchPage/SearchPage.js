@@ -3,7 +3,7 @@ import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
 import config from '../../../config'
 import TokenService from '../../../Services/token-service'
-//import TennitApiServices from '../../../Services/tennit-api-services';
+//import AuthApiServices from '../../../Services/auth-api-services';
 
 class SearchPage extends Component {
     static contextType = TennitContext;
