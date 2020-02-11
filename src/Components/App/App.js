@@ -16,7 +16,8 @@ import PrivateRoute from '../../Utils/PrivateRoute'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 import IdleService from '../../Services/idle-service'
 import config from '../../config'
-import AuthApiServices from '../../Services/auth-api-services';
+import AuthApiService from '../../Services/auth-api-service';
+import TennitApiService from '../../Services/tennit-api-service';
 
 
 class App extends Component {
@@ -24,7 +25,6 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-			loggedUserId: '',
 			loggedUser: {},
 			loggedUserMatches: [],
 			showLogInPopup: false,
@@ -36,15 +36,28 @@ class App extends Component {
 
 	componentDidMount(){
 		IdleService.setIdleCallback(this.logoutFromIdle) 
-
 		if(TokenService.hasAuthToken()) {
-			this.assignUser()
 			IdleService.registerIdleTimerResets() 
 			TokenService.queueCallbackBeforeExpiry(()=>{ 
-				AuthApiServices.postRefreshToken()
+				AuthApiService.postRefreshToken()
 			})
+			TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
+				.then(userData=>{
+					TennitApiService.requestMatchList(userData.user_id)
+						.then(data=>{
+							this.context.loggedUserMatches = data.userMatches
+							this.context.loggedUser = userData
+							this.setState({
+								loggedUser: userData,
+								loggedUserMatches: data.userMatches,
+								showLogInPopup: false
+							},()=>{
+								this.forceUpdate()
+							})
+						})
+				})
 		}
-	  }
+	}
 	
 	componentWillUnmount(){
 		IdleService.unregisterIdleResets()
@@ -59,106 +72,16 @@ class App extends Component {
 	}
 	
 	handleLogIn = (e) => {
-		e.preventDefault();
-		const { email, password } = this.state
-        if(email.length === 0){
-            this.setState({error: 'email required'}, ()=>{
-				console.log(this.state.error)
-			})
-			return
-        }
-        if(password.length === 0){
-            this.setState({error: 'password required'}, ()=>{
-				console.log(this.state.error)
-			})
-			return
-        }
-
-		const userCreds = {email, password}
-
-		return fetch(`${config.API_ENDPOINT}/auth/login`, {
-			method: 'POST',
-			headers: {
-                'content-type': 'application/json',
-			},
-			body: JSON.stringify(userCreds)
-		})
+		TennitApiService.postLogIn(e)
 			.then(res => {
-				if(!res.ok){
-					throw new Error(res.statusText);
-				}
-				return res.json();
-			})
-			.then(res => {
-				TokenService.saveAuthToken(res.authToken)
-				const decodedJwt = TokenService.parseJwt(res.authToken)
 				this.setState({
 					showLogInPopup: false,
-					loggedUserId: decodedJwt.id
-				},()=>{
-					this.assignUser()
 				})				
 			})
 			.catch(err => {
 				console.log(err)
 			})
-
-	}
-	
-	assignUser = () =>{
-		return fetch(`${config.API_ENDPOINT}/listings/${TokenService.parseJwt(TokenService.getAuthToken()).id}`, {
-				headers: {
-					'authorization': `Bearer ${TokenService.getAuthToken()}`,
-				},
-			})
-			.then(res => {
-				if(!res.ok){
-					throw new Error(res.statusText);
-				}
-				return res.json()
-			})
-			.then(data => {
-				this.context.loggedUser = data
-				this.setState({
-					loggedUser: data,
-					loggedUserId: TokenService.parseJwt(TokenService.getAuthToken()).id
-				},()=>{this.requestMatches()});
-			})
-			.catch(err => {
-				console.log(err)
-			})
-	}
-
-    requestMatches = () => {
-		return fetch(`${config.API_ENDPOINT}/matches/?user_id=${TokenService.parseJwt(TokenService.getAuthToken()).id}`, {
-            headers: {
-				'authorization': `Bearer ${TokenService.getAuthToken()}`,
-            },
-        })
-        .then(res => {
-            if(!res.ok){
-				throw new Error(res.statusText);
-			}
-			if(res.status === 404){
-            	return []
-			}else{
-				return res.json()
-			}
-		})
-		.then(data => {
-			this.context.loggedUserMatches = data
-			this.setState({
-				loggedUserMatches: data
-			},()=>{
-				this.forceUpdate()
-			});
-		})
-		.catch(err => {
-			console.log(err)
-		})
-	}
-
-	
+	}	
 
 	toggleLogIn = () => {
 		if(TokenService.hasAuthToken()){
@@ -167,7 +90,6 @@ class App extends Component {
 				showLogInPopup: false,
 				email: '',
 				password: '',
-				loggedUserId: null,
 			},()=>this.forceUpdate())
 		}else{
 			this.setState({
@@ -220,9 +142,9 @@ class App extends Component {
 					<header>
 						<Header />
 					</header>
-					{ TokenService.hasAuthToken() ?
-						<div className="tile-background"/> :
-						<div className="splash-background"/>
+					{ TokenService.hasAuthToken() 
+						? <div className="tile-background"/> 
+						: <div className="splash-background"/>
 					}
 					<main>
 						<Switch>

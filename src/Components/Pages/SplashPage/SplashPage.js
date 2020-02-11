@@ -5,7 +5,9 @@ import TennitContext from '../../../TennitContext';
  */
 export default class SplashPage extends Component {
     static contextType = TennitContext
-
+    componentDidMount(){
+        
+    }
 
     render(){
         return (

@@ -3,6 +3,7 @@ import './CreateAccount.css';
 import TennitContext from '../../../TennitContext';
 import TokenService from '../../../Services/token-service'
 import config from '../../../config'
+import TennitApiService from '../../../Services/tennit-api-service';
 
 class CreateAccount extends Component {
     static contextType = TennitContext;
@@ -53,60 +54,24 @@ class CreateAccount extends Component {
             image: this.state.image
         }
 
-        return  fetch(`${config.API_ENDPOINT}/users/`, {
-            method: `POST`,
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(
-                newUser
-            )
-        })
-            .then(res => 
-                (!res.ok)
-                ? res.then(e=> Promise.reject(e))
-                : res.json()
-            )
+        TennitApiService.postUser(newUser)
             .then(res=>{
                 TokenService.saveAuthToken(res.authToken)
-				const token = TokenService.parseJwt(res.authToken)
-                return  fetch(`${config.API_ENDPOINT}/listings/`, {
-                    method: `POST`,
-                    headers: {
-                        'content-type': 'application/json',
-                        'authorization': `Bearer ${TokenService.getAuthToken()}`,
-                    },
-                    body: JSON.stringify({
-                        ...newListing,
-                        user_id: token.id,
-                    })
-                })
-                    .then(res => 
-                        (!res.ok)
-                        ? res.then(e=> Promise.reject(e))
-                        : res.json()
-                    )
+                const token = TokenService.parseJwt(res.authToken)
+                const listingBody = {
+                    ...newListing,
+                    user_id: token.id,
+                }
+                TennitApiService.postListing(listingBody)
                     .then(listing=>{
-                        return  fetch(`${config.API_ENDPOINT}/images/`, {
-                            method: `POST`,
-                            headers: {
-                                'content-type': 'application/json',
-                                'authorization': `Bearer ${TokenService.getAuthToken()}`,
-                            },
-                            body: JSON.stringify({
-                                user_id: listing.user_id,
-                                ...newImage
+                        const imageBody = {
+                            user_id: listing.user_id,
+                            ...newImage
+                        }
+                        TennitApiService.postImage(imageBody)
+                            .then(()=>{
+                                this.context.togglePopup('create')
                             })
-                        })
-                        .then(res => 
-                            (!res.ok)
-                            ? res.then(e=> Promise.reject(e))
-                            : res.json()
-                        )
-                        .then(image=>{
-                            this.context.togglePopup('create')
-                        })
-                        
                     })
             })
             .catch(err=>{

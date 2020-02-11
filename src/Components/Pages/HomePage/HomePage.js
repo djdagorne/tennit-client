@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {Link } from 'react-router-dom';
 import './HomePage.css'
 import TennitContext from '../../../TennitContext'
+import TennitApiService from '../../../Services/tennit-api-service'
 import TokenService from '../../../Services/token-service'
-import config from '../../../config'
+/* import config from '../../../config' */
 
 export default class HomePage extends Component {
     static contextType = TennitContext
@@ -13,11 +14,26 @@ export default class HomePage extends Component {
         }
     }
 
-    componentDidMount = () => {
-        // if(TokenService.getAuthToken()){
-        //     this.requestMatches()
-        // }
+    componentDidMount(){
+        if(TokenService.hasAuthToken()){
+            TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
+				.then(userData=>{
+					TennitApiService.requestMatchList(userData.user_id)
+						.then(data=>{
+							this.context.loggedUserMatches = data.userMatches
+							this.context.loggedUser = userData
+							this.setState({
+								loggedUser: userData,
+								loggedUserMatches: data.userMatches,
+								showLogInPopup: false
+							},()=>{
+								this.forceUpdate()
+							})
+						})
+				})
+        }
     }
+
     render(){
         return(
             <div className="content-container">
@@ -40,7 +56,7 @@ export default class HomePage extends Component {
                     </Link>
                 </div>
                     
-                {this.context.loggedUserMatches[0]
+                {this.context.loggedUserMatches
                 ?   <div className="active-convos">
                         <div className="convo-banner">
                             <h2 className="banner-text home-banner">Your Active Convos</h2>

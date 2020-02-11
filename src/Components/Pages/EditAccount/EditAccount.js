@@ -3,6 +3,7 @@ import './EditAccount.css';
 import config from '../../../config'
 import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext';
+import TennitApiService from '../../../Services/tennit-api-service';
 
 export default class EditAccount extends Component {
     static contextType = TennitContext;
@@ -50,7 +51,7 @@ export default class EditAccount extends Component {
             blurb: this.state.blurb
         }
         const updatedImage = {
-            user_id: this.context.loggedUser.user_id,
+            user_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
             image: this.state.image
         }
 
@@ -60,42 +61,14 @@ export default class EditAccount extends Component {
             }
         }
         if(Object.keys(updatedListing).length > 0 || this.state.image !== null){
-            return fetch(`${config.API_ENDPOINT}/listings/${this.context.loggedUser.user_id}`, {
-                method: `PATCH`,
-                headers: {
-                    'content-type': 'application/json',
-					'authorization': `Bearer ${TokenService.getAuthToken()}`,
-                },
-                body: JSON.stringify(
-                    updatedListing
-                )
-            })
-                .then(res => {
-                        return (!res.ok)
-                        ? res.then(e=> Promise.reject(e))
-                        : res.json()
-                })
+            TennitApiService.patchListing(updatedListing, TokenService.parseJwt(TokenService.getAuthToken()).id)
                 .then(listing=>{
                     this.context.loggedUser = listing
                 })
                 .then(()=>{
-                    return fetch(`${config.API_ENDPOINT}/images/${this.context.loggedUser.user_id}`, {
-                        method: `PATCH`,
-                        headers: {
-                            'content-type': 'application/json',
-                            'authorization': `Bearer ${TokenService.getAuthToken()}`,
-                        },
-                        body: JSON.stringify(
-                            updatedImage
-                        )
-                    })
-                        .then(res => {
-                            return (!res.ok)
-                            ? res.then(e=> Promise.reject(e))
-                            : res
-                        })
-                        .then(image=>{
-                            this.context.loggedUser.image = image
+                    TennitApiService.patchImage(updatedImage)
+                        .then(res=>{
+                            this.context.loggedUser.image = res.image
                             this.context.togglePopup('edit')
                         })
                         .catch(err=>{

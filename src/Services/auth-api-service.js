@@ -2,7 +2,7 @@ import config from '../config'
 import TokenService from './token-service'
 import IdleService from './idle-service'
 
-const AuthApiServices = {
+const AuthApiService = {
     postUser(user) {
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
@@ -38,7 +38,7 @@ const AuthApiServices = {
                 TokenService.saveAuthToken(res.authToken)
                 IdleService.registerIdleTimerResets()
                 TokenService.queueCallbackBeforeExpiry(()=> {
-                    AuthApiServices.postRefreshToken()
+                    AuthApiService.postRefreshToken()
                 })
                 return res
             })
@@ -58,7 +58,7 @@ const AuthApiServices = {
             .then(res => {
                 TokenService.saveAuthToken(res.authToken)
                 TokenService.queueCallbackBeforeExpiry(()=>{
-                    AuthApiServices.postRefreshToken()
+                    AuthApiService.postRefreshToken()
                 })
                 return res
             })
@@ -69,4 +69,4 @@ const AuthApiServices = {
     
 }
 
-export default AuthApiServices
+export default AuthApiService

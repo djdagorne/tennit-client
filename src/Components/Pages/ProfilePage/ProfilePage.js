@@ -3,6 +3,7 @@ import './ProfilePage.css';
 import config from '../../../config'
 import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext'
+import TennitApiService from '../../../Services/tennit-api-service';
 
 class ProfilePage extends Component {
     static contextType = TennitContext;
@@ -14,17 +15,7 @@ class ProfilePage extends Component {
         }
     }
     componentDidMount(){
-        return fetch(`${config.API_ENDPOINT}/listings/${this.props.match.params.user_id}`, {
-            headers: {
-                'authorization': `Bearer ${TokenService.getAuthToken()}`,
-            },
-        })
-            .then(res => {
-                if(!res.ok){
-                    throw new Error(res.statusText);
-                }
-                return res.json();
-            })
+        TennitApiService.getUser(this.props.match.params.user_id)
             .then(res=>{
                 this.setState({
                     listingData: res
@@ -38,38 +29,24 @@ class ProfilePage extends Component {
     generateNewMatch = (e) => {
         e.preventDefault();
         const matchData = {
-            user1_id: this.context.loggedUser.user_id,
+            user1_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
             user2_id: this.state.listingData.user_id
         }
-        return fetch(`${config.API_ENDPOINT}/matches/`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                'authorization': `Bearer ${TokenService.getAuthToken()}`,
-            },
-            body: JSON.stringify(
-                matchData
-            )
-        })
-        .then(res=>
-            (!res.ok)
-            ? res.json().then(e=> Promise.reject(e))    
-            : res.json()
-        )
-        .then(match=>{
-            const newMatch = {
-                firstname_1: this.context.loggedUser.firstname,
-                lastname_1: this.context.loggedUser.lastname,
-                firstname_2: this.state.listingData.firstname,
-                lastname_2: this.state.listingData.lastname,
-                ...match
-            }
-            this.context.loggedUserMatches.push(newMatch)
-            this.props.history.push('/')
-        })
-        .catch(err=>{
-            console.log(err)
-        })
+        TennitApiService.postNewMatch(matchData)
+            .then(match=>{
+                const newMatch = {
+                    firstname_1: this.context.loggedUser.firstname,
+                    lastname_1: this.context.loggedUser.lastname,
+                    firstname_2: this.state.listingData.firstname,
+                    lastname_2: this.state.listingData.lastname,
+                    ...match
+                }
+                this.context.loggedUserMatches.push(newMatch)
+                this.props.history.push('/')
+            })
+            .catch(err=>{
+                console.log(err)
+            })
     }
 
     render(){
