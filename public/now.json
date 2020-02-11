@@ -1,0 +1,8 @@
+{
+    "version": 1,
+    "name": "tennit-client",
+    "routes": [
+        { "handle": "filesystem" },
+        { "src": "/.*", "dest": "/index.html" }
+    ]
+  }
