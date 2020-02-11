@@ -3,7 +3,6 @@ import React from 'react';
 import './ConvoPage.css';
 import {Link} from 'react-router-dom'
 import TokenService from '../../../Services/token-service'
-import config from '../../../config' 
 import TennitContext from '../../../TennitContext';
 import TennitApiService from '../../../Services/tennit-api-service';
 

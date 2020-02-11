@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
-import config from '../../../config'
-import TokenService from '../../../Services/token-service'
 import TennitApiService from '../../../Services/tennit-api-service';
 //import AuthApiService from '../../../Services/auth-api-services';
 

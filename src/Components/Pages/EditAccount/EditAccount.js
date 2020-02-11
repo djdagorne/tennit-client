@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './EditAccount.css';
-import config from '../../../config'
 import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext';
 import TennitApiService from '../../../Services/tennit-api-service';

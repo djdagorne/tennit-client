@@ -4,7 +4,6 @@ import './HomePage.css'
 import TennitContext from '../../../TennitContext'
 import TennitApiService from '../../../Services/tennit-api-service'
 import TokenService from '../../../Services/token-service'
-/* import config from '../../../config' */
 
 export default class HomePage extends Component {
     static contextType = TennitContext

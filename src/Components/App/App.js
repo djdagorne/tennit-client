@@ -15,7 +15,6 @@ import TennitContext from '../../TennitContext';
 import PrivateRoute from '../../Utils/PrivateRoute'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 import IdleService from '../../Services/idle-service'
-import config from '../../config'
 import AuthApiService from '../../Services/auth-api-service';
 import TennitApiService from '../../Services/tennit-api-service';
 

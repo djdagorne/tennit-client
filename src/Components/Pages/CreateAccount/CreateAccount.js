@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './CreateAccount.css';
 import TennitContext from '../../../TennitContext';
 import TokenService from '../../../Services/token-service'
-import config from '../../../config'
 import TennitApiService from '../../../Services/tennit-api-service';
 
 class CreateAccount extends Component {
