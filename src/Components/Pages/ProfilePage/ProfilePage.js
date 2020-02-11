@@ -51,32 +51,36 @@ class ProfilePage extends Component {
     render(){
         return(
             <div className="content-container">
+
                 {this.state.listingData.listing ?
                     <h2 className="rent-text">${this.state.listingData.rent} per month</h2> :
                     null
                 }
+
                 {this.state.listingData.neighborhood 
                 ? <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.neighborhood}, {this.state.listingData.city} </h1>
                 : <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.city}, {this.state.listingData.province} </h1>
                 }
                 
-                
-                
                 <div className="pic-wrap">
                     <img className="pic" src={this.state.listingData.image} alt="test" />        
                 </div>
+
+                {this.state.listingData.user_id === TokenService.parseJwt(TokenService.getAuthToken()).id
+                    ?   null
+                    :   <div className="button-wrap">
+                            <button className="rounded-button" onClick={this.generateNewMatch}>Tenn!</button>
+                        </div>
+                }
                 
-                <div className="button-wrap">
-                    <button className="rounded-button" onClick={this.generateNewMatch}>Tenn!</button>
-                </div>
                 <div className="about-blurb">
                     <h2 className="banner-text">{this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old</h2>
-                    {this.state.listingData.listing ?
-                        <div className="user-blurb">
+                    {this.state.listingData.listing 
+                    ?   <div className="user-blurb">
                             <p> {this.state.listingData.userblurb} </p>
                             <p> {this.state.listingData.blurb} </p> 
-                        </div>  :
-                        <p> {this.state.listingData.userblurb} </p>
+                        </div>  
+                    :   <p> {this.state.listingData.userblurb} </p>
                     }
                 </div>
                 
