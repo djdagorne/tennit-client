@@ -50,6 +50,7 @@ class ConvoPage extends React.Component {
     assignMatchUsers = () => {
         TennitApiService.requestMatch(this.props.match.params.match_id)
             .then(matchData =>{
+                console.log(matchData)
                 this.setState({
                     user1_listing: matchData.user1,
                     user2_listing: matchData.user2

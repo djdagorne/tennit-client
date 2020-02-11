@@ -97,6 +97,8 @@ const TennitApiService = {
                 : res.json()
             })
             .then(matchData =>{
+                console.log('first res with matchdata')
+                console.log(matchData)
                 const user1 = {
                     user_id: matchData.user1_id,
                     firstname: matchData.firstname_1,
