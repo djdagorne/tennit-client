@@ -140,7 +140,7 @@ const TennitApiService = {
             })
     },
     deleteMatch(matchId){
-        return fetch(`${config.API_ENDPOINT}/matches/${this.props.match.params.match_id}`, {
+        return fetch(`${config.API_ENDPOINT}/matches/${matchId}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -248,7 +248,7 @@ const TennitApiService = {
             })
     },
     patchImage(updatedImage){
-        return fetch(`${config.API_ENDPOINT}/images/${this.context.loggedUser.user_id}`, {
+        return fetch(`${config.API_ENDPOINT}/images/${updatedImage.user_id}`, {
             method: `PATCH`,
             headers: {
                 'content-type': 'application/json',

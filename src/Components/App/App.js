@@ -40,21 +40,6 @@ class App extends Component {
 			TokenService.queueCallbackBeforeExpiry(()=>{ 
 				AuthApiService.postRefreshToken()
 			})
-			TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
-				.then(userData=>{
-					TennitApiService.requestMatchList(userData.user_id)
-						.then(data=>{
-							this.context.loggedUserMatches = data.userMatches
-							this.context.loggedUser = userData
-							this.setState({
-								loggedUser: userData,
-								loggedUserMatches: data.userMatches,
-								showLogInPopup: false
-							},()=>{
-								this.forceUpdate()
-							})
-						})
-				})
 		}
 	}
 	
