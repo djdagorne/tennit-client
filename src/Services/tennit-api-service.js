@@ -23,15 +23,13 @@ const TennitApiService = {
 			},
 			body: JSON.stringify(userCreds)
 		})
-			.then(res => {
-				if(!res.ok){
-					throw new Error(res.statusText);
-				}
-				return res.json();
+            .then(res =>{
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
 			.then(res => {
 				TokenService.saveAuthToken(res.authToken)
-				//TennitApiService.assignUser()		
 			})
 			.catch(err => {
 				console.log(err)
@@ -44,15 +42,10 @@ const TennitApiService = {
 					'authorization': `Bearer ${TokenService.getAuthToken()}`,
 				},
         })
-			.then(res => {
-				if(!res.ok){
-					if(res.status === 401 && TokenService.parseJwt(TokenService.getAuthToken()).id === userId){
-						TokenService.clearAuthToken()
-						this.forceUpdate()
-					}
-					throw new Error(res.statusText);
-				}
-				return res.json()
+            .then(res =>{
+                return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
             })
 			.catch(err => {
 				console.log(err)
@@ -64,22 +57,15 @@ const TennitApiService = {
 				'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
         })
-            .then(res => {
-                if(!res.ok){
-                    if(res.status === 401 && TokenService.parseJwt(TokenService.getAuthToken()).id === userId){
-                        TokenService.clearAuthToken()
-                        this.forceUpdate()
-                    }
-                    throw new Error(res.statusText);
-                }
-                return res.json()
+            .then(res =>{
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
             .then(userMatches=>{
-                if(!userMatches.error){
-                    return {userMatches}
-                }else{
-                    return {userMatches: []}
-                }
+                return (!userMatches.error)
+                    ? {userMatches}
+                    : {userMatches: []}
             })
             .catch(err => {
                 console.log(err)
@@ -93,8 +79,8 @@ const TennitApiService = {
         })
             .then(res =>{
                 return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
             .then(matchData =>{
                 console.log('first res with matchdata')
@@ -125,8 +111,8 @@ const TennitApiService = {
         })
             .then(res =>{
                 return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
             .catch(err=>{
                 console.log(err)
@@ -145,7 +131,9 @@ const TennitApiService = {
             )
         })
             .then(res =>{
-               
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
             .catch(err=>{
                 console.log(err)
@@ -161,8 +149,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                ? res.then(e => Promise.reject(e))
-                : res
+                    ? res.then(e => Promise.reject(e))
+                    : res
             })
             .catch(err=>{
                 console.log(err)
@@ -176,8 +164,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
             .catch(err=>{
                 console.log(err)
@@ -195,8 +183,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                ? res.then(e=> Promise.reject(e))
-                : res.json()
+                    ? res.then(e=> Promise.reject(e))
+                    : res.json()
             })
     },
     postListing(listingBody){
@@ -212,8 +200,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                ? res.then(e=> Promise.reject(e))
-                : res.json()
+                    ? res.then(e=> Promise.reject(e))
+                    : res.json()
             })
             .catch(err=>{
                 console.log(err)
@@ -232,8 +220,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                ? res.then(e=> Promise.reject(e))
-                : res.json()
+                    ? res.then(e=> Promise.reject(e))
+                    : res.json()
             })
             .catch(err=>{
                 console.log(err)

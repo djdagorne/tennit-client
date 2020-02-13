@@ -34,13 +34,14 @@ class ConvoPage extends React.Component {
 	}
 
     requestComments = () => {
+        console.log('reqComm')
         TennitApiService.requestComments(this.props.match.params.match_id)
             .then(data => {
+                console.log(data)
                 this.setState({
-                    comments: data
+                    comments: data.reverse()
                 });
                 this.assignMatchUsers()
-                //TODO change this to a more effecient method
             })
             .catch(err => {
                 console.log(err)
@@ -50,7 +51,6 @@ class ConvoPage extends React.Component {
     assignMatchUsers = () => {
         TennitApiService.requestMatch(this.props.match.params.match_id)
             .then(matchData =>{
-                console.log(matchData)
                 this.setState({
                     user1_listing: matchData.user1,
                     user2_listing: matchData.user2
@@ -58,9 +58,6 @@ class ConvoPage extends React.Component {
             })
             .catch(err => {
                 console.log(err)
-                this.setState({
-                    error: err.err.message
-                })
             })
     }
 
@@ -74,7 +71,7 @@ class ConvoPage extends React.Component {
         TennitApiService.submitComments(newComment)
             .then(newCommentChain=>{
                 this.setState({
-                    comments: newCommentChain,
+                    comments: newCommentChain.reverse(),
                     textInput: ''
                 })
             })
@@ -130,7 +127,7 @@ class ConvoPage extends React.Component {
                         </form>
 
                         <ul className="comment-ul">
-                            {this.state.comments.sort(e=> -e.id).map((comment, index)=>
+                            {this.state.comments.map((comment, index)=>
                                 <li className="comment-li" key={index}>
                                     <div className="textbubble">
                                         <p className="comment-text">

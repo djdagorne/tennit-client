@@ -31,7 +31,7 @@ class App extends Component {
 			showEditPopup: false,
 			error: null,
         }
-	}
+	} //TODO look at thingful context and emulate that here
 
 	componentDidMount(){
 		IdleService.setIdleCallback(this.logoutFromIdle) 
