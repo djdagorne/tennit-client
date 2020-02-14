@@ -34,6 +34,7 @@ class App extends Component {
 	} //TODO look at thingful context and emulate that here
 
 	componentDidMount(){
+		console.log(new Date().toLocaleString("en-US"))
 		IdleService.setIdleCallback(this.logoutFromIdle) 
 		if(TokenService.hasAuthToken()) {
 			IdleService.registerIdleTimerResets() 
@@ -41,6 +42,9 @@ class App extends Component {
 				AuthApiService.postRefreshToken()
 			})
 		}
+		// else{
+		// 	this.props.match.history.push('/')
+		// }
 	}
 	
 	componentWillUnmount(){
@@ -49,6 +53,7 @@ class App extends Component {
 	}
 	
 	logoutFromIdle = () => {
+		console.log('logging out from idle at', new Date().toLocaleString("en-US"))
 		TokenService.clearAuthToken()
 		TokenService.clearCallbackBeforeExpiry() 
 		IdleService.unregisterIdleResets()
