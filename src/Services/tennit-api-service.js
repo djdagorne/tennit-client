@@ -5,14 +5,6 @@ const TennitApiService = {
     postLogIn(e){
 		e.preventDefault();
 		const { email, password } = e.target
-        if(email.length === 0){
-			console.log('email required')
-			return
-        }
-        if(password.length === 0){
-			console.log('password required')
-			return
-        }
 
 		const userCreds = {email: email.value, password: password.value}
 
@@ -29,10 +21,8 @@ const TennitApiService = {
                     : res.json()
             })
 			.then(res => {
-				TokenService.saveAuthToken(res.authToken)
-			})
-			.catch(err => {
-				console.log(err)
+                TokenService.saveAuthToken(res.authToken)
+                return res
 			})
 
     },
@@ -47,9 +37,6 @@ const TennitApiService = {
                 ? res.json().then(e => Promise.reject(e))
                 : res.json()
             })
-			.catch(err => {
-				console.log(err)
-			})
     },
     requestMatchList(userId){
         return fetch(`${config.API_ENDPOINT}/matches/?user_id=${userId}`, {
@@ -67,9 +54,6 @@ const TennitApiService = {
                     ? {userMatches}
                     : {userMatches: []}
             })
-            .catch(err => {
-                console.log(err)
-            })
     },
     requestMatch(matchId){
         return fetch(`${config.API_ENDPOINT}/matches/${matchId}`, {
@@ -83,8 +67,6 @@ const TennitApiService = {
                     : res.json()
             })
             .then(matchData =>{
-                console.log('first res with matchdata')
-                console.log(matchData)
                 const user1 = {
                     user_id: matchData.user1_id,
                     firstname: matchData.firstname_1,
@@ -99,9 +81,6 @@ const TennitApiService = {
                 }
                 return {user1, user2}
             })
-            .catch(err=>{
-                console.log(err)
-            })
     },
     requestComments(matchId){
         return fetch(`${config.API_ENDPOINT}/comments/${matchId}`, {
@@ -114,10 +93,6 @@ const TennitApiService = {
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
             })
-            .catch(err=>{
-                console.log(err)
-            })
-            
     },
     submitComments(newComment){
         return fetch(`${config.API_ENDPOINT}/comments`, {
@@ -135,9 +110,6 @@ const TennitApiService = {
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
             })
-            .catch(err=>{
-                console.log(err)
-            })
     },
     deleteMatch(matchId){
         return fetch(`${config.API_ENDPOINT}/matches/${matchId}`, {
@@ -149,11 +121,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.then(e => Promise.reject(e))
-                    : res
-            })
-            .catch(err=>{
-                console.log(err)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
     },
     searchListings(query){
@@ -166,9 +135,6 @@ const TennitApiService = {
                 return (!res.ok)
                     ? res.json().then(e => Promise.reject(e))
                     : res.json()
-            })
-            .catch(err=>{
-                console.log(err)
             })
     },
     postUser(newUser){
@@ -200,11 +166,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.then(e=> Promise.reject(e))
+                    ? res.json().then(e=> Promise.reject(e))
                     : res.json()
-            })
-            .catch(err=>{
-                console.log(err)
             })
     },
     postImage(imageBody){
@@ -220,11 +183,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.then(e=> Promise.reject(e))
+                    ? res.json().then(e=> Promise.reject(e))
                     : res.json()
-            })
-            .catch(err=>{
-                console.log(err)
             })
     },
     patchListing(newData){
@@ -240,11 +200,8 @@ const TennitApiService = {
         })
             .then(res => {
                     return (!res.ok)
-                    ? res.then(e=> Promise.reject(e))
+                    ? res.json().then(e=> Promise.reject(e))
                     : res.json()
-            })
-            .catch(err=>{
-                console.log(err)
             })
     },
     patchImage(updatedImage){
@@ -260,11 +217,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.then(e=> Promise.reject(e))
+                    ? res.json().then(e=> Promise.reject(e))
                     : res.json()
-            })
-            .catch(err=>{
-                console.log(err)
             })
     },
     postNewMatch(matchData){
@@ -282,9 +236,6 @@ const TennitApiService = {
             return (!res.ok)
                 ? res.json().then(e=> Promise.reject(e))    
                 : res.json()
-        })
-        .catch(err=>{
-            console.log(err)
         })
     }
 }

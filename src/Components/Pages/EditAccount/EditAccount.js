@@ -71,11 +71,17 @@ export default class EditAccount extends Component {
                             this.context.togglePopup('edit')
                         })
                         .catch(err=>{
-                            console.log(err)
+                            console.error(err.error.message)
+                            this.setState({
+                                error: err.error.message
+                            })
                         })
                 })
                 .catch(err=>{
-                    console.log(err)
+                    console.error(err.error.message)
+                    this.setState({
+                        error: err.error.message
+                    })
                 })
         }
     }
@@ -179,6 +185,9 @@ export default class EditAccount extends Component {
                             </div> 
                             : null
                         }
+                        <div>
+                            {this.state.error && <p className="error-text" >Error: {this.state.error}</p>}
+                        </div>
                         <div className="button-wrap">
                                 <button className="rounded-button" type="submit">Submit</button>
                         </div>

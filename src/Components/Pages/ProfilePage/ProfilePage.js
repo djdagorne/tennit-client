@@ -10,7 +10,8 @@ class ProfilePage extends Component {
         super(props);
         this.state = {
             listingData: {},
-            userImage: {}
+            userImage: {},
+            error: null
         }
     }
     componentDidMount(){
@@ -21,7 +22,10 @@ class ProfilePage extends Component {
                 })
             })
             .catch(err=>{
-                console.log(err)
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
+                })
             })
     }
 
@@ -44,48 +48,61 @@ class ProfilePage extends Component {
                 this.props.history.push('/')
             })
             .catch(err=>{
-                console.log(err)
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
+                })
             })
     }
 
     render(){
         return(
-            <div className="content-container">
-
-                {this.state.listingData.listing ?
-                    <h2 className="rent-text">${this.state.listingData.rent} per month</h2> :
-                    null
-                }
-
-                {this.state.listingData.neighborhood 
-                ? <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.neighborhood}, {this.state.listingData.city} </h1>
-                : <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.city}, {this.state.listingData.province} </h1>
-                }
-                
-                <div className="pic-wrap">
-                    <img className="pic" src={this.state.listingData.image} alt="test" />        
-                </div>
-
-                {this.state.listingData.user_id === TokenService.parseJwt(TokenService.getAuthToken()).id
-                    ?   null
-                    :   <div className="button-wrap">
-                            <button className="rounded-button" onClick={this.generateNewMatch}>Tenn!</button>
+            <>
+                {this.state.listingData === {} ? 
+                    <div className="content-container">
+                        <div>
+                            {this.state.error && <p className="error-text" >Error: {this.state.error}</p>}
                         </div>
+                    </div>
+
+                :   <div className="content-container">
+
+                        {this.state.listingData.listing ?
+                            <h2 className="rent-text">${this.state.listingData.rent} per month</h2> :
+                            null
+                        }
+
+                        {this.state.listingData.neighborhood 
+                        ? <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.neighborhood}, {this.state.listingData.city} </h1>
+                        : <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.city}, {this.state.listingData.province} </h1>
+                        }
+                        
+                        <div className="pic-wrap">
+                            <img className="pic" src={this.state.listingData.image} alt="test" />        
+                        </div>
+
+                        {this.state.listingData.user_id === TokenService.parseJwt(TokenService.getAuthToken()).id
+                            ?   null
+                            :   <div className="button-wrap">
+                                    <button className="rounded-button" onClick={this.generateNewMatch}>Tenn!</button>
+                                </div>
+                        }
+                        
+                        <div className="about-blurb">
+                            <h2 className="banner-text">{this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old</h2>
+                            {this.state.listingData.listing 
+                            ?   <div className="user-blurb">
+                                    <p> {this.state.listingData.userblurb} </p>
+                                    <p> {this.state.listingData.blurb} </p> 
+                                </div>  
+                            :   <p> {this.state.listingData.userblurb} </p>
+                            }
+                        </div>
+                        
+                            
+                    </div>
                 }
-                
-                <div className="about-blurb">
-                    <h2 className="banner-text">{this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old</h2>
-                    {this.state.listingData.listing 
-                    ?   <div className="user-blurb">
-                            <p> {this.state.listingData.userblurb} </p>
-                            <p> {this.state.listingData.blurb} </p> 
-                        </div>  
-                    :   <p> {this.state.listingData.userblurb} </p>
-                    }
-                </div>
-                
-                    
-            </div>
+            </>
         )
     }
 }

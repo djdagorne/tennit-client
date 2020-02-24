@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
 import TennitApiService from '../../../Services/tennit-api-service';
-//import AuthApiService from '../../../Services/auth-api-services';
 
 class SearchPage extends Component {
     static contextType = TennitContext;
@@ -48,8 +47,14 @@ class SearchPage extends Component {
                     this.context.searchQuery = filterSelf
                 })
                 .then(()=>
-                    this.props.history.push('/results')
+                    this.props.history.push(`/results`)
                 )
+                .catch(err=>{
+                    console.error(err.error.message)
+                    this.setState({
+                        error: err.error.message
+                    })
+                })
     }
     
     render(){

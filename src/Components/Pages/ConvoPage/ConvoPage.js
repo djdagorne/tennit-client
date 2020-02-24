@@ -34,17 +34,19 @@ class ConvoPage extends React.Component {
 	}
 
     requestComments = () => {
-        console.log('reqComm')
         TennitApiService.requestComments(this.props.match.params.match_id)
-            .then(data => {
-                console.log(data)
+            .then(res => {
                 this.setState({
-                    comments: data.reverse()
+                    comments: res.reverse(),
+                    error: null
                 });
                 this.assignMatchUsers()
             })
-            .catch(err => {
-                console.log(err)
+            .catch(err=>{
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
+                })
             })
     }
 
@@ -53,11 +55,15 @@ class ConvoPage extends React.Component {
             .then(matchData =>{
                 this.setState({
                     user1_listing: matchData.user1,
-                    user2_listing: matchData.user2
+                    user2_listing: matchData.user2,
+                    error: null
                 })
             })
-            .catch(err => {
-                console.log(err)
+            .catch(err=>{
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
+                })
             })
     }
 
@@ -72,11 +78,15 @@ class ConvoPage extends React.Component {
             .then(newCommentChain=>{
                 this.setState({
                     comments: newCommentChain.reverse(),
-                    textInput: ''
+                    textInput: '',
+                    error: null
                 })
             })
             .catch(err=>{
-                console.log(err)
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
+                })
             })
     }
 
@@ -84,17 +94,33 @@ class ConvoPage extends React.Component {
         e.preventDefault();
         TennitApiService.deleteMatch(this.props.match.params.match_id)
             .then(()=>{
+                this.setState({
+                    error: null
+                })
                 this.context.loggedUserMatches.filter(matches=> matches.id !== this.props.match.params.match_id)
                 this.props.history.push('/')
             })
             .catch(err=>{
-                console.log(err)
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
+                })
             })
     }
 
     render(){
         return(
             <>
+                {this.state.error ? 
+                
+                <div className="content-container">
+                    <div>
+                        {this.state.error && <p className="error-text" >Error: {this.state.error}</p>}
+                    </div>
+                </div>
+
+                :
+
                 <div className="content-container">
                     <div className="convo-page-div">
                         <h1 className="banner-text">
@@ -107,6 +133,9 @@ class ConvoPage extends React.Component {
                     <div className="pic-wrap">            
                         <img className='pic' src={this.state.user2_listing.image} alt="display other users pic" />              
                     </div>
+                    
+
+
                     <div className="comment-container">
 
                         <form onSubmit={e=>this.handleCommentSubmit(e)}>
@@ -145,9 +174,8 @@ class ConvoPage extends React.Component {
                         </ul>
                         <button className="rounded-button" onClick={this.deleteMatch}>Delete Match</button>
                     </div>
-                    {/* </>
-                    } */}
                 </div>
+                }
             </>
         )
     }

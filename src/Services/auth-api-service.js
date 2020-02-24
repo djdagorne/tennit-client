@@ -62,9 +62,6 @@ const AuthApiService = {
                 })
                 return res
             })
-            .catch(err => {
-                console.log(err)
-            })
     }
     
 }

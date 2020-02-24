@@ -8,6 +8,7 @@ class LogIn extends Component {
     constructor(props){
         super(props);
         this.state = {
+            error: null
         }
     }
     render(){
@@ -24,9 +25,11 @@ class LogIn extends Component {
                     <form
                         onSubmit={this.context.handleLogIn}
                         id="sign-up">
-                        {/* <div>
-                            {this.context.error && <p>{this.context.error}</p>}
-                        </div> */}
+
+                        <div>
+                            {this.state.error && <p className="error-text" >Error: {this.state.error}</p>}
+                        </div>
+
                         <div className="form-item">
                             <label htmlFor="email">Email (john@email.com)</label>
                             <input 

@@ -18,6 +18,9 @@ import IdleService from '../../Services/idle-service'
 import AuthApiService from '../../Services/auth-api-service';
 import TennitApiService from '../../Services/tennit-api-service';
 
+//TODO get error text showing in client
+//TODO get those close popup buttons CSS'd up
+//TODO jest testing
 
 class App extends Component {
 	static contextType = TennitContext;
@@ -31,20 +34,25 @@ class App extends Component {
 			showEditPopup: false,
 			error: null,
         }
-	} //TODO look at thingful context and emulate that here
+	} 
 
 	componentDidMount(){
-		console.log(new Date().toLocaleString("en-US"))
+		this.setState({ error: null })	
 		IdleService.setIdleCallback(this.logoutFromIdle) 
 		if(TokenService.hasAuthToken()) {
 			IdleService.registerIdleTimerResets() 
 			TokenService.queueCallbackBeforeExpiry(()=>{ 
 				AuthApiService.postRefreshToken()
+					.catch(err=>{
+						console.error(err.error.message)
+						this.setState({
+							error: err.error.message
+						})
+						TokenService.clearAuthToken()
+						this.props.history.push('/')
+					})
 			})
 		}
-		// else{
-		// 	this.props.match.history.push('/')
-		// }
 	}
 	
 	componentWillUnmount(){
@@ -53,24 +61,27 @@ class App extends Component {
 	}
 	
 	logoutFromIdle = () => {
-		console.log('logging out from idle at', new Date().toLocaleString("en-US"))
 		TokenService.clearAuthToken()
 		TokenService.clearCallbackBeforeExpiry() 
 		IdleService.unregisterIdleResets()
 		this.forceUpdate()
 	}
 	
-	handleLogIn = (e) => {
-		TennitApiService.postLogIn(e)
-			.then(res => {
-				this.setState({
-					showLogInPopup: false,
-				})				
-			})
-			.catch(err => {
-				console.log(err)
-			})
-	}	
+								handleLogIn = (e) => {
+									TennitApiService.postLogIn(e)
+										.then(res => {
+											if(res.authToken){
+												this.setState({
+													showLogInPopup: false,
+													error: null
+												})	
+											}else{
+												this.setState({
+													error: res.error.message
+												})
+											}
+										})
+								}	
 
 	toggleLogIn = () => {
 		if(TokenService.hasAuthToken()){
