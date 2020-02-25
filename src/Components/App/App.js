@@ -18,7 +18,6 @@ import IdleService from '../../Services/idle-service'
 import AuthApiService from '../../Services/auth-api-service';
 import TennitApiService from '../../Services/tennit-api-service';
 
-//TODO why does edit account button fuck up context/remove images etc????
 //TODO get those close popup buttons CSS'd up
 //TODO jest testing
 
