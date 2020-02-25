@@ -1,7 +1,7 @@
 import React from 'react';
 //import {Link} from 'react-router-dom';
 import './ConvoPage.css';
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext';
 import TennitApiService from '../../../Services/tennit-api-service';
@@ -111,6 +111,10 @@ class ConvoPage extends React.Component {
     render(){
         return(
             <>
+                {this.context.loggedUserMatches.some(match => match.id.toString() === this.props.match.params.match_id.toString()) ?
+                    null
+                    : <Redirect to="/home"/>
+                }
                 {this.state.error ? 
                 
                 <div className="content-container">

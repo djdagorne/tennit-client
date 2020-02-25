@@ -18,8 +18,6 @@ import IdleService from '../../Services/idle-service'
 import AuthApiService from '../../Services/auth-api-service';
 import TennitApiService from '../../Services/tennit-api-service';
 
-//TODO get those close popup buttons CSS'd up
-//TODO jest testing
 
 class App extends Component {
 	static contextType = TennitContext;

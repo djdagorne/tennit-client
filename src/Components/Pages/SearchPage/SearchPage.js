@@ -19,7 +19,7 @@ class SearchPage extends Component {
         this.getLoggedUser()
     }
 
-    getLoggedUser () { //TODO look into setting up a service context for these functions to alter state/context
+    getLoggedUser () { 
         if(TokenService.hasAuthToken()){
             TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
 				.then(userData=>{

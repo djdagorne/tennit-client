@@ -27,7 +27,7 @@ export default class HomePage extends Component {
 					TennitApiService.requestMatchList(userData.user_id)
 						.then(data=>{
                             this.context.loggedUser = userData
-                            this.loggedUserMatches = data.userMatches
+                            this.context.loggedUserMatches = data.userMatches
 							this.setState({
 								loggedUser: userData,
 								loggedUserMatches: data.userMatches,
