@@ -10,12 +10,20 @@ class CreateAccount extends Component {
         super(props);
         this.state = {
             listing: false,
+            intro: false
         };
     };
 
     toggleListingSection = () => {
         this.setState({
             listing: !this.state.listing
+        });
+    }
+
+    
+    continueCreate = () => {
+        this.setState({
+            intro: !this.state.intro
         });
     }
 
@@ -104,8 +112,41 @@ class CreateAccount extends Component {
                             X
                     </button>
 
-                    <h3>Sign Up</h3> 
-                    <form 
+                    <h3 className="banner-text header-two">Sign Up</h3> 
+                    
+                    {!this.state.intro ?
+                    <>
+                        <p className="spacing">
+                            Finding a soulmate can take a lifetime.
+                        </p>
+                        <br/>
+                        <p className="spacing">
+                            But you need to find someone who will split your bachelor apartment by the first.
+                        </p>
+                        <p className="spacing">
+                            ...and they got to be okay with your couch.
+                        </p>
+                        <p className="spacing">
+                            ...and they should probably know about your cat, Sprinkles.
+                        </p>
+                        <br/>
+                        <p className="spacing">
+                            Starting today, you can find love, that works for you, your couch AND Sprinkles. 
+
+                            And you set the price.
+                        </p> 
+                        <br/>
+                        <p className="spacing">
+
+                            With Tennit you can fall in love... with affordable rent.
+                        </p>
+                        
+                        <div className="button-wrap">
+                            <button className="rounded-button" type="submit" onClick={this.continueCreate}>Make Account</button>
+                        </div>
+                    </>
+                    : 
+                        <form 
                         id="create-account" 
                         onSubmit={this.handleCreateSubmit}>
 
@@ -284,6 +325,7 @@ class CreateAccount extends Component {
                         
 
                     </form>
+                     }
                 </div>
             </div>
         )

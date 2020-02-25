@@ -1,0 +1,13 @@
+.spacing{
+    white-space: pre-wrap;
+    width: 75%;
+    text-align: center;
+    margin: auto;
+    line-height: 25px;
+}
+
+.header-two{
+    margin-top: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+  }

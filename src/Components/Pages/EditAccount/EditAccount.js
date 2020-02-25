@@ -98,7 +98,7 @@ export default class EditAccount extends Component {
                             X
                     </button>
                     
-                    <h3>Edit Account</h3> 
+                    <h3 className="banner-text header-two">Edit Account</h3> 
                     <form 
                         id="edit-account" 
                         onSubmit={this.handleEditSubmit}>
