@@ -40,3 +40,9 @@
 .result-bottom{
   margin-bottom: 55px;
 }
+
+@media only screen and (min-width: 750px) {
+  .container-wrap{
+    size: 2em;
+  }
+}

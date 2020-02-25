@@ -1,14 +1,15 @@
 import React from 'react';
 import './Footer.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 function Footer() {
-  return (
-      <>
-        <a className="text-shadow" href="mailto:dj.dagorne@gmail.com">email</a>
-        <a className="text-shadow" href="https://www.github.com/djdagorne">github</a>
-        <a className="text-shadow" href="https://www.linkedin.com/in/djdagorne/">linkedin</a>
-      </>
-  );
+	return (
+		<>
+			<a href="mailto:dj.dagorne@gmail.com"><span alt="email me here" className="text-shadow fas fa-envelope-square 2x"></span></a>
+			<a href="https://github.com/djdagorne"><span alt="check my github here" className="text-shadow fab fa-github-square 2x"></span></a>
+			<a href="https://www.linkedin.com/in/dexter-dagorne-81461a18a/"><span alt="check my linkedin here" className="text-shadow fab fa-linkedin 2x"></span></a>
+		</>
+	);
 }
 
 export default Footer;

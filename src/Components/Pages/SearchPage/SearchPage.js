@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css';
 import TennitApiService from '../../../Services/tennit-api-service';
+import TokenService from '../../../Services/token-service';
 
 class SearchPage extends Component {
     static contextType = TennitContext;
@@ -11,6 +12,43 @@ class SearchPage extends Component {
             searchCity: '',
             searchProvince: '',
             searchRent: '',
+        }
+    }
+
+    componentDidMount(){
+        this.getLoggedUser()
+    }
+
+    getLoggedUser () { //TODO look into setting up a service context for these functions to alter state/context
+        if(TokenService.hasAuthToken()){
+            TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
+				.then(userData=>{
+					TennitApiService.requestMatchList(userData.user_id)
+						.then(data=>{
+                            this.context.loggedUser = userData
+                            this.loggedUserMatches = data.userMatches
+							this.setState({
+								loggedUser: userData,
+								loggedUserMatches: data.userMatches,
+                                showLogInPopup: false,
+                                error: null
+							},()=>{
+								this.forceUpdate()
+							})
+						})
+                        .catch(err=>{
+                            console.error(err.error.message)
+                            this.setState({
+                                error: err.error.message
+                            })
+                        })
+				})
+                .catch(err=>{
+                    console.error(err)
+                    this.setState({
+                        error: err.error.message
+                    })
+                })
         }
     }
 
@@ -27,47 +65,47 @@ class SearchPage extends Component {
     handleSearch = (e) => {
         e.preventDefault();
         const {searchCity, searchProvince, searchRent} = this.state;
-            const params = [];
-            if (searchCity) {
-                params.push(`city=${searchCity}`);
-            }
-            if (searchProvince) {
-                params.push(`province=${searchProvince}`);
-            }
-            if (searchRent) {
-                params.push(`rent=${searchRent}`);
-            }
-            const query = params.join('&');
+        const params = [];
+        if (searchCity) {
+            params.push(`city=${searchCity}`);
+        }
+        if (searchProvince) {
+            params.push(`province=${searchProvince}`);
+        }
+        if (searchRent) {
+            params.push(`rent=${searchRent}`);
+        }
+        const query = params.join('&');
 
-            TennitApiService.searchListings(query)
-                .then(res=>{
-                    const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other')
-                    const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other')
-                    const filterSelf = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id)
-                    this.context.searchQuery = filterSelf
+        TennitApiService.searchListings(query)
+            .then(res=>{
+                const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other')
+                const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other')
+                const filterSelf = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id)
+                this.context.searchQuery = filterSelf
+            })
+            .then(()=>
+                this.props.history.push(`/results`)
+            )
+            .catch(err=>{
+                console.error(err.error.message)
+                this.setState({
+                    error: err.error.message
                 })
-                .then(()=>
-                    this.props.history.push(`/results`)
-                )
-                .catch(err=>{
-                    console.error(err.error.message)
-                    this.setState({
-                        error: err.error.message
-                    })
-                })
+            })
     }
     
     render(){
         return(
             <div className="content-container">
                 
-                <h1 className="banner-text">Search</h1>
+                <h1 className="banner-text header-one">Search</h1>
 
                 <form 
-                    className="search"
+                    className="search "
                     onSubmit={this.handleSearch}
                     >
-                <h2 >Find listings in...</h2>
+                    <h2 >Find listings in...</h2>
 
                     <div className="search-segment">
                         <label htmlFor="province">province/state:</label>

@@ -9,22 +9,22 @@ export default class EditAccount extends Component {
     constructor(props){
         super(props);
         this.state = {
-            email: null,
-            password: null,
-            province: null,
-            city: null,
-            image: null,
-            userblurb: null,
-            listing: null,
-            neighborhood: null,
-            rent: null,
-            blurb: null,
+            emailBox: null,
+            passwordBox: null,
+            provinceBox: null,
+            cityBox: null,
+            imageBox: null,
+            userblurbBox: null,
+            listingBox: null,
+            neighborhoodBox: null,
+            rentBox: null,
+            blurbBox: null,
         };
     };
 
     toggleListingSection = () => {
         this.setState({
-            listing: !this.state.listing,
+            listingBox: !this.state.listingBox,
         });
     }
 
@@ -41,17 +41,17 @@ export default class EditAccount extends Component {
     handleEditSubmit = (e) => {
         e.preventDefault();
         const updatedListing = {
-            province: this.state.province,
-            city: this.state.city,
-            listing: this.state.listing,
-            userblurb: this.state.userblurb,
-            rent: this.state.rent,
-            neighborhood: this.state.neighborhood,
-            blurb: this.state.blurb
+            province: this.state.provinceBox,
+            city: this.state.cityBox,
+            listing: this.state.listingBox,
+            userblurb: this.state.userblurbBox,
+            rent: this.state.rentBox,
+            neighborhood: this.state.neighborhoodBox,
+            blurb: this.state.blurbBox
         }
         const updatedImage = {
             user_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
-            image: this.state.image
+            image: this.state.imageBox
         }
 
         for(const [key,value] of Object.entries(updatedListing)){
@@ -59,6 +59,7 @@ export default class EditAccount extends Component {
                 delete updatedListing[key]
             }
         }
+        
         if(Object.keys(updatedListing).length > 0 || this.state.image !== null){
             TennitApiService.patchListing(updatedListing, TokenService.parseJwt(TokenService.getAuthToken()).id)
                 .then(listing=>{
@@ -103,37 +104,38 @@ export default class EditAccount extends Component {
                         onSubmit={this.handleEditSubmit}>
 
                         <div className="form-item">
-                            <label htmlFor="province">Province</label>
+                            <label htmlFor="provinceBox">Province</label>
                             <input 
                                 type="text" 
-                                name="province" 
+                                name="provinceBox" 
                                 onChange={this.handleInputChange}
                             />
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="city">City</label>
+                            <label htmlFor="cityBox">City</label>
                             <input 
                                 type="text" 
-                                name="city" 
+                                name="cityBox" 
                                 onChange={this.handleInputChange}
                             />
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="image">Apartment Image</label>
+                            <label htmlFor="imageBox">Apartment Image</label>
                             <input 
                                     type="url" 
-                                    name="image" 
+                                    name="imageBox" 
+                                    onChange={this.handleInputChange}
                                     placeholder="as hyperlink" 
                                 />
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="userblurb">Details</label>
+                            <label htmlFor="userblurbBox">Details</label>
                             <textarea 
                                 rows="5" 
-                                name="userblurb" 
+                                name="userblurbBox" 
                                 onChange={this.handleInputChange}
                                 placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
                                 /* required */
@@ -141,11 +143,11 @@ export default class EditAccount extends Component {
                         </div>    
 
                         <div className="checkbox-wrap">
-                            <label className="listing-section" htmlFor="listing">List your place?</label>
+                            <label className="listing-section" htmlFor="listingBox">List your place?</label>
                             <input 
                                 className="listing-section"
                                 type="checkbox" 
-                                name="listing" 
+                                name="listingBox" 
                                 onClick={this.toggleListingSection}
                             />
                         </div>
@@ -154,29 +156,29 @@ export default class EditAccount extends Component {
                             <div className="listing-details">
 
                                 <div className="form-item">
-                                    <label htmlFor="neighborhood">Neighborhood (optional)</label>
+                                    <label htmlFor="neighborhoodBox">Neighborhood (optional)</label>
                                     <input 
                                         type="text" 
-                                        name="neighborhood" 
+                                        name="neighborhoodBox" 
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
 
                                 <div className="form-item">
-                                    <label htmlFor="rent">Monthly Rent per Person</label>
+                                    <label htmlFor="rentBox">Monthly Rent per Person</label>
                                     <input 
                                         type="text" 
-                                        name="rent" 
+                                        name="rentBox" 
                                         onChange={this.handleInputChange}
                                         required
                                     />
                                 </div>
 
                                 <div className="form-item">
-                                    <label htmlFor="home-details">Details</label>
+                                    <label htmlFor="blurb">Details</label>
                                     <textarea 
                                         rows="5" 
-                                        name="blurb" 
+                                        name="blurbBox" 
                                         onChange={this.handleInputChange}
                                         placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
                                         required

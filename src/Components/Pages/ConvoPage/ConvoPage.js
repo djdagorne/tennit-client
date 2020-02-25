@@ -123,10 +123,14 @@ class ConvoPage extends React.Component {
 
                 <div className="content-container">
                     <div className="convo-page-div">
-                        <h1 className="banner-text">
-                            Chat between {this.context.loggedUser.firstname} and 
+                        <h1 className="banner-text header-one">
+                            Chat between 
+                                <Link className="banner-text" to={`/profile/${this.state.user1_listing.user_id}`}>
+                                    {' '+this.state.user1_listing.firstname+' '}
+                                </Link>
+                                and
                                 <Link className="banner-text" to={`/profile/${this.state.user2_listing.user_id}`}>
-                                    {' '+this.state.user2_listing.firstname}
+                                    {' '+this.state.user2_listing.firstname+' '}
                                 </Link>
                         </h1>
                     </div>
@@ -156,7 +160,7 @@ class ConvoPage extends React.Component {
                         </form>
 
                         <ul className="comment-ul">
-                            {this.state.comments.map((comment, index)=>
+                            {this.state.comments.slice(0,10).map((comment, index)=>
                                 <li className="comment-li" key={index}>
                                     <div className="textbubble">
                                         <p className="comment-text">
@@ -172,7 +176,7 @@ class ConvoPage extends React.Component {
                                 </li>
                             )}
                         </ul>
-                        <button className="rounded-button" onClick={this.deleteMatch}>Delete Match</button>
+                        <button className="rounded-button" onClick={this.deleteMatch}>Delete Match?</button>
                     </div>
                 </div>
                 }

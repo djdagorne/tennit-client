@@ -46,6 +46,7 @@ ul{
 }
   
 .comment-textarea{
+    position: relative;
     width:  250px;
     display: inline-block;
     margin: 0 auto;

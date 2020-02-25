@@ -8,8 +8,14 @@
 .pic-wrap{
   margin: 35px;
   border-radius: 1000px;
-  min-height: 250px;
-  width: 120%
+  max-height: 400px;
+  max-width: 400px;
+  width: 120%;
+  flex-grow: 1;
+}
+
+.convo-wrap{
+  flex-grow: 2;
 }
 
 .banner-text{
@@ -17,6 +23,7 @@
   font-size: 25px;
   line-height: 1;
   margin: 10px auto;
+  word-wrap: normal;
 }
 
 .banner-text-description{
@@ -33,12 +40,14 @@
 .convo-ul{
   position: relative;
   margin: auto;
+  width: 220px;
 }
 
 .convo-li{
   margin: 10px 5px;
   padding: 5px;
-  border: 1px #323238 solid;
+  background-color: #BF946F;
+  font-weight: 600;
   border-radius: 4px;
 }
 
@@ -58,8 +67,8 @@
  */
 .rounded-button{
   background: #592202;
-  width: 150px;
-  height: 35px;
+  width: 180px;
+  height: 50px;
   outline: none;
   border: none;
   color: #F0F0F2;
@@ -98,4 +107,33 @@
 .inline-button{
   display: inline-block;
   vertical-align: middle;
+}
+
+@media only screen and (min-width: 750px){
+  
+  .header-one{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    margin-top: 20px;
+    margin-bottom: 45px;
+    text-align: center;
+  }
+
+  .pic-wrap{
+    margin: 35px;
+    border-radius: 1000px;
+    height: 33vw;
+    width:33vw;
+  }
+
+  .pic{
+    display: inline-block;
+    box-shadow: 0px 2px 10px rgba(102, 102, 102, 0.268);
+  }
+  .rounded-button{
+    width: 225px;
+    height: 50px;
+  }
 }

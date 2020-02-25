@@ -20,19 +20,23 @@ body {
   min-height: 100vh;
 }
 
-.footer { /* weird shit */
+.footer {
   position: absolute;
   bottom:0;
   width:100%;
-  height:20px;
+  height:28px;
   text-align: center;
   color: #F0F0F2;
 }
 
 footer a{
-  margin:0 1vw 0 1vw;
+  margin:0 5px 0 5px;
   color: #F0F0F2;
   text-decoration: none;
+}
+
+.fab, .fas, .fa {
+  font-size: 22px;
 }
 
 ul{
@@ -122,7 +126,7 @@ label {
   filter:blur(2px);
   background-image: 
     linear-gradient(
-      rgba(136, 136, 136, 0.3), /* tinted so text stands out */
+      rgba(104, 103, 103, 0.3), /* tinted so text stands out */
       rgba(134, 134, 134, 0.158)
     ),
     url("../../imgs/IMG_1745.jpg");
@@ -143,9 +147,11 @@ nav {
   right: 0;
   z-index: 10;
 }
+
 .text-shadow{
   text-shadow: 0px 2px 10px rgba(102, 102, 102, 0.568);
 }
+
 .logo{
   float:left;
   font-family: 'Lato', sans-serif;
@@ -170,7 +176,7 @@ nav {
   letter-spacing: -1px;
   line-height: 1.5em;
   top: 20px;
-  
+  font-weight: 500;
   padding: 0px 6px;
   border-radius: 2px;
   float:right;
@@ -178,9 +184,11 @@ nav {
   font-size: 1.3em;
   text-decoration: none;
 }
+
 .log-button{
   right: 20px;
 }
+
 .log-button:hover{
   cursor: pointer;
 }
@@ -202,12 +210,35 @@ nav {
   top: 10px;
 }
 
+
 .error-text{
   color: red;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 750px) {
+
   .content-container {
-    width: 450px;
+    display: flex;
+    flex-direction: row;
+    min-width: 600px;
+    max-width: 910px;
+    justify-content: space-evenly;
+  }
+
+  .log-button, .account-button{
+    letter-spacing: 0px;
+    top: 20px;
+    font-size: 1.7em;
+  }
+  .logo{
+    transition: .4s;
+    font-size: 3em;
+    letter-spacing: -1px;
+  }
+  .fab, .fas, .fa {
+    font-size: 32px;
+  }
+  .footer {
+    height:48px;
   }
 }

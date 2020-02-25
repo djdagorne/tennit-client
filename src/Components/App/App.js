@@ -18,7 +18,7 @@ import IdleService from '../../Services/idle-service'
 import AuthApiService from '../../Services/auth-api-service';
 import TennitApiService from '../../Services/tennit-api-service';
 
-//TODO get error text showing in client
+//TODO why does edit account button fuck up context/remove images etc????
 //TODO get those close popup buttons CSS'd up
 //TODO jest testing
 
@@ -49,7 +49,7 @@ class App extends Component {
 							error: err.error.message
 						})
 						TokenService.clearAuthToken()
-						this.props.history.push('/')
+						this.forceUpdate()
 					})
 			})
 		}

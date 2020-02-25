@@ -34,3 +34,9 @@ h2.slogan-text{
   font-weight: 100;
   letter-spacing: 4px; 
 }
+
+@media only screen and (min-width: 750px) {
+  .slogan{
+    width: 90%;
+  }
+}

@@ -8,7 +8,7 @@ import TennitContext from '../../TennitContext'
 import TokenService from '../../Services/token-service';
 
 class Header extends Component {
-    static contextType = TennitContext
+    static contextType = TennitContext;
     constructor(props){
         super(props);
         this.state = {
@@ -81,7 +81,7 @@ class Header extends Component {
                 }
 
                 {this.context.showEditPopup ? 
-                    <EditAccount /> :
+                    <EditAccount/> :
                     null
                 }
             </>

@@ -10,18 +10,24 @@ export default class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
+			loggedUser: {},
+			loggedUserMatches: [],
         }
     }
 
     componentDidMount(){
         this.setState({ error: null })
+        this.getLoggedUser()
+    }
+
+    getLoggedUser () {
         if(TokenService.hasAuthToken()){
             TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
 				.then(userData=>{
 					TennitApiService.requestMatchList(userData.user_id)
 						.then(data=>{
-							this.context.loggedUserMatches = data.userMatches
-							this.context.loggedUser = userData
+                            this.context.loggedUser = userData
+                            this.loggedUserMatches = data.userMatches
 							this.setState({
 								loggedUser: userData,
 								loggedUserMatches: data.userMatches,
@@ -51,7 +57,6 @@ export default class HomePage extends Component {
         return(
             <>
                 {this.state.error ?
-                
                 <div className="content-container">
                     <div>
                         {this.state.error && <p className="error-text" >{this.state.error}</p>}
@@ -59,58 +64,60 @@ export default class HomePage extends Component {
                 </div>
                 :
                 <div className="content-container">
-                    <h1 className="banner-text">
+                    
+                    {this.state.loggedUser.firstname && 
+                    <h1 className="banner-text header-one">
                         Welcome back,{' '}
                         <Link 
                             className="banner-text" 
-                            to={`/profile/${this.context.loggedUser.user_id}`}>
-                                {this.context.loggedUser.firstname}
+                            to={`/profile/${this.state.loggedUser.user_id}`}>
+                                {this.state.loggedUser.firstname}
                         </Link>
-                    </h1>
-
+                    </h1>}
+                
                     <div className="pic-wrap">
-                        <img className='pic' src={this.context.loggedUser.image} alt="profile pic" />     
-                    </div>
-
-                    <div>
-                        {this.context.error && <p className="error-text" >{this.context.error}</p>}
-                    </div>
-
-                    <div className="button-wrap">
-                        <Link to="/search">
-                            <button className="rounded-button">SEARCH</button>
-                        </Link>
+                        <img className='pic' src={this.state.loggedUser.image} alt="profile pic" />     
                     </div>
                         
-                    {this.context.loggedUserMatches
-                    ?   <div className="active-convos">
-                            <div className="convo-banner">
-                                <h2 className="banner-text home-banner">Your Active Convos</h2>
-                                <p className="banner-text-description">See who's looking to make a move</p>
-                            </div>
-                                <ul className="convo-ul"> 
-                                    {this.context.loggedUserMatches.map((match, index) => 
-                                        (match.user1_id === this.context.loggedUser.user_id) 
-                                        ?   <li className="convo-li" key={index} >
-                                                <Link className="user-link" to={`/convo/${match.id}`}>
-                                                    {match.firstname_2 +' '+ match.lastname_2}
-                                                </Link>
-                                            </li>
-                                        :   <li className="convo-li" key={index} >
-                                                <Link className="user-link" to={`/convo/${match.id}`}>
-                                                    {match.firstname_1 +' '+ match.lastname_1}
-                                                </Link>
-                                            </li>
-                                    )}
-                            </ul>
+                    <div className="convo-wrap">
+
+                        <div className="button-wrap">
+                            <Link to="/search">
+                                <button className="rounded-button">Search Listings Now!</button>
+                            </Link>
                         </div>
-                    :   <div className="active-convos"> 
+                    
+                        {this.state.loggedUserMatches ?
+                        <div className="active-convos">
+                                <div className="convo-banner">
+                                    <h2 className="banner-text home-banner">Your Active Convos</h2>
+                                    <p className="banner-text-description">See who's looking to make a move</p>
+                                </div>
+                                    <ul className="convo-ul"> 
+                                        {this.state.loggedUserMatches.map((match, index) => 
+                                            (match.user1_id === this.state.loggedUser.user_id) 
+                                            ?   <li className="convo-li" key={index} >
+                                                    <Link className="user-link" to={`/convo/${match.id}`}>
+                                                        {match.firstname_2 +' '+ match.lastname_2}
+                                                    </Link>
+                                                </li>
+                                            :   <li className="convo-li" key={index} >
+                                                    <Link className="user-link" to={`/convo/${match.id}`}>
+                                                        {match.firstname_1 +' '+ match.lastname_1}
+                                                    </Link>
+                                                </li>
+                                        )}
+                                </ul>
+                            </div>
+                        :   
+                        <div className="active-convos"> 
                             <div className="convo-banner">
                                 <h2 className="banner-text home-banner">No Active Conversations</h2>
                                 <p className="banner-text-description">Search for somewhere new to start a conversation!</p>
                             </div>
                         </div>                
-                    }
+                        }
+                    </div>
                 </div>
                 }
             </>
