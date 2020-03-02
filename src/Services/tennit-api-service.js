@@ -160,9 +160,9 @@ const TennitApiService = {
                 'content-type': 'application/json',
                 'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
-            body: JSON.stringify({
+            body: JSON.stringify(
                 listingBody
-            })
+            )
         })
             .then(res => {
                 return (!res.ok)

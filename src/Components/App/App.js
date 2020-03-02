@@ -64,21 +64,21 @@ class App extends Component {
 		this.forceUpdate()
 	}
 	
-								handleLogIn = (e) => {
-									TennitApiService.postLogIn(e)
-										.then(res => {
-											if(res.authToken){
-												this.setState({
-													showLogInPopup: false,
-													error: null
-												})	
-											}else{
-												this.setState({
-													error: res.error.message
-												})
-											}
-										})
-								}	
+	handleLogIn = (e) => {
+		TennitApiService.postLogIn(e)
+			.then(res => {
+				if(res.authToken){
+					this.setState({
+						showLogInPopup: false,
+						error: null
+					})
+				}else{
+					this.setState({
+						error: res.error.message
+					})
+				}
+			})
+	}
 
 	toggleLogIn = () => {
 		if(TokenService.hasAuthToken()){
@@ -122,6 +122,39 @@ class App extends Component {
 			  [name]: value
 		});
 	}
+
+	getLoggedUser = () => {
+        if(TokenService.hasAuthToken()){
+            TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
+				.then(userData=>{
+					TennitApiService.requestMatchList(userData.user_id)
+						.then(data=>{
+                            this.context.loggedUser = userData
+                            this.context.loggedUserMatches = data.userMatches
+							this.setState({
+								loggedUser: userData,
+								loggedUserMatches: data.userMatches,
+                                showLogInPopup: false,
+                                error: null
+							},()=>{
+								this.forceUpdate()
+							})
+						})
+                        .catch(err=>{
+                            console.error(err.error.message)
+                            this.setState({
+                                error: err.error.message
+                            })
+                        })
+				})
+                .catch(err=>{
+                    console.error(err)
+                    this.setState({
+                        error: err.error.message
+                    })
+                })
+        }
+    }
 	
 	render(){
 		const contextValue = {
@@ -131,7 +164,8 @@ class App extends Component {
 			toggleLogIn: this.toggleLogIn,
 			handleLogIn: this.handleLogIn,
 			handleInputChange: this.handleInputChange,
-			togglePopup: this.togglePopup
+			togglePopup: this.togglePopup,
+			getLoggedUser: this.getLoggedUser
 		}
 		return (
 			<TennitContext.Provider value={contextValue}>

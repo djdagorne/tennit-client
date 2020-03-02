@@ -1,6 +1,7 @@
 # Tennit, by Dexter Dagorne
 
-View the live version at tennit.djdagorne.now.sh 
+[View the live version](tennit.djdagorne.now.sh)
+
 Demo with these credentials (email: 'john@email.com', password: 'AAaa11!!') or create a new account to play around!
 Features include listing your apartment, searching for other listings, matching with users and a limited chat for matched users. Designed with reactjs using babel, html, vanilla css and javascript. Mobile and desktop friendly! Client, server, database all made by myself, Dexter Dagorne
 

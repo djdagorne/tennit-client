@@ -8,22 +8,36 @@ class CreateAccount extends Component {
     static contextType = TennitContext;
     constructor(props){
         super(props);
+        
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
         this.state = {
             listing: false,
-            intro: false
+            error: null,
         };
     };
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+    
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+    
+    setWrapperRef(div){
+        this.wrapperRef = div;
+    }
+
+    handleClickOutside(e){
+        if(this.wrapperRef && !this.wrapperRef.contains(e.target)) {
+            this.context.togglePopup('create');
+        }
+    }
 
     toggleListingSection = () => {
         this.setState({
             listing: !this.state.listing
-        });
-    }
-
-    
-    continueCreate = () => {
-        this.setState({
-            intro: !this.state.intro
         });
     }
 
@@ -66,11 +80,13 @@ class CreateAccount extends Component {
                 TokenService.saveAuthToken(res.authToken)
                 const token = TokenService.parseJwt(res.authToken)
                 const listingBody = {
-                    ...newListing,
                     user_id: token.id,
+                    ...newListing,
                 }
+                console.log(listingBody)
                 TennitApiService.postListing(listingBody)
                     .then(listing=>{
+                        console.log(listing)
                         const imageBody = {
                             user_id: listing.user_id,
                             ...newImage
@@ -82,30 +98,31 @@ class CreateAccount extends Component {
                             .catch(err=>{
                                 console.error(err.error.message)
                                 this.setState({
-                                    error: err.error.message
+                                    error: 'Cannot post image to account.'
                                 })
                             })
                     })
                     .catch(err=>{
                         console.error(err.error.message)
                         this.setState({
-                            error: err.error.message
+                            error: 'Cannot create new listing.'
                         })
                     })
             })
             .catch(err=>{
                 console.error(err.error.message)
                 this.setState({
-                    error: err.error.message
+                    error: 'Cannot create new user.'
                 })
             })
     }
 
 
+
     render(){
         return(
-            <div className="popup">
-                <div className="popup-inner">                    
+            <div className="popup" >
+                <div className="popup-inner" ref={this.setWrapperRef}>                    
                     <button 
                         className="close-popup" 
                         onClick={e=>this.context.togglePopup('create')}>
@@ -114,38 +131,6 @@ class CreateAccount extends Component {
 
                     <h3 className="banner-text header-two">Sign Up</h3> 
                     
-                    {!this.state.intro ?
-                    <>
-                        <p className="spacing">
-                            Finding a soulmate can take a lifetime.
-                        </p>
-                        <br/>
-                        <p className="spacing">
-                            But you need to find someone who will split your bachelor apartment by the first.
-                        </p>
-                        <p className="spacing">
-                            ...and they got to be okay with your couch.
-                        </p>
-                        <p className="spacing">
-                            ...and they should probably know about your cat, Sprinkles.
-                        </p>
-                        <br/>
-                        <p className="spacing">
-                            Starting today, you can find love, that works for you, your couch AND Sprinkles. 
-
-                            And you set the price.
-                        </p> 
-                        <br/>
-                        <p className="spacing">
-
-                            With Tennit you can fall in love... with affordable rent.
-                        </p>
-                        
-                        <div className="button-wrap">
-                            <button className="rounded-button" type="submit" onClick={this.continueCreate}>Make Account</button>
-                        </div>
-                    </>
-                    : 
                         <form 
                         id="create-account" 
                         onSubmit={this.handleCreateSubmit}>
@@ -325,7 +310,6 @@ class CreateAccount extends Component {
                         
 
                     </form>
-                     }
                 </div>
             </div>
         )

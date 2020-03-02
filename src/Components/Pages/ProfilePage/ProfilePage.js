@@ -15,6 +15,7 @@ class ProfilePage extends Component {
             error: null
         }
     }
+
     componentDidMount(){
         TennitApiService.getUser(this.props.match.params.user_id)
             .then(res=>{
@@ -28,6 +29,7 @@ class ProfilePage extends Component {
                     error: err.error.message
                 })
             })
+        this.context.getLoggedUser()
     }
 
     generateNewMatch = (e) => {
@@ -56,43 +58,40 @@ class ProfilePage extends Component {
             })
     }
 
+    displayTheMightyButton=(match)=>{ 
+        return match.user1_id === this.state.listingData.user_id || match.user2_id === this.state.listingData.user_id
+    }
+
     render(){
         return(
             <>
                 {this.state.error &&
-                <Redirect to='/404'/>
+                    <Redirect to='/404'/>
                 }
-                {this.state.listingData === {} ? 
-                    <div className="content-container">
-                        <div>
-                            {this.state.error && <p className="error-text" >Error: {this.state.error}</p>}
-                        </div>
-                    </div>
-
-                :   <div className="content-container">
+                <div className="content-container">
 
                         <div className="pic-wrap">
                             <div >
                                 <img className="pic" src={this.state.listingData.image} alt="test" />        
                             </div>
-                            {this.state.listingData.user_id === TokenService.parseJwt(TokenService.getAuthToken()).id
-                                ?   null
-                                :   <div className="button-wrap">
-                                        <button className="rounded-button" onClick={this.generateNewMatch}>Perfect Tenn!</button>
-                                    </div>
-                            }
+                            
                         </div>
-
+                        {this.context.loggedUserMatches.some(this.displayTheMightyButton)
+                            ?   null
+                            :   <div className="button-wrap">
+                                    <button className="rounded-button" onClick={this.generateNewMatch}>Start Chatting Now!</button>
+                                </div>
+                        }
                         <div>
-                            {this.state.listingData.listing ?
-                                <h2 className="rent-text">${this.state.listingData.rent} per month</h2> :
-                                null
+                            {this.state.listingData.listing 
+                                ? <h2 className="rent-text">${this.state.listingData.rent} per month</h2> 
+                                : null
                             }
 
                             {this.state.listingData.neighborhood 
                             ?   <h1 className="banner-text">
                                     {this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old
-                                    in {this.state.listingData.neighborhood}, {this.state.listingData.city} 
+                                    in {this.state.listingData.neighborhood}, {this.state.listingData.city}, {this.state.listingData.province}
                                 </h1>
                             :   <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.city}, {this.state.listingData.province} </h1>
                             }
@@ -109,7 +108,6 @@ class ProfilePage extends Component {
                         </div>
                             
                     </div>
-                }
             </>
         )
     }

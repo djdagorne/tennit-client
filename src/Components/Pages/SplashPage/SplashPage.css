@@ -1,14 +1,29 @@
 
-.slogan-wrap{
-  position: fixed;
+.splash-wrap{
   display: flex;
+  flex-direction: column;
   align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   filter:blur(0px);
 }
+
+.title-box{
+  height: 100vh;
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.intro-box{
+  width: 100%;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  color: #323238;
+  background: #F0F0F2;
+  margin-bottom: 25vh;
+}
+
 .slogan{
   display: flex;
   flex-direction: column;
@@ -16,6 +31,15 @@
   padding: 0;
   color: #F0F0F2;
   text-shadow: 0px 3px 10px rgba(119, 119, 119, 0.493);
+}
+
+.splash-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background:#F0F0F2;
+  margin: 10vh auto 15vh auto;
+  box-shadow: 0px 5px 10px rgba(102, 102, 102, 0.368);
 }
 
 h1.slogan-text{
@@ -35,6 +59,34 @@ h2.slogan-text{
   letter-spacing: 4px; 
 }
 
+.intro-text{
+  font-family: 'Raleway', sans-serif;
+  font-size: 2em;
+  font-weight: 100;
+  margin: 25px 20px;
+}
+
+.opening-line{
+  font-size: 1.5em;
+  margin-block-start: .5em;
+  margin-block-end: 1em;
+}
+
+.splash-button{
+  font-family: 'Raleway', sans-serif;
+  -webkit-appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-style: none;
+  position: relative;
+  font-weight: 500;
+  padding: 0px 6px;
+  color: #323238;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 1em;
+  text-decoration:  underline;
+}
 @media only screen and (min-width: 750px) {
   .slogan{
     width: 90%;

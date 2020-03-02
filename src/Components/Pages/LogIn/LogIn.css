@@ -9,7 +9,7 @@ textarea{
     width: 75%;
     background-color: transparent;
     border: 1px solid #b9b9b9;
-    border-radius: 5px;
+    border-radius: 4px;
     font-size: 1.2em;
     padding: 2px 4px;
 }
@@ -43,7 +43,7 @@ form{
     vertical-align: justify;
     border-radius: 4px;
     background-color: #F0F0F2;
-    z-index: 11;
+    z-index: 9;
 }
 
 .log-in-popup-inner h2{

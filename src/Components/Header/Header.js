@@ -81,7 +81,7 @@ class Header extends Component {
                 }
 
                 {this.context.showEditPopup ? 
-                    <EditAccount/> :
+                    <EditAccount props={this.context}/> :
                     null
                 }
             </>

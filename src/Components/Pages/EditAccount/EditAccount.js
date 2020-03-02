@@ -39,7 +39,6 @@ export default class EditAccount extends Component {
 	}
 
     handleEditSubmit = (e) => {
-        e.preventDefault();
         const updatedListing = {
             province: this.state.provinceBox,
             city: this.state.cityBox,
@@ -89,6 +88,7 @@ export default class EditAccount extends Component {
 
 
     render(){
+        console.log(this.context)
         return(
             <div className="popup">
                 <div className="popup-inner">
@@ -99,6 +99,7 @@ export default class EditAccount extends Component {
                     </button>
                     
                     <h3 className="banner-text header-two">Edit Account</h3> 
+                    <p>Leave blank any fields you don't want to change</p>
                     <form 
                         id="edit-account" 
                         onSubmit={this.handleEditSubmit}>
@@ -109,6 +110,7 @@ export default class EditAccount extends Component {
                                 type="text" 
                                 name="provinceBox" 
                                 onChange={this.handleInputChange}
+                                placeholder={this.context.loggedUser.province}
                             />
                         </div>
 
@@ -118,6 +120,7 @@ export default class EditAccount extends Component {
                                 type="text" 
                                 name="cityBox" 
                                 onChange={this.handleInputChange}
+                                placeholder={this.context.loggedUser.city}
                             />
                         </div>
 
@@ -127,7 +130,7 @@ export default class EditAccount extends Component {
                                     type="url" 
                                     name="imageBox" 
                                     onChange={this.handleInputChange}
-                                    placeholder="as hyperlink" 
+                                    placeholder={this.context.loggedUser.image}
                                 />
                         </div>
 
@@ -137,13 +140,12 @@ export default class EditAccount extends Component {
                                 rows="5" 
                                 name="userblurbBox" 
                                 onChange={this.handleInputChange}
-                                placeholder="Tell us about yourself! What is the first thing you want potential partners to know?" 
-                                /* required */
+                                placeholder={this.context.loggedUser.userblurb}
                             />
                         </div>    
 
                         <div className="checkbox-wrap">
-                            <label className="listing-section" htmlFor="listingBox">List your place?</label>
+                            <label className="listing-section" htmlFor="listingBox">Keep up your listing?</label>
                             <input 
                                 className="listing-section"
                                 type="checkbox" 
@@ -152,7 +154,7 @@ export default class EditAccount extends Component {
                             />
                         </div>
 
-                        {this.state.listing ? 
+                        {this.state.listingBox ? 
                             <div className="listing-details">
 
                                 <div className="form-item">
@@ -160,6 +162,7 @@ export default class EditAccount extends Component {
                                     <input 
                                         type="text" 
                                         name="neighborhoodBox" 
+                                        placeholder={this.context.loggedUser.neighborhood}
                                         onChange={this.handleInputChange}
                                     />
                                 </div>
@@ -169,8 +172,8 @@ export default class EditAccount extends Component {
                                     <input 
                                         type="text" 
                                         name="rentBox" 
+                                        placeholder={this.context.loggedUser.rent}
                                         onChange={this.handleInputChange}
-                                        required
                                     />
                                 </div>
 
@@ -181,7 +184,6 @@ export default class EditAccount extends Component {
                                         name="blurbBox" 
                                         onChange={this.handleInputChange}
                                         placeholder="Got any ground rules? Pets? Feng Shui? Start the convo here!"
-                                        required
                                     />
                                 </div>  
                             </div> 
