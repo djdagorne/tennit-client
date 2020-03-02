@@ -7,9 +7,9 @@ Features include listing your apartment, searching for other listings, matching 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![alt text](https://i.imgur.com/0HfWIyW.png "Screenshot 1")
-![alt text](https://i.imgur.com/FfIYyXD.png "Screenshot 2")
-![alt text](https://i.imgur.com/plNEbWd.png "Screenshot 3")
+![alt text](https://raw.githubusercontent.com/djdagorne/tennit-client/master/src/imgs/Capture1.PNG "Screenshot 1")
+![alt text](https://raw.githubusercontent.com/djdagorne/tennit-client/master/src/imgs/Capture2.PNG "Screenshot 2")
+![alt text](https://raw.githubusercontent.com/djdagorne/tennit-client/master/src/imgs/Capture3.PNG "Screenshot 3")
 
 ## Available Scripts
 

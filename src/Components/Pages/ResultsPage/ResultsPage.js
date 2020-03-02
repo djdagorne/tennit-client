@@ -5,9 +5,9 @@ import TennitContext from '../../../TennitContext'
 import {Redirect} from 'react-router-dom'
 
 class ResultsPage extends React.Component { 
-    static contextType = TennitContext;
+    static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state={
         }
     }
@@ -53,4 +53,4 @@ class ResultsPage extends React.Component {
     }
 }
 
-export default ResultsPage;
+export default ResultsPage

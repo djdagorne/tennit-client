@@ -24,4 +24,4 @@ const IdleService = {
     }
 }
 
-export default IdleService;
+export default IdleService

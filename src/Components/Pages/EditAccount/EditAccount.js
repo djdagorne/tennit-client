@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import './EditAccount.css';
+import React, {Component} from 'react'
+import './EditAccount.css'
 import TokenService from '../../../Services/token-service'
-import TennitContext from '../../../TennitContext';
-import TennitApiService from '../../../Services/tennit-api-service';
+import TennitContext from '../../../TennitContext'
+import TennitApiService from '../../../Services/tennit-api-service'
 
 export default class EditAccount extends Component {
-    static contextType = TennitContext;
+    static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             emailBox: null,
             passwordBox: null,
@@ -19,23 +19,23 @@ export default class EditAccount extends Component {
             neighborhoodBox: null,
             rentBox: null,
             blurbBox: null,
-        };
-    };
+        }
+    }
 
     toggleListingSection = () => {
         this.setState({
             listingBox: !this.state.listingBox,
-        });
+        })
     }
 
     handleInputChange = (event) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
+		const target = event.target
+		const value = target.value
+		const name = target.name
 	
 		this.setState({
 			  [name]: value
-		});
+		})
 	}
 
     handleEditSubmit = (e) => {

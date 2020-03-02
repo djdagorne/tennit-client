@@ -1,5 +1,6 @@
 .rent-text{
-    font-size: 3em;
+    font-size: 4em;
+    margin: 0;
 }
 
 .judge-buttons{
@@ -9,4 +10,9 @@
 
 .about-blurb{
     margin: 10px 0;
+}
+
+.sub-rent-text{
+    margin-top: 0;
+    margin-bottom: 30px;
 }

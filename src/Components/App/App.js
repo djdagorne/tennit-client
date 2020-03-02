@@ -1,28 +1,28 @@
-import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
-import './App.css';
-import Header from  '../Header/Header';
-import Footer from '../Footer/Footer';
-import SplashPage from '../Pages/SplashPage/SplashPage';
-import HomePage from '../Pages/HomePage/HomePage';
-import ProfilePage from '../Pages/ProfilePage/ProfilePage';
-import ConvoPage from '../Pages/ConvoPage/ConvoPage';
-import SearchPage from '../Pages/SearchPage/SearchPage';
-import ResultsPage from '../Pages/ResultsPage/ResultsPage';
+import React, {Component} from 'react'
+import {Route, Switch} from 'react-router-dom'
+import './App.css'
+import Header from  '../Header/Header'
+import Footer from '../Footer/Footer'
+import SplashPage from '../Pages/SplashPage/SplashPage'
+import HomePage from '../Pages/HomePage/HomePage'
+import ProfilePage from '../Pages/ProfilePage/ProfilePage'
+import ConvoPage from '../Pages/ConvoPage/ConvoPage'
+import SearchPage from '../Pages/SearchPage/SearchPage'
+import ResultsPage from '../Pages/ResultsPage/ResultsPage'
 import NotFoundPage from '../Pages/NotFoundPage/NotFoundPage'
 import TokenService from '../../Services/token-service'
-import TennitContext from '../../TennitContext';
+import TennitContext from '../../TennitContext'
 import PrivateRoute from '../../Utils/PrivateRoute'
 import PublicOnlyRoute from '../../Utils/PublicOnlyRoute'
 import IdleService from '../../Services/idle-service'
-import AuthApiService from '../../Services/auth-api-service';
-import TennitApiService from '../../Services/tennit-api-service';
+import AuthApiService from '../../Services/auth-api-service'
+import TennitApiService from '../../Services/tennit-api-service'
 
 
 class App extends Component {
-	static contextType = TennitContext;
+	static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
 			loggedUser: {},
 			loggedUserMatches: [],
@@ -114,13 +114,13 @@ class App extends Component {
     }
 	
 	handleInputChange = (event) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
+		const target = event.target
+		const value = target.value
+		const name = target.name
 	
 		this.setState({
 			  [name]: value
-		});
+		})
 	}
 
 	getLoggedUser = () => {
@@ -220,8 +220,8 @@ class App extends Component {
 					</footer>
 				</div>
 			</TennitContext.Provider>
-		);
+		)
 	}
 }
 
-export default App;
+export default App

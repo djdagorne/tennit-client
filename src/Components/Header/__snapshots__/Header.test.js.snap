@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<Fragment>
+  <nav
+    className="nav-not-logged-in"
+  >
+    <a
+      className="logo text-shadow"
+      href="/"
+    >
+      tenn.it
+    </a>
+    <button
+      className="log-button text-shadow"
+      onClick={[Function]}
+    >
+      log in (demo)
+    </button>
+    <button
+      className="account-button text-shadow"
+      onClick={[Function]}
+    >
+      sign up
+    </button>
+  </nav>
+</Fragment>
+`;

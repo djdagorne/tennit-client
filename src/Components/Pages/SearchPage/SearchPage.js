@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import TennitContext from '../../../TennitContext'
-import './SearchPage.css';
-import TennitApiService from '../../../Services/tennit-api-service';
-import TokenService from '../../../Services/token-service';
+import './SearchPage.css'
+import TennitApiService from '../../../Services/tennit-api-service'
+import TokenService from '../../../Services/token-service'
 
 class SearchPage extends Component {
-    static contextType = TennitContext;
+    static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state={
             searchCity: '',
             searchProvince: '',
@@ -53,29 +53,29 @@ class SearchPage extends Component {
     }
 
     handleInputChange = (event) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
+		const target = event.target
+		const value = target.value
+		const name = target.name
 	
 		this.setState({
 			  [name]: value
-		});
+		})
     }
     
     handleSearch = (e) => {
-        e.preventDefault();
-        const {searchCity, searchProvince, searchRent} = this.state;
-        const params = [];
+        e.preventDefault()
+        const {searchCity, searchProvince, searchRent} = this.state
+        const params = []
         if (searchCity) {
-            params.push(`city=${searchCity}`);
+            params.push(`city=${searchCity}`)
         }
         if (searchProvince) {
-            params.push(`province=${searchProvince}`);
+            params.push(`province=${searchProvince}`)
         }
         if (searchRent) {
-            params.push(`rent=${searchRent}`);
+            params.push(`rent=${searchRent}`)
         }
-        const query = params.join('&');
+        const query = params.join('&')
 
         TennitApiService.searchListings(query)
             .then(res=>{
@@ -143,4 +143,4 @@ class SearchPage extends Component {
     }
 }
 
-export default SearchPage;
+export default SearchPage

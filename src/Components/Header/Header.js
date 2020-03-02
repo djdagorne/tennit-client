@@ -1,28 +1,27 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
-import './Header.css';
+import React, {Component} from 'react'
+import './Header.css'
 import LogIn from '../Pages/LogIn/LogIn.js'
 import EditAccount from '../Pages/EditAccount/EditAccount'
 import CreateAccount from '../Pages/CreateAccount/CreateAccount'
 import TennitContext from '../../TennitContext'
-import TokenService from '../../Services/token-service';
+import TokenService from '../../Services/token-service'
 
 class Header extends Component {
-    static contextType = TennitContext;
+    static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
         }
-    };
+    }
 
     renderLogInLink = () =>{
         return(
             <nav className="nav-not-logged-in">
-                <Link 
-                    to="/" 
+                <a 
+                    href="/" 
                     className="logo text-shadow">
                         tenn.it
-                </Link>
+                </a>
                 <button 
                     className="log-button text-shadow" 
                     onClick={e=>this.context.togglePopup('login')}>
@@ -40,18 +39,18 @@ class Header extends Component {
     renderLogOutLink = () =>{
         return(
             <nav className="nav-logged-in">
-                <Link 
-                    to="/home" 
+                <a 
+                    href="/home" 
                     className="logo text-shadow">
                         tenn.it
-                </Link>
-                <Link to="/">
+                </a>
+                <a href="/">
                     <button  
                         onClick={this.context.toggleLogIn} 
                         className="log-button text-shadow">
                             log out
                     </button>
-                </Link>
+                </a>
                 <button 
                     onClick={e=>this.context.togglePopup('edit')} 
                     className="account-button text-shadow">
@@ -85,8 +84,8 @@ class Header extends Component {
                     null
                 }
             </>
-        );
+        )
     }
 }
 
-export default Header;
+export default Header

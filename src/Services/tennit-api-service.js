@@ -3,7 +3,7 @@ import TokenService from './token-service'
 
 const TennitApiService = {
     postLogIn(e){
-		e.preventDefault();
+		e.preventDefault()
 		const { email, password } = e.target
 
 		const userCreds = {email: email.value, password: password.value}
@@ -121,8 +121,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
+                    ? res.then(e => Promise.reject(e))
+                    : res
             })
     },
     searchListings(query){
@@ -240,4 +240,4 @@ const TennitApiService = {
     }
 }
 
-export default TennitApiService;
+export default TennitApiService

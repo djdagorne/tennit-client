@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import './ProfilePage.css';
+import React, {Component} from 'react'
+import './ProfilePage.css'
 import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext'
-import TennitApiService from '../../../Services/tennit-api-service';
-import { Redirect } from 'react-router-dom';
+import TennitApiService from '../../../Services/tennit-api-service'
+import { Redirect } from 'react-router-dom'
 
 class ProfilePage extends Component {
-    static contextType = TennitContext;
+    static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             listingData: {},
             userImage: {},
@@ -33,7 +33,6 @@ class ProfilePage extends Component {
     }
 
     generateNewMatch = (e) => {
-        e.preventDefault();
         const matchData = {
             user1_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
             user2_id: this.state.listingData.user_id
@@ -71,10 +70,7 @@ class ProfilePage extends Component {
                 <div className="content-container">
 
                         <div className="pic-wrap">
-                            <div >
-                                <img className="pic" src={this.state.listingData.image} alt="test" />        
-                            </div>
-                            
+                                <img className="pic" src={this.state.listingData.image} alt="test" />     
                         </div>
                         {this.context.loggedUserMatches.some(this.displayTheMightyButton)
                             ?   null
@@ -82,18 +78,34 @@ class ProfilePage extends Component {
                                     <button className="rounded-button" onClick={this.generateNewMatch}>Start Chatting Now!</button>
                                 </div>
                         }
-                        <div>
+                        <div className="convo-wrap">
                             {this.state.listingData.listing 
-                                ? <h2 className="rent-text">${this.state.listingData.rent} per month</h2> 
+                                ? 
+                                <>
+                                    <h2 className="rent-text">${this.state.listingData.rent} </h2> 
+                                    <h3 className="sub-rent-text">per month</h3>
+                                </>
                                 : null
                             }
 
                             {this.state.listingData.neighborhood 
-                            ?   <h1 className="banner-text">
-                                    {this.state.listingData.firstname}, {this.state.listingData.lastname}, {this.state.listingData.age} years old
-                                    in {this.state.listingData.neighborhood}, {this.state.listingData.city}, {this.state.listingData.province}
-                                </h1>
-                            :   <h1 className="banner-text">{this.state.listingData.firstname}'s place in {this.state.listingData.city}, {this.state.listingData.province} </h1>
+                            ?   <>
+                                    <h1 className="banner-text">
+                                        {this.state.listingData.firstname}, {this.state.listingData.lastname}
+                                    </h1>
+                                    <h2 className="banner-text">
+                                        {this.state.listingData.age} years old near {this.state.listingData.neighborhood}, 
+                                        in {this.state.listingData.city}, {this.state.listingData.province}
+                                    </h2>
+                                </>
+                            :   <>
+                                    <h1 className="banner-text">
+                                        {this.state.listingData.firstname}, {this.state.listingData.lastname}
+                                    </h1>
+                                    <h2 className="banner-text">
+                                        {this.state.listingData.age} years old in {this.state.listingData.city}, {this.state.listingData.province}
+                                    </h2>
+                                </>
                             }
                             
                             <div className="about-blurb">
@@ -113,4 +125,4 @@ class ProfilePage extends Component {
     }
 }
 
-export default ProfilePage;
+export default ProfilePage

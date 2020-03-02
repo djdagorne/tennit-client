@@ -1,14 +1,12 @@
 import React, {Component} from 'react'
-import {Link } from 'react-router-dom';
+import {Link } from 'react-router-dom'
 import './HomePage.css'
 import TennitContext from '../../../TennitContext'
-import TennitApiService from '../../../Services/tennit-api-service'
-import TokenService from '../../../Services/token-service'
 
 export default class HomePage extends Component {
     static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
         }
     }

@@ -1,15 +1,14 @@
-import React from 'react';
-//import {Link} from 'react-router-dom';
-import './ConvoPage.css';
+import React from 'react'
+import './ConvoPage.css'
 import {Link, Redirect} from 'react-router-dom'
 import TokenService from '../../../Services/token-service'
-import TennitContext from '../../../TennitContext';
-import TennitApiService from '../../../Services/tennit-api-service';
+import TennitContext from '../../../TennitContext'
+import TennitApiService from '../../../Services/tennit-api-service'
 
 class ConvoPage extends React.Component { 
-    static contextType = TennitContext;
+    static contextType = TennitContext
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
             comments: [],
             user1_listing: {},
@@ -20,17 +19,19 @@ class ConvoPage extends React.Component {
     }
     
     componentDidMount(){ 
+        this.setState({ error: null })
+        this.context.getLoggedUser()
         this.requestComments()
     }
 
     handleInputChange = (event) => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
+		const target = event.target
+		const value = target.value
+		const name = target.name
 	
 		this.setState({
 			  [name]: value
-		});
+		})
 	}
 
     requestComments = () => {
@@ -39,7 +40,7 @@ class ConvoPage extends React.Component {
                 this.setState({
                     comments: res.reverse(),
                     error: null
-                });
+                })
                 this.assignMatchUsers()
             })
             .catch(err=>{
@@ -91,7 +92,7 @@ class ConvoPage extends React.Component {
     }
 
     deleteMatch = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         TennitApiService.deleteMatch(this.props.match.params.match_id)
             .then(()=>{
                 this.setState({
@@ -189,4 +190,4 @@ class ConvoPage extends React.Component {
     }
 }
 
-export default ConvoPage;
+export default ConvoPage

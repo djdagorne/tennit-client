@@ -1,6 +1,6 @@
-import React, { Component} from 'react';
-import './SplashPage.css';
-import TennitContext from '../../../TennitContext';
+import React, { Component} from 'react'
+import './SplashPage.css'
+import TennitContext from '../../../TennitContext'
 
 export default class SplashPage extends Component {
     static contextType = TennitContext

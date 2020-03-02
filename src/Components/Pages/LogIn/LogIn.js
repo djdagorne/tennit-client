@@ -1,34 +1,33 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import './LogIn.css'
 import TennitContext from '../../../TennitContext'
-//import {Button, Input} from '../../../Utils/Utils'
 
 class LogIn extends Component {
-	static contextType = TennitContext;
+	static contextType = TennitContext
     constructor(props){
-        super(props);
-        this.setWrapperRef = this.setWrapperRef.bind(this);
-        this.handleClickOutside = this.handleClickOutside.bind(this);
+        super(props)
+        this.setWrapperRef = this.setWrapperRef.bind(this)
+        this.handleClickOutside = this.handleClickOutside.bind(this)
         this.state = {
             error: null
         }
     }
     
     componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
+        document.addEventListener('mousedown', this.handleClickOutside)
     }
     
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
+        document.removeEventListener('mousedown', this.handleClickOutside)
     }
 
     setWrapperRef(div){
-        this.wrapperRef = div;
+        this.wrapperRef = div
     }
 
     handleClickOutside(e){
         if(this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.context.togglePopup('login');
+            this.context.togglePopup('login')
         }
     }
     
@@ -85,4 +84,4 @@ class LogIn extends Component {
     }
 }
 
-export default LogIn;
+export default LogIn
