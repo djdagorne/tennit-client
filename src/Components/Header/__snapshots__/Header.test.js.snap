@@ -9,7 +9,7 @@ exports[`renders without crashing 1`] = `
       className="logo text-shadow"
       href="/"
     >
-      tenn.it
+      tennit
     </a>
     <button
       className="log-button text-shadow"

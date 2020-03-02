@@ -1,7 +1,7 @@
 {
   "name": "tennit-client",
   "version": "1.0.0",
-  "alias": "tenn.it",
+  "alias": "tennit",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",

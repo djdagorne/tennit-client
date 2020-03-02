@@ -20,7 +20,7 @@ class Header extends Component {
                 <a 
                     href="/" 
                     className="logo text-shadow">
-                        tenn.it
+                        tennit
                 </a>
                 <button 
                     className="log-button text-shadow" 
@@ -42,7 +42,7 @@ class Header extends Component {
                 <a 
                     href="/home" 
                     className="logo text-shadow">
-                        tenn.it
+                        tennit
                 </a>
                 <a href="/">
                     <button  
