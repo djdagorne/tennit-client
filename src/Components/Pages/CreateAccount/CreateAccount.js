@@ -83,10 +83,8 @@ class CreateAccount extends Component {
                     user_id: token.id,
                     ...newListing,
                 }
-                console.log(listingBody)
                 TennitApiService.postListing(listingBody)
                     .then(listing=>{
-                        console.log(listing)
                         const imageBody = {
                             user_id: listing.user_id,
                             ...newImage
