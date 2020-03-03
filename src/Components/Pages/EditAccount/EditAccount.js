@@ -88,7 +88,6 @@ export default class EditAccount extends Component {
 
 
     render(){
-        console.log(this.context)
         return(
             <div className="popup">
                 <div className="popup-inner">
