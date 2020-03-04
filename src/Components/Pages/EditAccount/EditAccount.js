@@ -4,6 +4,12 @@ import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext'
 import TennitApiService from '../../../Services/tennit-api-service'
 
+/* 
+In the EditAccount component we have again like the CreateAccount, some basic state manipulation functions,
+functions to use the API services and handle errors, as well as event handling to track clicks outside of
+the pop up <div>.
+*/
+
 export default class EditAccount extends Component {
     static contextType = TennitContext
     constructor(props){

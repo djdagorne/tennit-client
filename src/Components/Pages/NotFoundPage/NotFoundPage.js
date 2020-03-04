@@ -1,5 +1,9 @@
 import React from 'react'
 
+/* 
+Upon a page breaking error or a invalid URL request I reroute users to this small 404 page.
+*/
+
 export default class NotFoundPage extends React.Component {
     render() {
 		return (

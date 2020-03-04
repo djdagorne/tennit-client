@@ -5,6 +5,14 @@ import TennitContext from '../../../TennitContext'
 import TennitApiService from '../../../Services/tennit-api-service'
 import { Redirect } from 'react-router-dom'
 
+/* 
+The profile page merely requests information based on the params put into the URL, requesting a user profile listing
+based on that ID number. If none exist or are found, it reroutes to the Not Found page, otherwise it populates the 
+page using the object assigned to the state. If the listing being viewed doesn't exist within the context's loggedUserMatches 
+(ie the user hasn't matched yet), it will render a button that allows the user to generate a matching/conversation with the
+listing being viewed, and updates the context and routes the user back to their matches list based on that.
+*/
+
 class ProfilePage extends Component {
     static contextType = TennitContext
     constructor(props){

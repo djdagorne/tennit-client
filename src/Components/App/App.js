@@ -21,6 +21,15 @@ import TennitApiService from '../../Services/tennit-api-service'
 //TODO comment a little in EVERY js component and service.
 //TODO keep an eye out for petty spacing issues while you do
 
+/* 
+The App component is responsible for holding a majority of the state modifying functions, auth/login,
+state and context management, as well as the Switch for my different page Routes. It's using a basic token
+inspection to authorize the rendering of private routes, and sets up a callback function on a timer to request new tokens before expiry
+if certain event handlers are triggered. Otherwise it's also the part of the app responsible for using token services to delete the expired token
+and log the user out to protect their data. The timer is 5 minutes, but even moving your mouse, or clicking a key/button will trigger a 
+request for a refresh at 10 seconds before the assigned expiry, as dictated by the server token.
+*/
+
 class App extends Component {
 	static contextType = TennitContext
     constructor(props){
@@ -129,7 +138,7 @@ class App extends Component {
 			  [name]: value
 		})
 	}
-	
+
 	getLoggedUser = () => {
         if(TokenService.hasAuthToken()){
             TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
@@ -167,7 +176,6 @@ class App extends Component {
 		const contextValue = {
 			...this.state,
 			searchQuery: [],
-
 			toggleLogIn: this.toggleLogIn,
 			handleLogIn: this.handleLogIn,
 			handleInputChange: this.handleInputChange,

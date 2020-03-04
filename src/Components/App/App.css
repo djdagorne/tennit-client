@@ -105,8 +105,8 @@ label{
   filter:blur(1px);
   background-image: 
   linear-gradient(
-    rgba(88, 30, 30, 0.15), /* tinted so text stands out */
-    rgba(100, 34, 34, 0.349)
+    rgba(53, 29, 0, 0.25), /* tinted so text stands out */
+    rgba(0, 0, 0, 0.25)
   ),
   url("../../imgs/mosaic-parquet-oak.jpg");
   background-repeat: repeat;
@@ -226,7 +226,7 @@ nav{
     flex-direction: row;
     min-width: 600px;
     max-width: 910px;
-    padding: 50px 10px 35px 10px;
+    padding: 50px 20px 35px 20px;
     justify-content: space-evenly;
   }
 

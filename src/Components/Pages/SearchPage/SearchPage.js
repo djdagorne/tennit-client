@@ -2,7 +2,12 @@ import React, {Component} from 'react'
 import TennitContext from '../../../TennitContext'
 import './SearchPage.css'
 import TennitApiService from '../../../Services/tennit-api-service'
-import TokenService from '../../../Services/token-service'
+
+/* 
+The SearchPage component gives the user a form to enter in search queries, and requests listings from the API and returns an object
+with all the matching results. The function then filters out existing matches and users with incompatible gender preferences.
+It assigns the resulting object to context and pushes the user to the results page to render that information.
+*/
 
 class SearchPage extends Component {
     static contextType = TennitContext
@@ -16,40 +21,7 @@ class SearchPage extends Component {
     }
 
     componentDidMount(){
-        this.getLoggedUser()
-    }
-
-    getLoggedUser () { 
-        if(TokenService.hasAuthToken()){
-            TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)
-				.then(userData=>{
-					TennitApiService.requestMatchList(userData.user_id)
-						.then(data=>{
-                            this.context.loggedUser = userData
-                            this.loggedUserMatches = data.userMatches
-							this.setState({
-								loggedUser: userData,
-								loggedUserMatches: data.userMatches,
-                                showLogInPopup: false,
-                                error: null
-							},()=>{
-								this.forceUpdate()
-							})
-						})
-                        .catch(err=>{
-                            console.error(err.error.message)
-                            this.setState({
-                                error: err.error.message
-                            })
-                        })
-				})
-                .catch(err=>{
-                    console.error(err)
-                    this.setState({
-                        error: err.error.message
-                    })
-                })
-        }
+        this.context.getLoggedUser()
     }
 
     handleInputChange = (event) => {

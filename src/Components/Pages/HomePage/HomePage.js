@@ -3,6 +3,11 @@ import {Link } from 'react-router-dom'
 import './HomePage.css'
 import TennitContext from '../../../TennitContext'
 
+/* 
+Most of the homepage's functionality is handled by the App.js, so here you will largely just see HTML and the component requesting information
+to populate the homepage with upon freshly mounting.
+*/
+
 export default class HomePage extends Component {
     static contextType = TennitContext
     constructor(props){

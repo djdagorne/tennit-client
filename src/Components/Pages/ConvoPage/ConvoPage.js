@@ -5,6 +5,15 @@ import TokenService from '../../../Services/token-service'
 import TennitContext from '../../../TennitContext'
 import TennitApiService from '../../../Services/tennit-api-service'
 
+/* 
+The ConvoPage component is responsible for rendering a basic chat page with a limited amount of comments
+in a tracked conversation, as well as correctly rendering the display picture and name
+of the account that the user is conversing with. Included here is basic functions to refresh any displayed
+errors upon correctly mounting, some state form editting, update the context to display current and
+accurate information, and basic functions to use the API to read/make comments, correctly display information
+from the point of view of the user signed in and unmatch with the other user.
+*/
+
 class ConvoPage extends React.Component { 
     static contextType = TennitContext
     constructor(props){

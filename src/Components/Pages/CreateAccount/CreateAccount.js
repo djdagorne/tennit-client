@@ -4,6 +4,12 @@ import TennitContext from '../../../TennitContext'
 import TokenService from '../../../Services/token-service'
 import TennitApiService from '../../../Services/tennit-api-service'
 
+/* 
+Included in the CreateAccount component is some event handlers to track when the user clicks outside of the
+popup <div>, state modifying for the form, and some basic error catching and account assigning to state
+for the account creation request.
+*/
+
 class CreateAccount extends Component {
     static contextType = TennitContext
     constructor(props){

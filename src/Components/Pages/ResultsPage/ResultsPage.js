@@ -4,6 +4,11 @@ import './ResultsPage.css'
 import TennitContext from '../../../TennitContext'
 import {Redirect} from 'react-router-dom'
 
+/* 
+The results page renders all its data based on the request made and the object returned from the SearhPage. It has conditions to render
+different information based empty search results, or a success search.
+*/
+
 class ResultsPage extends React.Component { 
     static contextType = TennitContext
     constructor(props){

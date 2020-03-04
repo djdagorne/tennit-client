@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import './LogIn.css'
 import TennitContext from '../../../TennitContext'
 
+/* 
+The login component uses the same event handlers as the other popup components, but has a lot less information/state
+and API requests to manage.
+*/
+
 class LogIn extends Component {
 	static contextType = TennitContext
     constructor(props){
