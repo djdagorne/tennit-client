@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import './ProfilePage.css'
-import TokenService from '../../../Services/token-service'
-import TennitContext from '../../../TennitContext'
-import TennitApiService from '../../../Services/tennit-api-service'
-import { Redirect } from 'react-router-dom'
+import React, {Component} from 'react';
+import './ProfilePage.css';
+import TokenService from '../../../Services/token-service';
+import TennitContext from '../../../TennitContext';
+import TennitApiService from '../../../Services/tennit-api-service';
+import { Redirect } from 'react-router-dom';
 
 /* 
 The profile page merely requests information based on the params put into the URL, requesting a user profile listing
@@ -14,37 +14,37 @@ listing being viewed, and updates the context and routes the user back to their 
 */
 
 class ProfilePage extends Component {
-    static contextType = TennitContext
+    static contextType = TennitContext;
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             listingData: {},
             userImage: {},
             error: null
-        }
-    }
+        };
+    };
 
     componentDidMount(){
         TennitApiService.getUser(this.props.match.params.user_id)
             .then(res=>{
                 this.setState({
                     listingData: res
-                })
+                });
             })
             .catch(err=>{
-                console.error(err.error.message)
+                console.error(err.error.message);
                 this.setState({
                     error: err.error.message
-                })
+                });
             })
-        this.context.getLoggedUser()
+        this.context.getLoggedUser();
     }
 
     generateNewMatch = (e) => {
         const matchData = {
             user1_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
             user2_id: this.state.listingData.user_id
-        }
+        };
         TennitApiService.postNewMatch(matchData)
             .then(match=>{
                 const newMatch = {
@@ -53,15 +53,15 @@ class ProfilePage extends Component {
                     firstname_2: this.state.listingData.firstname,
                     lastname_2: this.state.listingData.lastname,
                     ...match
-                }
-                this.context.loggedUserMatches.push(newMatch)
-                this.props.history.push('/')
+                };
+                this.context.loggedUserMatches.push(newMatch);
+                this.props.history.push('/');
             })
             .catch(err=>{
-                console.error(err.error.message)
+                console.error(err.error.message);
                 this.setState({
                     error: err.error.message
-                })
+                });
             })
     }
 
@@ -70,7 +70,7 @@ class ProfilePage extends Component {
     }
 
     render(){
-        return(
+        return (
             <>
                 {this.state.error &&
                     <Redirect to='/404'/>
@@ -88,12 +88,12 @@ class ProfilePage extends Component {
                         }
                         <div className="convo-wrap">
                             {this.state.listingData.listing 
-                                ? 
-                                <>
-                                    <h2 className="rent-text">${this.state.listingData.rent} </h2> 
-                                    <h3 className="sub-rent-text">per month</h3>
-                                </>
-                                : null
+                                 
+                                ?   <>
+                                        <h2 className="rent-text">${this.state.listingData.rent} </h2> 
+                                        <h3 className="sub-rent-text">per month</h3>
+                                    </>
+                                :   null
                             }
 
                             {this.state.listingData.neighborhood 

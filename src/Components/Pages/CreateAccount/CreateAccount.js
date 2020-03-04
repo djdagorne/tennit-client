@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import './CreateAccount.css'
-import TennitContext from '../../../TennitContext'
-import TokenService from '../../../Services/token-service'
-import TennitApiService from '../../../Services/tennit-api-service'
+import React, {Component} from 'react';
+import './CreateAccount.css';
+import TennitContext from '../../../TennitContext';
+import TokenService from '../../../Services/token-service';
+import TennitApiService from '../../../Services/tennit-api-service';
 
 /* 
 Included in the CreateAccount component is some event handlers to track when the user clicks outside of the
@@ -11,58 +11,57 @@ for the account creation request.
 */
 
 class CreateAccount extends Component {
-    static contextType = TennitContext
+    static contextType = TennitContext;
     constructor(props){
-        super(props)
-        
+        super(props);
         this.setWrapperRef = this.setWrapperRef.bind(this)
         this.handleClickOutside = this.handleClickOutside.bind(this)
         this.state = {
             listing: false,
             error: null,
-        }
-    }
+        };
+    };
 
     componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside)
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
     
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside)
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
     
     setWrapperRef(div){
-        this.wrapperRef = div
+        this.wrapperRef = div;
     }
 
     handleClickOutside(e){
         if(this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.context.togglePopup('create')
+            this.context.togglePopup('create');
         }
     }
 
-    toggleListingSection = () => {
+    toggleListingSection=()=>{
         this.setState({
             listing: !this.state.listing
-        })
+        });
     }
 
-    handleInputChange = (event) => {
-		const target = event.target
-		const value = target.value
-		const name = target.name
+    handleInputChange=(event)=>{
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
 	
 		this.setState({
 			  [name]: value
-		})
+		});
     }
     
-    handleCreateSubmit = (e) => {
+    handleCreateSubmit=(e)=>{
         e.preventDefault()
         const newUser = {
             email: this.state.email,
             password: this.state.password
-        }
+        };
         const newListing = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
@@ -76,56 +75,56 @@ class CreateAccount extends Component {
             rent: this.state.rent,
             neighborhood: this.state.neighborhood,
             blurb: this.state.blurb
-        }
+        };
         const newImage = {
             image: this.state.image
-        }
+        };
 
         TennitApiService.postUser(newUser)
             .then(res=>{
-                TokenService.saveAuthToken(res.authToken)
-                const token = TokenService.parseJwt(res.authToken)
+                TokenService.saveAuthToken(res.authToken);
+                const token = TokenService.parseJwt(res.authToken);
                 const listingBody = {
                     user_id: token.id,
                     ...newListing,
-                }
+                };
                 TennitApiService.postListing(listingBody)
                     .then(listing=>{
                         const imageBody = {
                             user_id: listing.user_id,
                             ...newImage
-                        }
+                        };
                         TennitApiService.postImage(imageBody)
                             .then(()=>{
-                                this.context.togglePopup('create')
+                                this.context.togglePopup('create');
                             })
                             .catch(err=>{
-                                console.error(err.error.message)
+                                console.error(err.error.message);
                                 this.setState({
                                     error: err.error.message
-                                })
+                                });
                             })
                     })
                     .catch(err=>{
-                        console.error(err.error.message)
+                        console.error(err.error.message);
                         this.setState({
                             error: err.error.message
-                        })
+                        });
                     })
             })
             .catch(err=>{
-                console.error(err.error.message)
+                console.error(err.error.message);
                 this.setState({
                     error: err.error.message
-                })
+                });
             })
     }
 
 
 
     render(){
-        return(
-            <div className="popup" >
+        return (
+            <div className="popup">
                 <div className="popup-inner" ref={this.setWrapperRef}>                    
                     <button 
                         className="close-popup" 
@@ -320,4 +319,4 @@ class CreateAccount extends Component {
     }
 }
 
-export default CreateAccount
+export default CreateAccount;

@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import './LogIn.css'
-import TennitContext from '../../../TennitContext'
+import React, {Component} from 'react';
+import './LogIn.css';
+import TennitContext from '../../../TennitContext';
 
 /* 
 The login component uses the same event handlers as the other popup components, but has a lot less information/state
@@ -8,35 +8,35 @@ and API requests to manage.
 */
 
 class LogIn extends Component {
-	static contextType = TennitContext
+	static contextType = TennitContext;
     constructor(props){
-        super(props)
-        this.setWrapperRef = this.setWrapperRef.bind(this)
-        this.handleClickOutside = this.handleClickOutside.bind(this)
+        super(props);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
         this.state = {
-        }
-    }
+        };
+    };
     
     componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside)
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
     
     componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside)
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     setWrapperRef(div){
-        this.wrapperRef = div
+        this.wrapperRef = div;
     }
 
     handleClickOutside(e){
         if(this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.context.togglePopup('login')
+            this.context.togglePopup('login');
         }
     }
     
     render(){
-        return(
+        return (
             <div className="popup">
                 <div className="popup-inner" ref={this.setWrapperRef}>
                     
@@ -88,4 +88,4 @@ class LogIn extends Component {
     }
 }
 
-export default LogIn
+export default LogIn;

@@ -21,54 +21,54 @@ class SearchPage extends Component {
     }
 
     componentDidMount(){
-        this.context.getLoggedUser()
+        this.context.getLoggedUser();
     }
 
     handleInputChange = (event) => {
-		const target = event.target
-		const value = target.value
-		const name = target.name
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
 	
 		this.setState({
 			  [name]: value
-		})
+		});
     }
     
     handleSearch = (e) => {
-        e.preventDefault()
-        const {searchCity, searchProvince, searchRent} = this.state
-        const params = []
+        e.preventDefault();
+        const {searchCity, searchProvince, searchRent} = this.state;
+        const params = [];
         if (searchCity) {
-            params.push(`city=${searchCity}`)
+            params.push(`city=${searchCity}`);
         }
         if (searchProvince) {
-            params.push(`province=${searchProvince}`)
+            params.push(`province=${searchProvince}`);
         }
         if (searchRent) {
-            params.push(`rent=${searchRent}`)
+            params.push(`rent=${searchRent}`);
         }
-        const query = params.join('&')
+        const query = params.join('&');
 
         TennitApiService.searchListings(query)
             .then(res=>{
-                const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other')
-                const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other')
-                const filterSelf = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id)
-                this.context.searchQuery = filterSelf
+                const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other');
+                const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other');
+                const filterSelf = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id);
+                this.context.searchQuery = filterSelf;
             })
             .then(()=>
                 this.props.history.push(`/results`)
             )
             .catch(err=>{
-                console.error(err.error.message)
+                console.error(err.error.message);
                 this.setState({
                     error: err.error.message
-                })
+                });
             })
     }
     
     render(){
-        return(
+        return (
             <div className="content-container">
                 
                 <h1 className="banner-text header-one">Search</h1>

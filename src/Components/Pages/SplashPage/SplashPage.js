@@ -1,6 +1,6 @@
-import React, { Component} from 'react'
-import './SplashPage.css'
-import TennitContext from '../../../TennitContext'
+import React, { Component} from 'react';
+import './SplashPage.css';
+import TennitContext from '../../../TennitContext';
 
 /* 
 The splash page doesn't have much to it obviously. This is where I introduce the  idea
@@ -15,7 +15,7 @@ so its here to stay lol.
 */
 
 export default class SplashPage extends Component {
-    static contextType = TennitContext
+    static contextType = TennitContext;
 
     render(){
         return (

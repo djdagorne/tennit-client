@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {Component} from 'react';
 
 /* 
 Upon a page breaking error or a invalid URL request I reroute users to this small 404 page.
 */
 
-export default class NotFoundPage extends React.Component {
+class NotFoundPage extends Component {
     render() {
 		return (
 			<div className="content-container">
@@ -16,3 +16,5 @@ export default class NotFoundPage extends React.Component {
 		)
     }
 }
+
+export default NotFoundPage;

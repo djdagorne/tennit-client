@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import './ResultsPage.css'
 import TennitContext from '../../../TennitContext'
@@ -9,7 +9,7 @@ The results page renders all its data based on the request made and the object r
 different information based empty search results, or a success search.
 */
 
-class ResultsPage extends React.Component { 
+class ResultsPage extends Component { 
     static contextType = TennitContext
     constructor(props){
         super(props)
@@ -19,7 +19,7 @@ class ResultsPage extends React.Component {
 
     render(){
 
-        return( 
+        return ( 
             <div>
                 {this.state.error &&
                 <Redirect to='/404'/>

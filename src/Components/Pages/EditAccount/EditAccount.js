@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import './EditAccount.css'
-import TokenService from '../../../Services/token-service'
-import TennitContext from '../../../TennitContext'
-import TennitApiService from '../../../Services/tennit-api-service'
+import React, {Component} from 'react';
+import './EditAccount.css';
+import TokenService from '../../../Services/token-service';
+import TennitContext from '../../../TennitContext';
+import TennitApiService from '../../../Services/tennit-api-service';
 
 /* 
 In the EditAccount component we have again like the CreateAccount, some basic state manipulation functions,
@@ -10,10 +10,10 @@ functions to use the API services and handle errors, as well as event handling t
 the pop up <div>.
 */
 
-export default class EditAccount extends Component {
-    static contextType = TennitContext
+class EditAccount extends Component {
+    static contextType = TennitContext;
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             emailBox: null,
             passwordBox: null,
@@ -25,23 +25,23 @@ export default class EditAccount extends Component {
             neighborhoodBox: null,
             rentBox: null,
             blurbBox: null,
-        }
-    }
+        };
+    };
 
     toggleListingSection = () => {
         this.setState({
             listingBox: !this.state.listingBox,
-        })
+        });
     }
 
     handleInputChange = (event) => {
-		const target = event.target
-		const value = target.value
-		const name = target.name
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
 	
 		this.setState({
 			  [name]: value
-		})
+		});
 	}
 
     handleEditSubmit = (e) => {
@@ -53,48 +53,48 @@ export default class EditAccount extends Component {
             rent: this.state.rentBox,
             neighborhood: this.state.neighborhoodBox,
             blurb: this.state.blurbBox
-        }
+        };
         const updatedImage = {
             user_id: TokenService.parseJwt(TokenService.getAuthToken()).id,
             image: this.state.imageBox
-        }
+        };
 
         for(const [key,value] of Object.entries(updatedListing)){
             if(value === null){
-                delete updatedListing[key]
+                delete updatedListing[key];
             }
         }
         
         if(Object.keys(updatedListing).length > 0 || this.state.image !== null){
             TennitApiService.patchListing(updatedListing, TokenService.parseJwt(TokenService.getAuthToken()).id)
                 .then(listing=>{
-                    this.context.loggedUser = listing
+                    this.context.loggedUser = listing;
                 })
                 .then(()=>{
                     TennitApiService.patchImage(updatedImage)
                         .then(res=>{
-                            this.context.loggedUser.image = res.image
-                            this.context.togglePopup('edit')
+                            this.context.loggedUser.image = res.image;
+                            this.context.togglePopup('edit');
                         })
                         .catch(err=>{
-                            console.error(err.error.message)
+                            console.error(err.error.message);
                             this.setState({
                                 error: err.error.message
-                            })
+                            });
                         })
                 })
                 .catch(err=>{
-                    console.error(err.error.message)
+                    console.error(err.error.message);
                     this.setState({
                         error: err.error.message
-                    })
+                    });
                 })
         }
     }
 
 
     render(){
-        return(
+        return (
             <div className="popup">
                 <div className="popup-inner">
                     <button 
@@ -208,3 +208,5 @@ export default class EditAccount extends Component {
         )
     }
 }
+
+export default EditAccount;

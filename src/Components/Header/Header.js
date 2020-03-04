@@ -1,25 +1,26 @@
-import React, {Component} from 'react'
-import './Header.css'
-import LogIn from '../Pages/LogIn/LogIn.js'
-import EditAccount from '../Pages/EditAccount/EditAccount'
-import CreateAccount from '../Pages/CreateAccount/CreateAccount'
-import TennitContext from '../../TennitContext'
-import TokenService from '../../Services/token-service'
+import React, {Component} from 'react';
+import './Header.css';
+import LogIn from '../Pages/LogIn/LogIn.js';
+import EditAccount from '../Pages/EditAccount/EditAccount';
+import CreateAccount from '../Pages/CreateAccount/CreateAccount';
+import TennitContext from '../../TennitContext';
+import TokenService from '../../Services/token-service';
+
 /* 
 Header is responsible for toggling to functions that will allow it to render the login/edit account/create account.
 It holds some functions that pertain to rendering whichever header is needed based on the state of the app.
 */
 
 class Header extends Component {
-    static contextType = TennitContext
+    static contextType = TennitContext;
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
-        }
-    }
+        };
+    };
 
     renderLogInLink = () =>{
-        return(
+        return (
             <nav className="nav-not-logged-in">
                 <a 
                     href="/" 
@@ -41,7 +42,7 @@ class Header extends Component {
     }
 
     renderLogOutLink = () =>{
-        return(
+        return (
             <nav className="nav-logged-in">
                 <a 
                     href="/home" 
@@ -68,28 +69,28 @@ class Header extends Component {
     render(){
         return (
             <>
-                {TokenService.hasAuthToken() ? 
-                    this.renderLogOutLink() :
-                    this.renderLogInLink()
+                {TokenService.hasAuthToken()  
+                    ?   this.renderLogOutLink() 
+                    :   this.renderLogInLink()
                 }
 
-                {this.context.showLogInPopup ?
-                    <LogIn /> :
-                    null
+                {this.context.showLogInPopup 
+                    ?   <LogIn /> 
+                    :   null
                 }
 
-                {this.context.showCreatePopup ? 
-                    <CreateAccount /> :
-                    null
+                {this.context.showCreatePopup  
+                    ?   <CreateAccount /> 
+                    :   null
                 }
 
-                {this.context.showEditPopup ? 
-                    <EditAccount props={this.context}/> :
-                    null
+                {this.context.showEditPopup  
+                    ?   <EditAccount props={this.context}/> 
+                    :   null
                 }
             </>
         )
     }
 }
 
-export default Header
+export default Header;

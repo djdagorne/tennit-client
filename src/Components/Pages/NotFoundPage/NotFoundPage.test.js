@@ -7,6 +7,6 @@ import '../../../setupTest'
 
 
 it('renders without crashing', () => {
-    const wrapper = shallow(<NotFoundPage />)
-    expect(toJson(wrapper)).toMatchSnapshot()
+    const wrapper = shallow(<NotFoundPage />);
+    expect(toJson(wrapper)).toMatchSnapshot();
 })
