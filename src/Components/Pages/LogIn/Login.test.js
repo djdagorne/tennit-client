@@ -7,6 +7,6 @@ import '../../../setupTest'
 
 
 it('renders without crashing', () => {
-        const wrapper = shallow(<Login />)
+    const wrapper = shallow(<Login />)
     expect(toJson(wrapper)).toMatchSnapshot()
 })

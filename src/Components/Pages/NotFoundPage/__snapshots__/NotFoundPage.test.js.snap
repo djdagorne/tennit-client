@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div
+  className="content-container"
+>
+  <div>
+    <h2>
+      Page not found
+    </h2>
+    <p>
+      Try going back to your previous page.
+    </p>
+  </div>
+</div>
+`;
