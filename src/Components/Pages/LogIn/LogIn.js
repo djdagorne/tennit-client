@@ -9,7 +9,6 @@ class LogIn extends Component {
         this.setWrapperRef = this.setWrapperRef.bind(this)
         this.handleClickOutside = this.handleClickOutside.bind(this)
         this.state = {
-            error: null
         }
     }
     
@@ -47,7 +46,7 @@ class LogIn extends Component {
                         id="sign-up">
 
                         <div>
-                            {this.state.error && <p className="error-text" >Error: {this.state.error}</p>}
+                            {this.context.error && <p className="error-text" >Error: {this.context.error}</p>}
                         </div>
 
                         <div className="form-item">

@@ -90,6 +90,12 @@ h2.slogan-text{
 
 @media only screen and (min-width: 800px) {
   .slogan{
-    width: 90%;
+    margin: auto;
+  }
+  h1.slogan-text{
+    font-size: 140px;
+  }
+  h2.slogan-text{
+    font-size: 45px;
   }
 }

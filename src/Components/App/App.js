@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import './App.css'
 import Header from  '../Header/Header'
 import Footer from '../Footer/Footer'
@@ -18,6 +18,8 @@ import IdleService from '../../Services/idle-service'
 import AuthApiService from '../../Services/auth-api-service'
 import TennitApiService from '../../Services/tennit-api-service'
 
+//TODO comment a little in EVERY js component and service.
+//TODO keep an eye out for petty spacing issues while you do
 
 class App extends Component {
 	static contextType = TennitContext
@@ -31,7 +33,7 @@ class App extends Component {
 			showEditPopup: false,
 			error: null,
         }
-	} 
+	}
 
 	componentDidMount(){
 		this.setState({ error: null })	
@@ -65,6 +67,7 @@ class App extends Component {
 	}
 	
 	handleLogIn = (e) => {
+		e.preventDefault();
 		TennitApiService.postLogIn(e)
 			.then(res => {
 				if(res.authToken){
@@ -72,11 +75,13 @@ class App extends Component {
 						showLogInPopup: false,
 						error: null
 					})
-				}else{
-					this.setState({
-						error: res.error.message
-					})
 				}
+			})
+			.catch(err=>{
+				console.error(err.error)
+				this.setState({
+					error: err.error.message
+				})
 			})
 	}
 
@@ -98,12 +103,14 @@ class App extends Component {
     togglePopup = (e) =>{
 		if(e === 'login'){
 			this.setState({
-				showLogInPopup: !this.state.showLogInPopup
+				showLogInPopup: !this.state.showLogInPopup,
+				error: null
 			})
 		}
 		if(e === 'create'){
 			this.setState({
-				showCreatePopup: !this.state.showCreatePopup
+				showCreatePopup: !this.state.showCreatePopup,
+				error: null
 			})
 		}
 		if(e === 'edit'){
@@ -122,7 +129,7 @@ class App extends Component {
 			  [name]: value
 		})
 	}
-
+	
 	getLoggedUser = () => {
         if(TokenService.hasAuthToken()){
             TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)

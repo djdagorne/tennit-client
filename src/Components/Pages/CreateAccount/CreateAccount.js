@@ -96,21 +96,21 @@ class CreateAccount extends Component {
                             .catch(err=>{
                                 console.error(err.error.message)
                                 this.setState({
-                                    error: 'Cannot post image to account.'
+                                    error: err.error.message
                                 })
                             })
                     })
                     .catch(err=>{
                         console.error(err.error.message)
                         this.setState({
-                            error: 'Cannot create new listing.'
+                            error: err.error.message
                         })
                     })
             })
             .catch(err=>{
                 console.error(err.error.message)
                 this.setState({
-                    error: 'Cannot create new user.'
+                    error: err.error.message
                 })
             })
     }

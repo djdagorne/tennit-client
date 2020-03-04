@@ -149,7 +149,7 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.then(e=> Promise.reject(e))
+                    ? res.json().then(e=> Promise.reject(e))
                     : res.json()
             })
     },

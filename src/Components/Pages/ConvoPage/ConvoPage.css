@@ -1,6 +1,3 @@
-
-.convo-page-div {
-}
 .convo-page-div:last-child{
     margin-bottom:40px;
 }  
@@ -24,19 +21,12 @@
     left: 40px;
     text-align: left;
     word-wrap: break-word;
-  }
-  
+}
 
-/* 
-ul{
-    list-style: none;
-    display: block;
-    margin: 0;
-    padding: 0;
-    width:  60%;
-} 
-*/
-  
+.comment-container{
+    margin: 35px;
+    width: 250px;
+}
 
 .user{
     position: relative;
@@ -47,7 +37,6 @@ ul{
   
 .comment-textarea{
     position: relative;
-    width:  250px;
     display: inline-block;
     margin: 0 auto;
     height: 50px;

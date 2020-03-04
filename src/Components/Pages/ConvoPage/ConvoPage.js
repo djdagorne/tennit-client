@@ -102,9 +102,9 @@ class ConvoPage extends React.Component {
                 this.props.history.push('/')
             })
             .catch(err=>{
-                console.error(err.error.message)
+                console.error(err)
                 this.setState({
-                    error: err.error.message
+                    error: `Couldn't delete match at this time. Try again later.`
                 })
             })
     }
