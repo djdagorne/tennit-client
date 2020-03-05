@@ -8,6 +8,7 @@ class NotFoundPage extends Component {
     render() {
 		return (
 			<div className="content-container">
+				<button className="text-shadow back-button" onClick={()=>this.props.history.goBack()}>go back</button>
 				<div>
 					<h2>Page not found</h2>
 					<p>Try going back to your previous page.</p>

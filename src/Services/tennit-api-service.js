@@ -121,8 +121,8 @@ const TennitApiService = {
         })
             .then(res => {
                 return (!res.ok)
-                    ? res.then(e => Promise.reject(e))
-                    : res
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
             })
     },
     searchListings(query){

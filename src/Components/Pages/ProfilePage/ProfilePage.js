@@ -76,58 +76,57 @@ class ProfilePage extends Component {
                     <Redirect to='/404'/>
                 }
                 <div className="content-container">
-
-                        <div className="pic-wrap">
-                                <img className="pic" src={this.state.listingData.image} alt="test" />     
-                        </div>
-                        {this.context.loggedUserMatches.some(this.displayTheMightyButton)
-                            ?   null
-                            :   <div className="button-wrap">
-                                    <button className="rounded-button" onClick={this.generateNewMatch}>Start Chatting Now!</button>
-                                </div>
-                        }
-                        <div className="convo-wrap">
-                            {this.state.listingData.listing 
-                                 
-                                ?   <>
-                                        <h2 className="rent-text">${this.state.listingData.rent} </h2> 
-                                        <h3 className="sub-rent-text">per month</h3>
-                                    </>
-                                :   null
-                            }
-
-                            {this.state.listingData.neighborhood 
-                            ?   <>
-                                    <h1 className="banner-text">
-                                        {this.state.listingData.firstname}, {this.state.listingData.lastname}
-                                    </h1>
-                                    <h2 className="banner-text">
-                                        {this.state.listingData.age} years old near {this.state.listingData.neighborhood}, 
-                                        in {this.state.listingData.city}, {this.state.listingData.province}
-                                    </h2>
-                                </>
-                            :   <>
-                                    <h1 className="banner-text">
-                                        {this.state.listingData.firstname}, {this.state.listingData.lastname}
-                                    </h1>
-                                    <h2 className="banner-text">
-                                        {this.state.listingData.age} years old in {this.state.listingData.city}, {this.state.listingData.province}
-                                    </h2>
-                                </>
-                            }
-                            
-                            <div className="about-blurb">
-                                {this.state.listingData.listing 
-                                ?   <div className="user-blurb">
-                                        <p> {this.state.listingData.userblurb} </p>
-                                        <p> {this.state.listingData.blurb} </p> 
-                                    </div>  
-                                :   <p> {this.state.listingData.userblurb} </p>
-                                }
-                            </div>
-                        </div>
-                            
+                    <button className="text-shadow back-button" onClick={()=>this.props.history.goBack()}>go back</button>
+                    <div className="pic-wrap">
+                            <img className="pic" src={this.state.listingData.image} alt="test" />     
                     </div>
+                    {this.context.loggedUserMatches.some(this.displayTheMightyButton)
+                        ?   null
+                        :   <div className="button-wrap">
+                                <button className="rounded-button" onClick={this.generateNewMatch}>Start Chatting Now!</button>
+                            </div>
+                    }
+                    <div className="convo-wrap">
+                        {this.state.listingData.listing 
+                                
+                            ?   <>
+                                    <h2 className="rent-text">${this.state.listingData.rent} </h2> 
+                                    <h3 className="sub-rent-text">per month</h3>
+                                </>
+                            :   null
+                        }
+
+                        {this.state.listingData.neighborhood 
+                        ?   <>
+                                <h1 className="banner-text">
+                                    {this.state.listingData.firstname}, {this.state.listingData.lastname}
+                                </h1>
+                                <h2 className="banner-text">
+                                    {this.state.listingData.age} years old near {this.state.listingData.neighborhood}, 
+                                    in {this.state.listingData.city}, {this.state.listingData.province}
+                                </h2>
+                            </>
+                        :   <>
+                                <h1 className="banner-text">
+                                    {this.state.listingData.firstname}, {this.state.listingData.lastname}
+                                </h1>
+                                <h2 className="banner-text">
+                                    {this.state.listingData.age} years old in {this.state.listingData.city}, {this.state.listingData.province}
+                                </h2>
+                            </>
+                        }
+                        
+                        <div className="about-blurb">
+                            {this.state.listingData.listing 
+                            ?   <div className="user-blurb">
+                                    <p> {this.state.listingData.userblurb} </p>
+                                    <p> {this.state.listingData.blurb} </p> 
+                                </div>  
+                            :   <p> {this.state.listingData.userblurb} </p>
+                            }
+                        </div>
+                    </div>
+                </div>
             </>
         )
     }

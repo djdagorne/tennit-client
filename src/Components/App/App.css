@@ -202,6 +202,27 @@ nav{
   margin: 10px auto;
 }
 
+.back-button, .back-button-results{
+  font-family: 'Raleway', sans-serif;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border-style: none;
+  position: relative;
+  font-weight: 500;
+  padding: 0px 6px;
+  border-radius: 2px;
+  color: #F0F0F2;
+  font-size: 1.3em;
+  text-decoration: none;
+  cursor: pointer;
+  right: 25vw;
+  bottom: 60px;
+}
+
+.back-button-results{
+  top: 30px;
+}
+
 .close-popup{
   position: sticky;
   float: right;

@@ -134,6 +134,7 @@ class ConvoPage extends Component {
                             </div>
                         </div>
                     :   <div className="content-container">
+                            <button className="text-shadow back-button" onClick={()=>this.props.history.goBack()}>go back</button>
                             <div className="convo-page-div">
                                 <h1 className="banner-text header-one">
                                     Chat between 
