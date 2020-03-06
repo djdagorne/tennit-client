@@ -44,6 +44,8 @@ class App extends Component {
         };
 	};
 
+	//on user visiting page or refreshing it will clear error and read any existing tokens to see if valid. 
+	//populates page with data based on the results from that.
 	componentDidMount(){
 		this.setState({ error: null })	
 		IdleService.setIdleCallback(this.logoutFromIdle);
@@ -63,11 +65,13 @@ class App extends Component {
 		}
 	}
 	
+	//clears timers and callbacks for next session
 	componentWillUnmount(){
 		IdleService.unregisterIdleResets();
 		TokenService.clearCallbackBeforeExpiry();
 	}
 	
+	//executes after timer expires without event being triggered.
 	logoutFromIdle=()=>{
 		TokenService.clearAuthToken();
 		TokenService.clearCallbackBeforeExpiry();
@@ -75,6 +79,7 @@ class App extends Component {
 		this.forceUpdate();
 	}
 	
+	//posts user to auth endpoint and state for App or provides an error
 	handleLogIn=(e)=>{
 		e.preventDefault();
 		TennitApiService.postLogIn(e)
@@ -87,13 +92,14 @@ class App extends Component {
 				}
 			})
 			.catch(err=>{
-				console.error(err.error)
+				console.error(err)
 				this.setState({
 					error: err.error.message
 				});
 			})
 	}
 
+	//handles state after log in popup closes, based on the status of the users web token
 	toggleLogIn=()=>{
 		if(TokenService.hasAuthToken()){
 			TokenService.clearAuthToken();
@@ -109,6 +115,7 @@ class App extends Component {
 		}
 	}
 
+	//handles popups without interacting with server or webtokens
     togglePopup=(e)=>{
 		if(e === 'login'){
 			this.setState({
@@ -139,6 +146,7 @@ class App extends Component {
 		});
 	}
 
+	//function to handle populating the context and state on refresh/conditions where a state/context might have been lost.
 	getLoggedUser=()=>{
         if(TokenService.hasAuthToken()){
             TennitApiService.getUser(TokenService.parseJwt(TokenService.getAuthToken()).id)

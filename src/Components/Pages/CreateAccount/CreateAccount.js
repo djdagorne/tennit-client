@@ -284,7 +284,7 @@ class CreateAccount extends Component {
                                 <div className="form-item">
                                     <label htmlFor="rent">Monthly Rent per Person</label>
                                     <input 
-                                        type="text" 
+                                        type="number" 
                                         name="rent" 
                                         onChange={this.handleInputChange}
                                         required

@@ -6,7 +6,7 @@ exports[`renders without crashing 1`] = `
     className="nav-not-logged-in"
   >
     <a
-      className="logo text-shadow"
+      className="logo"
       href="/"
     >
       tennit

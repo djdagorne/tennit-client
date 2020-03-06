@@ -18,6 +18,76 @@ body {
   min-height: 85vh; 
 }
 
+header{
+  position: relative;
+}
+
+nav{
+  position: fixed;
+  height: 45px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.text-shadow{
+  text-shadow: 0px 2px 10px rgba(102, 102, 102, .1);
+}
+
+.logo{
+  float:left;
+  font-family: 'Lato', sans-serif;
+  text-align:center;
+  margin-top: 6px;
+  margin-left: 20px;
+  font-size: 2.3em;
+  font-weight: 900;
+  color: #323238;
+  text-decoration: none;
+  letter-spacing: -2px;
+}
+
+.log-button, .account-button{
+  font-family: 'Raleway', sans-serif;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border-style: none;
+  position: relative;
+  letter-spacing: -1px;
+  line-height: 1em;
+  top: 20px;
+  font-weight: 500;
+  padding: 0px 6px;
+  border-radius: 2px;
+  float:right;
+  color: #323238;
+  font-size: 1.3em;
+  text-decoration: none;
+}
+
+.log-button{
+  right: 20px;
+}
+
+.log-button:hover{
+  cursor: pointer;
+}
+
+.account-button{
+  right: 35px;
+}
+
+.account-button:hover{
+  cursor: pointer;
+} 
+
+.nav-logged-in, .nav-not-logged-in{
+  background:#F0F0F2;
+  opacity: 1;
+  height: 55px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -27,7 +97,7 @@ body {
   color: #F0F0F2;
 }
 
-footer a{
+footer i{
   margin:0 5px 0 5px;
   color: #F0F0F2;
   text-decoration: none;
@@ -35,6 +105,10 @@ footer a{
 
 .fab, .fas, .fa {
   font-size: 22px;
+}
+
+.sr-only{
+  text-decoration: hidden;
 }
 
 ul{
@@ -106,7 +180,7 @@ label{
   background-image: 
   linear-gradient(
     rgba(53, 29, 0, 0.25), /* tinted so text stands out */
-    rgba(0, 0, 0, 0.25)
+    rgba(0, 0, 0, 0.35)
   ),
   url("../../imgs/mosaic-parquet-oak.jpg");
   background-repeat: repeat;
@@ -132,71 +206,6 @@ label{
   z-index: -1;
 }
 
-header{
-  position: relative;
-}
-
-nav{
-  position: fixed;
-  height: 45px;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-
-.text-shadow{
-  text-shadow: 0px 2px 10px rgba(102, 102, 102, 1);
-}
-
-.logo{
-  float:left;
-  font-family: 'Lato', sans-serif;
-  text-align:center;
-  margin-top: 6px;
-  margin-left: 20px;
-
-  font-size: 2.3em;
-  font-weight: 900;
-  color: #F0F0F2;
-  text-decoration: none;
-  letter-spacing: -2px;
-  line-height: 1.5em;
-}
-
-.log-button, .account-button{
-  font-family: 'Raleway', sans-serif;
-  -webkit-appearance: none;
-  background-color: transparent;
-  border-style: none;
-  position: relative;
-  letter-spacing: -1px;
-  line-height: 1.5em;
-  top: 20px;
-  font-weight: 500;
-  padding: 0px 6px;
-  border-radius: 2px;
-  float:right;
-  color: #F0F0F2;
-  font-size: 1.3em;
-  text-decoration: none;
-}
-
-.log-button{
-  right: 20px;
-}
-
-.log-button:hover{
-  cursor: pointer;
-}
-
-.account-button{
-  right: 35px;
-}
-
-.account-button:hover{
-  cursor: pointer;
-} 
 
 .button-wrap{
   margin: 10px auto;
@@ -247,20 +256,23 @@ nav{
     flex-direction: row;
     min-width: 600px;
     max-width: 910px;
-    padding: 50px 20px 35px 20px;
+    padding: 50px 10px 35px 10px;
     justify-content: space-evenly;
   }
 
   .log-button, .account-button{
     letter-spacing: 0px;
-    top: 20px;
+    top: 15px;
     font-size: 1.7em;
+    line-height: normal;
   }
 
   .logo{
     transition: .4s;
     font-size: 3em;
     letter-spacing: -1px;
+    line-height: normal;
+    margin-top: 1px;
   }
 
   .fab, .fas, .fa {

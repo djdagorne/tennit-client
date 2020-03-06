@@ -69,33 +69,36 @@ class ProfilePage extends Component {
         return match.user1_id === this.state.listingData.user_id || match.user2_id === this.state.listingData.user_id
     }
 
-    render(){
+    render(){   //conditional rendering here depending on listings or not, if you're already matched or viewing your own profile, what kind of details the user opts to share.
         return (
             <>
+                {/* if the profile ID doesnt exist anymore, reroute to not found page */}
                 {this.state.error &&
                     <Redirect to='/404'/>
                 }
                 <div className="content-container">
                     <button className="text-shadow back-button" onClick={()=>this.props.history.goBack()}>go back</button>
                     <div className="pic-wrap">
-                            <img className="pic" src={this.state.listingData.image} alt="test" />     
+                            <img className="pic" src={this.state.listingData.image} alt="user profile should load here" />     
+                            {this.context.loggedUserMatches.some(this.displayTheMightyButton)
+                            ?   null
+                            :   <div className="button-wrap">
+                                    <button className="rounded-button" onClick={this.generateNewMatch}>Start Chatting Now!</button>
+                                </div>
+                        }
                     </div>
-                    {this.context.loggedUserMatches.some(this.displayTheMightyButton)
-                        ?   null
-                        :   <div className="button-wrap">
-                                <button className="rounded-button" onClick={this.generateNewMatch}>Start Chatting Now!</button>
-                            </div>
-                    }
+                    {/* if userId is found in any loggedUser matches, don't show the button, its either yourself or someone already matched */}
                     <div className="convo-wrap">
+                        
+                 
                         {this.state.listingData.listing 
-                                
                             ?   <>
                                     <h2 className="rent-text">${this.state.listingData.rent} </h2> 
                                     <h3 className="sub-rent-text">per month</h3>
                                 </>
                             :   null
                         }
-
+                        {/* if the user lists their neighborhood render that info */}
                         {this.state.listingData.neighborhood 
                         ?   <>
                                 <h1 className="banner-text">
@@ -115,7 +118,7 @@ class ProfilePage extends Component {
                                 </h2>
                             </>
                         }
-                        
+                        {/* if the user has a listing, display the blurb about their apartment */}
                         <div className="about-blurb">
                             {this.state.listingData.listing 
                             ?   <div className="user-blurb">

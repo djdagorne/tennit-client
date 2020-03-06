@@ -61,7 +61,7 @@ class ConvoPage extends Component {
                 });
             })
     }
-
+    
     assignMatchUsers=()=>{
         TennitApiService.requestMatch(this.props.match.params.match_id)
             .then(matchData =>{
@@ -123,6 +123,7 @@ class ConvoPage extends Component {
     render(){
         return (
             <>
+                {/* the user can't access convo's that their ID is not a part of. reroutes them home if they try to manipulate the URL to snoop on others. */}
                 {this.context.loggedUserMatches.some(match => match.id.toString() === this.props.match.params.match_id.toString()) 
                     ?   null
                     :   <Redirect to="/home"/>
@@ -135,7 +136,6 @@ class ConvoPage extends Component {
                         </div>
                     :   <div className="content-container">
                             <button className="text-shadow back-button" onClick={()=>this.props.history.goBack()}>go back</button>
-                            <div className="convo-page-div">
                                 <h1 className="banner-text header-one">
                                     Chat between 
                                         <Link className="banner-text" to={`/profile/${this.state.user1_listing.user_id}`}>
@@ -146,12 +146,12 @@ class ConvoPage extends Component {
                                             {' '+this.state.user2_listing.firstname+' '}
                                         </Link>
                                 </h1>
-                            </div>
                             <div className="pic-wrap">            
                                 <img className='pic' src={this.state.user2_listing.image} alt="display other users pic" />              
                             </div>
                             <div className="comment-container">
-                                <form onSubmit={e=>this.handleCommentSubmit(e)}>
+                                <form htmlFor="textInput-form" onSubmit={e=>this.handleCommentSubmit(e)}>
+                                    <label className="textInput-label">comment here</label>
                                     <textarea 
                                         className="comment-textarea" 
                                         type="text"
@@ -168,6 +168,9 @@ class ConvoPage extends Component {
                                     </button>
                                 </form>
                                 <ul className="comment-ul">
+                                    {/* I opted to only present the last 10 comments, as presenting lengthy comment histories isn't going to look good, 
+                                    nor do I want to have users going through pages of comments, I want a fast fluid feeling interface, and the goal not being to replace 
+                                    texting or email. */}
                                     {this.state.comments.slice(0,10).map((comment, index)=>
                                         <li className="comment-li" key={index}>
                                             <div className="textbubble">

@@ -21,6 +21,7 @@ class ResultsPage extends Component {
 
         return ( 
             <div>
+                {/* if theres an error regarding the search results for whatever reason, reroute to 404 to keep experience presentable */}
                 {this.state.error &&
                 <Redirect to='/404'/>
                 }
@@ -28,8 +29,9 @@ class ResultsPage extends Component {
                     <h1 className="result-header">Results: </h1>
                     <div className="result-wrapper">
                         <button className="text-shadow back-button-results" onClick={()=>this.props.history.goBack()}>go back</button>
+                        {/* creates a list of matching search results, or a message saying lack of results. 
+                        I didn't filter out matched users on purpose to keep list looking populated while seeded fake user count is low */}
                         {this.context.searchQuery.length > 0  
-
                             ?   this.context.searchQuery.map((user, index)=>
                                     <li key={index} className="content-container results-container">
                                         <div className="pic-wrap">
@@ -42,8 +44,6 @@ class ResultsPage extends Component {
                                         </div>
                                     </li> 
                                 )
-                                
-                                
                             :   <div className="content-container "> 
                                     <div className="results-container">
                                         <h2 className="result-rent"> Sorry </h2>

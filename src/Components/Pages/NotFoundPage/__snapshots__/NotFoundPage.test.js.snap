@@ -4,6 +4,12 @@ exports[`renders without crashing 1`] = `
 <div
   className="content-container"
 >
+  <button
+    className="text-shadow back-button"
+    onClick={[Function]}
+  >
+    go back
+  </button>
   <div>
     <h2>
       Page not found

@@ -96,11 +96,11 @@ class SearchPage extends Component {
                             onChange={this.handleInputChange}
                             placeholder="eg Toronto"/>
                     </div>
-
+                    {/* being a materialistic as possible, this dating app FORCES you to set your price. makes me laugh a bit. */}
                     <div className="search-segment">
                         <label htmlFor="price">With monthly rent as high as:</label>
                         <input 
-                            type="text" 
+                            type="number" 
                             name="searchRent" 
                             onChange={this.handleInputChange}
                             placeholder="eg 750" required/>

@@ -23,41 +23,38 @@ class HomePage extends Component {
         this.context.getLoggedUser();
     }
 
-    render(){
+    render(){   //lots of conditional rendering, based on if the user is listing their place or not, has matches or not, theres a server error or not.
         return (
             <>
                 {this.state.error 
                 ?   <div className="content-container">
                         <div>
-                            {this.state.error && <p className="error-text" >{this.state.error}</p>}
+                            {this.state.error && <p className="error-text" >Something went wrong: {this.state.error}</p>}
+                            <p>Please try logging back in or trying again later.</p>
                         </div>
                     </div>
-                
                 :   <div className="content-container">
-                    
                         {this.context.loggedUser.firstname && 
-                            <h1 className="banner-text header-one">
-                                Welcome back,{' '}
-                                <Link 
-                                    className="banner-text" 
-                                    to={`/profile/${this.context.loggedUser.user_id}`}>
-                                        {this.context.loggedUser.firstname}
-                                </Link>
-                            </h1>
+                            <div className="convo-page-div">
+                                <h1 className="banner-text header-one">
+                                    Welcome back,{' '}
+                                    <Link 
+                                        className="banner-text" 
+                                        to={`/profile/${this.context.loggedUser.user_id}`}>
+                                            {this.context.loggedUser.firstname}
+                                    </Link>
+                                </h1>
+                            </div>
                         }
-                
                         <div className="pic-wrap">
                             <img className='pic' src={this.context.loggedUser.image} alt="profile pic" />     
                         </div>
-                            
                         <div className="convo-wrap">
-
                             <div className="button-wrap">
                                 <Link to="/search">
                                     <button className="rounded-button">Search Listings Now!</button>
                                 </Link>
                             </div>
-                        
                             {this.context.loggedUserMatches 
                             ?   <div className="active-convos">
                                     <div className="convo-banner">

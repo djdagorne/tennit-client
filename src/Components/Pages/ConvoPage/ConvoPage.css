@@ -1,6 +1,10 @@
 .convo-page-div:last-child{
     margin-bottom:40px;
 }  
+
+.convo-page-div{
+    width: 0px;
+}
   
 .convo-pic{
     display: inline-block;
@@ -11,7 +15,7 @@
 }
 
 .comment-ul{
-    width: 60%;
+    width: 70%;
     margin: auto;
 }
 
@@ -33,6 +37,10 @@
     margin: 0;
     float: left;
     left: 53%;
+}
+
+.textInput-label{
+    display:none;
 }
   
 .comment-textarea{

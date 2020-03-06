@@ -19,12 +19,13 @@ class Header extends Component {
         };
     };
 
+    //two different logged in states, two different headers
     renderLogInLink = () =>{
         return (
             <nav className="nav-not-logged-in">
                 <a 
                     href="/" 
-                    className="logo text-shadow">
+                    className="logo">
                         tennit
                 </a>
                 <button 
@@ -46,7 +47,7 @@ class Header extends Component {
             <nav className="nav-logged-in">
                 <a 
                     href="/home" 
-                    className="logo text-shadow">
+                    className="logo">
                         tennit
                 </a>
                 <a href="/">

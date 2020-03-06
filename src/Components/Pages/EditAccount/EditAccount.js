@@ -175,7 +175,7 @@ class EditAccount extends Component {
                                 <div className="form-item">
                                     <label htmlFor="rentBox">Monthly Rent per Person</label>
                                     <input 
-                                        type="text" 
+                                        type="number" 
                                         name="rentBox" 
                                         placeholder={this.context.loggedUser.rent}
                                         onChange={this.handleInputChange}
