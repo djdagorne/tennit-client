@@ -2,38 +2,50 @@
 
 exports[`renders without crashing 1`] = `
 <Fragment>
-  <a
+  <i
     alt="email me here"
+    aria-hidden="true"
+    className="text-shadow fas fa-envelope-square 2x"
     href="mailto:dj.dagorne@gmail.com"
     rel="noopener noreferrer"
     target="_blank"
   >
     <span
-      className="text-shadow fas fa-envelope-square 2x"
+      className="sr-only"
       hover="email me here"
-    />
-  </a>
-  <a
+    >
+      email
+    </span>
+  </i>
+  <i
     alt="check my github here"
+    aria-hidden="true"
+    className="text-shadow fab fa-github-square 2x"
     href="https://github.com/djdagorne"
     rel="noopener noreferrer"
     target="_blank"
   >
     <span
-      className="text-shadow fab fa-github-square 2x"
+      className="sr-only"
       hover="check my github here"
-    />
-  </a>
-  <a
+    >
+      github
+    </span>
+  </i>
+  <i
     alt="check my linkedin here"
+    aria-hidden="true"
+    className="text-shadow fab fa-linkedin 2x"
     href="https://www.linkedin.com/in/dexter-dagorne-81461a18a/"
     rel="noopener noreferrer"
     target="_blank"
   >
     <span
-      className="text-shadow fab fa-linkedin 2x"
+      className="sr-only"
       hover="check my linkedin here"
-    />
-  </a>
+    >
+      linkedin
+    </span>
+  </i>
 </Fragment>
 `;
