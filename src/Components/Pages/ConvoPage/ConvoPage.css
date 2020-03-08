@@ -1,11 +1,3 @@
-.convo-page-div:last-child{
-    margin-bottom:40px;
-}  
-
-.convo-page-div{
-    width: 0px;
-}
-  
 .convo-pic{
     display: inline-block;
     background: #eee;

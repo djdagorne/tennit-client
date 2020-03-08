@@ -110,6 +110,14 @@
   vertical-align: middle;
 }
 
+.header-one{
+  position: relative;
+  top:0;
+  left: 0;
+  right: 0;
+  text-align: center;
+} 
+
 @media only screen and (min-width: 800px){
   
   .header-one{
@@ -117,7 +125,6 @@
     top:0;
     left: 0;
     right: 0;
-    margin-bottom: 45px;
     text-align: center;
   } 
   

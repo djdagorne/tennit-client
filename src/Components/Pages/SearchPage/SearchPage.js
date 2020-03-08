@@ -51,15 +51,22 @@ class SearchPage extends Component {
 
         TennitApiService.searchListings(query)
             .then(res=>{
-                const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other');
-                const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other');
-                const filterSelf = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id);
-                this.context.searchQuery = filterSelf;
+                console.log(res)
+                if(res.error){
+                    this.context.searchQuery = res;
+                    this.props.history.push(`/results`)
+                }else{
+                    const loggedPref = res.filter(listing => listing.usergender === this.context.loggedUser.prefgender || this.context.loggedUser.prefgender === 'other');
+                    const loggedGender = loggedPref.filter(listing => listing.prefgender === this.context.loggedUser.usergender || listing.prefgender === 'other');
+                    const filterSelf = loggedGender.filter(listing => listing.user_id !== this.context.loggedUser.user_id);
+                    this.context.searchQuery = filterSelf;
+                }
             })
             .then(()=>
                 this.props.history.push(`/results`)
             )
             .catch(err=>{
+                console.log(err)
                 console.error(err.error.message);
                 this.setState({
                     error: err.error.message
@@ -70,7 +77,8 @@ class SearchPage extends Component {
     render(){
         return (
             <div className="content-container">
-                
+                <button className="text-shadow back-button" onClick={()=>this.props.history.goBack()}>go back</button>
+
                 <h1 className="banner-text header-one">Search</h1>
 
                 <form 

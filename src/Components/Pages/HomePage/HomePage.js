@@ -35,7 +35,7 @@ class HomePage extends Component {
                     </div>
                 :   <div className="content-container">
                         {this.context.loggedUser.firstname && 
-                            <div className="convo-page-div">
+                            <div className="header-wrap">
                                 <h1 className="banner-text header-one">
                                     Welcome back,{' '}
                                     <Link 

@@ -97,7 +97,7 @@ nav{
   color: #F0F0F2;
 }
 
-footer i{
+footer a{
   margin:0 5px 0 5px;
   color: #F0F0F2;
   text-decoration: none;
@@ -216,7 +216,7 @@ label{
   -webkit-appearance: none;
   background-color: transparent;
   border-style: none;
-  position: relative;
+  position: absolute;
   font-weight: 500;
   padding: 0px 6px;
   border-radius: 2px;
@@ -224,12 +224,12 @@ label{
   font-size: 1.3em;
   text-decoration: none;
   cursor: pointer;
-  right: 25vw;
-  bottom: 60px;
+  top: -25px;
+  left: 25%;
 }
 
 .back-button-results{
-  top: 30px;
+  top: 120px;
 }
 
 .close-popup{
@@ -265,6 +265,17 @@ label{
     top: 15px;
     font-size: 1.7em;
     line-height: normal;
+  }
+
+  .back-button{
+    top: -25px;
+    left: 20%;
+    margin-left: 8vw;
+  }
+  
+  .back-button-results{
+    top: 120px;
+    left: 20%;
   }
 
   .logo{

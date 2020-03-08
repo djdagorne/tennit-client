@@ -2,7 +2,7 @@
 
 exports[`renders without crashing 1`] = `
 <Fragment>
-  <i
+  <a
     alt="email me here"
     aria-hidden="true"
     className="text-shadow fas fa-envelope-square 2x"
@@ -16,8 +16,8 @@ exports[`renders without crashing 1`] = `
     >
       email
     </span>
-  </i>
-  <i
+  </a>
+  <a
     alt="check my github here"
     aria-hidden="true"
     className="text-shadow fab fa-github-square 2x"
@@ -31,8 +31,8 @@ exports[`renders without crashing 1`] = `
     >
       github
     </span>
-  </i>
-  <i
+  </a>
+  <a
     alt="check my linkedin here"
     aria-hidden="true"
     className="text-shadow fab fa-linkedin 2x"
@@ -46,6 +46,6 @@ exports[`renders without crashing 1`] = `
     >
       linkedin
     </span>
-  </i>
+  </a>
 </Fragment>
 `;
