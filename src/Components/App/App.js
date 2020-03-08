@@ -18,9 +18,6 @@ import IdleService from '../../Services/idle-service';
 import AuthApiService from '../../Services/auth-api-service';
 import TennitApiService from '../../Services/tennit-api-service';
 
-//TODO comment a little in EVERY js component and service.
-//TODO keep an eye out for petty spacing issues while you do
-
 /* 
 The App component is responsible for holding a majority of the state modifying functions, auth/login,
 state and context management, as well as the Switch for my different page Routes. It's using a basic token
