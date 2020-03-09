@@ -33,7 +33,7 @@ class ResultsPage extends Component {
                         I didn't filter out matched users on purpose to keep list looking populated while seeded fake user count is low */}
                         {this.context.searchQuery.length > 0  
                             ?   this.context.searchQuery.map((user, index)=>
-                                <div className="content-container ">
+                                <div className="content-container slim-padding">
                                     <li key={index} className="results-container">
                                         <div className="pic-wrap">
                                             <img className="pic" src={user.image} alt="users profile pic" ></img>

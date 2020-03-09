@@ -104,7 +104,7 @@ class ProfilePage extends Component {
                                 <h1 className="banner-text">
                                     {this.state.listingData.firstname}, {this.state.listingData.lastname}
                                 </h1>
-                                <h2 className="banner-text">
+                                <h2 className="banner-text banner-text-description">
                                     {this.state.listingData.age} years old near {this.state.listingData.neighborhood}, 
                                     in {this.state.listingData.city}, {this.state.listingData.province}
                                 </h2>
@@ -113,7 +113,7 @@ class ProfilePage extends Component {
                                 <h1 className="banner-text">
                                     {this.state.listingData.firstname}, {this.state.listingData.lastname}
                                 </h1>
-                                <h2 className="banner-text">
+                                <h2 className="banner-text banner-text-description">
                                     {this.state.listingData.age} years old in {this.state.listingData.city}, {this.state.listingData.province}
                                 </h2>
                             </>
