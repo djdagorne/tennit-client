@@ -51,7 +51,6 @@ class SearchPage extends Component {
 
         TennitApiService.searchListings(query)
             .then(res=>{
-                console.log(res)
                 if(res.error){
                     this.context.searchQuery = res;
                     this.props.history.push(`/results`)
@@ -66,7 +65,6 @@ class SearchPage extends Component {
                 this.props.history.push(`/results`)
             )
             .catch(err=>{
-                console.log(err)
                 console.error(err.error.message);
                 this.setState({
                     error: err.error.message
