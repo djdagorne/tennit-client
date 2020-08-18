@@ -5,7 +5,7 @@ import TennitContext from '../../../TennitContext'
 import {Redirect} from 'react-router-dom'
 
 /* 
-The results page renders all its data based on the request made and the object returned from the SearhPage. It has conditions to render
+The results page renders all its data based on the request made and the object returned from the SearchPage. It has conditions to render
 different information based empty search results, or a success search.
 */
 

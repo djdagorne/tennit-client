@@ -129,7 +129,7 @@ class CreateAccount extends Component {
                     <button 
                         className="close-popup" 
                         onClick={e=>this.context.togglePopup('create')}>
-                            X
+                            &times;
                     </button>
 
                     <h3 className="banner-text header-two">Sign Up</h3> 
@@ -149,7 +149,7 @@ class CreateAccount extends Component {
                         </div>
 
                         <div className="form-item">
-                            <label htmlFor="password">password</label>
+                            <label htmlFor="password">Password</label>
                             <input 
                                 type="password" 
                                 name="password" 

@@ -43,9 +43,9 @@ class LogIn extends Component {
                     <button 
                         className="close-popup" 
                         onClick={e=>this.context.togglePopup('login')}>
-                            X
+                            &times;
                     </button>
-                    <h2>Log In</h2>
+                    <h3 className="banner-text header-two">Log In</h3>
                     <form
                         onSubmit={this.context.handleLogIn}
                         id="sign-up">

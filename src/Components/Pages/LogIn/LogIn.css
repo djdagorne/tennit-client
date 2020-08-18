@@ -1,71 +1,84 @@
-input[type~=text],
-input[type~=textarea],
-input[type~=url],
-input[type~=email],
-input[type~=password],
-input[type~=number],
+input[type~="text"],
+input[type~="textarea"],
+input[type~="url"],
+input[type~="email"],
+input[type~="password"],
+input[type~="number"],
 select,
-textarea{
-    width: 75%;
-    background-color: transparent;
-    border: 1px solid #b9b9b9;
-    border-radius: 4px;
-    font-size: 1.2em;
-    padding: 2px 4px;
+textarea {
+  width: 75%;
+  background-color: transparent;
+  border: 1px solid #b9b9b9;
+  border-radius: 4px;
+  font-size: 1.2em;
+  padding: 2px 4px;
 }
 
-label{
-    margin-top:10px;
+
+input[type~="number"]{
+  -moz-appearance: textfield;
 }
 
-form{
-    margin: 20px 0 20px 0;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+label {
+  margin-top: 10px;
+}
+
+form {
+  margin: 20px 0 20px 0;
 }
 
 .popup {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0, 0.5);
-    z-index: 10;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
 .popup-inner {
-    overflow-y: scroll;
-    max-height: 500px;
-    width: 75%;
-    margin: auto;
-    padding-left: 10px; /* offset the scrollbar width, to keep form centered */
-    vertical-align: justify;
-    border-radius: 4px;
-    background-color: #F0F0F2;
-    z-index: 9;
+  position: relative;
+  overflow-y: scroll;
+  max-height: 500px;
+  width: 75%;
+  margin: auto;
+  padding-left: 10px; /* offset the scrollbar width, to keep form centered */
+  vertical-align: justify;
+  border-radius: 4px;
+  background-color: #f0f0f2;
+  z-index: 9;
 }
 
-.log-in-popup-inner h2{
-    margin: 0;
-    margin-top: 20px;
+.log-in-popup-inner h2 {
+  margin: 0;
+  margin-top: 20px;
 }
 
-.listing-section, .listing-section label{
-    display: inline-block;
-    margin: auto;
+.listing-section,
+.listing-section label {
+  display: inline-block;
+  margin: auto;
 }
 
-.listing-details{
-    display:block;
+.listing-details {
+  display: block;
 }
 
-.checkbox-wrap{
-    margin-top: 20px;
+.checkbox-wrap {
+  margin-top: 20px;
 }
 
 @media only screen and (min-width: 800px) {
-    .popup-inner {
-      max-width: 450px;
-    }
+  .popup-inner {
+    max-width: 450px;
   }
+}

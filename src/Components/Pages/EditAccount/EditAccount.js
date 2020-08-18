@@ -100,7 +100,7 @@ class EditAccount extends Component {
                     <button 
                         className="close-popup" 
                         onClick={e=>this.context.togglePopup('edit')}>
-                            X
+                            &times;
                     </button>
                     
                     <h3 className="banner-text header-two">Edit Account</h3> 
